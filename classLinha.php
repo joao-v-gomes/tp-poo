@@ -7,16 +7,16 @@ class Linha
     private DateTime $previsaoPartida;
     private DateTime $previsaoChegada;
     private float $previsaoDuracao;
-    //private Voo $voo;
+    private Voo $voo;
 
 
-    public function __construct(array $frequencia, DateTime $previsaoPartida, DateTime $previsaoChegada, float $previsaoDuracao, )
+    public function __construct(array $frequencia, DateTime $previsaoPartida, DateTime $previsaoChegada, float $previsaoDuracao, Voo $voo)
     {
       $this->frequencia = $frequencia;
       $this->previsaoPartida = $previsaoPartida;
       $this->previsaoChegada = $previsaoChegada;
       $this->previsaoDuracao = $previsaoDuracao;
-      //$this->voo = $voo;
+      $this->voo = $voo;
     }
 
     public function alteraVoo(Voo $novoVoo)
