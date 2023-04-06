@@ -23,11 +23,11 @@ class Voo
         $this->aeronave = $novaAeronave;
     }
 
-    // function inserirPassageiro(Passageiro $novoPassageiro)
+    // public function inserirPassageiro(Passageiro $novoPassageiro)
     // {
     // }
 
-    // function removerPassageiro(Passageiro $novoPassageiro)
+    // public function removerPassageiro(Passageiro $novoPassageiro)
     // {
     // }
 
