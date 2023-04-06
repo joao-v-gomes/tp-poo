@@ -13,8 +13,17 @@ class Voo
     private array $passageiros;
     private float $carga;
 
-    public function __construct()
+    public function __construct(string $aeroportoOrigem, string $aeroportoDestino, DateTime $horarioPartida, DateTime $horarioChegada, float $duracaoEstimada, string $companhiaAerea, Aeronave $aeronave, array $passageiros, float $carga)
     {
+      $this->aeroportoOrigem = $aeroportoOrigem;
+      $this->aeroportoDestino = $aeroportoDestino;
+      $this->horarioPartida = $horarioPartida;
+      $this->horarioChegada = $horarioChegada;
+      $this->duracaoEstimada = $duracaoEstimada;
+      $this->companhiaAerea = $companhiaAerea;
+      $this->aeronave = $aeronave;
+      $this->passageiros = $passageiros;
+      $this->carga = $carga;
     }
 
     public function alterarAeronave(Aeronave $novaAeronave)
@@ -33,8 +42,8 @@ class Voo
 
     public function inserirCarga(float $novaCarga)
     {
-        // depois precisamos conferir se ja atingiu
-        // a capacidade maxima de carga
+        // depois precisamos conferir se já atingiu
+        // a capacidade máxima de carga
         $this->carga = $this->carga + $novaCarga;
     }
 
