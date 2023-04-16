@@ -2,7 +2,7 @@
 include_once("classVoo.php");
 include_once("classAeronave.php");
 
-class CompanhiaAerea
+class CompanhiaAerea extends persist
 {
     private string $nome;
     private string $codigo;
@@ -11,6 +11,7 @@ class CompanhiaAerea
     private string $sigla;
     private $listaAeronaves = array();
 
+		static $local_filename = "companhiaAerea.txt";
 
     public function __construct(string $nome, string $codigo, string 				$razaoSocial, string $cnpj, string $sigla)
     {
@@ -20,6 +21,10 @@ class CompanhiaAerea
 			$this->cnpj = $cnpj;
 			$this->sigla = $sigla;
     }
+
+		static public function getFilename(){
+			return get_called_class()::$local_filename;
+		}
 
 		public function exibirCompanhia()
 		{

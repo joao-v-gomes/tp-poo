@@ -57,8 +57,3 @@
         $funcBill->addPonto($pOn);
         $funcBill->save();
     }
-
-
-
-
-

@@ -1,7 +1,16 @@
 <?php
     function autoloader($pClassName) {
         echo __NAMESPACE__;
-        $path = __DIR__ . '/classes/' . $pClassName . '.php';
+        $path = '';
+
+    if ($pClassName == 'persist') {
+        $path = '/home/runner/tp-poo/libs/' . $pClassName . '.php';
+    } else {
+        $path = '/home/runner/tp-poo/' . 'class' . $pClassName . '.php';
+    }
+
+    print_r($path);
+		
         if (is_file($path)) {
             include_once $path;
         }

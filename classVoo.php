@@ -1,9 +1,9 @@
 <?php
 include_once("classAeronave.php");
 
-class Voo
+class Voo extends persist
 {
-    private string $aeroportoOrigem;
+    public string $aeroportoOrigem;
     private string $aeroportoDestino;
     private DateTime $horarioPartida;
     private DateTime $horarioChegada;
@@ -12,6 +12,7 @@ class Voo
     private Aeronave $aeronave;
     private array $passageiros;
     private float $carga;
+    static $local_filename = "voo.txt";
 
     public function __construct(string $aeroportoOrigem, string $aeroportoDestino, DateTime $horarioPartida, DateTime $horarioChegada, float $duracaoEstimada, string $companhiaAerea, Aeronave $aeronave, array $passageiros, float $carga)
     {
@@ -30,6 +31,11 @@ class Voo
     {
         // verificar capacidade de carga e passageiros antes de alterar
         $this->aeronave = $novaAeronave;
+    }
+
+    public function getAeroportoOrigem()
+    {
+      return $this->aeroportoOrigem;  
     }
 
     // public function inserirPassageiro(Passageiro $novoPassageiro)
@@ -51,5 +57,10 @@ class Voo
     {
         // verificar se nao e negativo  
         $this->carga = $this->carga - $novaCarga;
+    }
+
+    static public function getFilename() 
+    {
+            return get_called_class()::$local_filename;
     }
 }
