@@ -18,7 +18,7 @@ class Linha extends persist
       $this->previsaoPartida = $previsaoPartida;
       $this->previsaoChegada = $previsaoChegada;
       $this->previsaoDuracao = $previsaoDuracao;
-      $this->codigoVoo = $codigoVoo
+      $this->codigoVoo = $codigoVoo;
       $this->voo = $voo;
     }
 
@@ -27,6 +27,7 @@ class Linha extends persist
         // conferir depois as verificacoes para a troca de voo
         //$this->voo = $novoVoo;
     }
+
     static public function getFilename() {
         return get_called_class()::$local_filename;
     }
