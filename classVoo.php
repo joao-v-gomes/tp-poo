@@ -12,12 +12,13 @@ class Linha extends persist
     static $local_filename = "voo.txt";
 
 
-    public function __construct(array $frequencia, DateTime $previsaoPartida, DateTime $previsaoChegada, float $previsaoDuracao, Voo $voo, string)
+    public function __construct(array $frequencia, DateTime $previsaoPartida, DateTime $previsaoChegada, float $previsaoDuracao, Voo $voo, string $codigoVoo)
     {
       $this->frequencia = $frequencia;
       $this->previsaoPartida = $previsaoPartida;
       $this->previsaoChegada = $previsaoChegada;
       $this->previsaoDuracao = $previsaoDuracao;
+      $this->codigoVoo = $codigoVoo
       $this->voo = $voo;
     }
 
