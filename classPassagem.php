@@ -12,7 +12,7 @@ class Passagem{
   private Passageiro $passageiro;
   private Cliente $cliente;
 
-  public function __construct(string $siglaAeroportoOrigem,string $siglaAeroportoDestino,float $preco,string $assento,int $franquiasBagagem,){
+  public function __construct(string $siglaAeroportoOrigem,string $siglaAeroportoDestino,float $preco,string $assento,int $franquiasBagagem){
     
   }
   
