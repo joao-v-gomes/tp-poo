@@ -1,27 +1,24 @@
 <?php
-include_once("classVoo.php");
+include_once("classViagem.php");
 include_once("classCompanhiaAerea.php");
-include_once("classLinha.php");
+include_once("classVoo.php");
 
 class Aeroporto extends persist
 {
-    public string $sigla;
+    private string $sigla;
     private string $cidade;
     private string $estado;
     private $listaVoos = array();
-    private $listaLinhas = array();
-    private $listaVoosExecutados = array();
     private $listaCompanhiasAereas = array();
+    private $listaAeroportos = array();
     static $local_filename = "aeroporto.txt";
 
-    public function __construct(string $sigla, string $cidade, string $estado, array $listaVoos, array $listaLinhas, array $listaVoosExecutados, array $listaCompanhiasAereas)
+    public function __construct(string $sigla, string $cidade, string $estado, array $listaVoos, array $listaCompanhiasAereas)
     {
       $this->sigla = $sigla;
       $this->cidade = $cidade;
       $this->estado = $estado;
       $this->listaVoos = $listaVoos;
-      $this->listaLinhas = $listaLinhas;
-      $this->listaVoosExecutados = $listaVoosExecutados;
       $this->listaCompanhiasAereas = $listaCompanhiasAereas;
     }
 
@@ -30,14 +27,14 @@ class Aeroporto extends persist
         array_push($this->listaVoos, $novoVoo);
     }
 
-    public function cadastrarNovaLinha(Linha $novaLinha)
-    {
-        array_push($this->listaLinhas, $novaLinha);
-    }
-
     public function cadastraNovaCompanhiaAerea(CompanhiaAerea $novaCompanhiaAerea)
     {
         array_push($this->listaCompanhiasAereas, $novaCompanhiaAerea);
+    }
+
+      public function cadastraNovoAeroporto(Aeroporto $novoAeroporto)
+    {
+        array_push($this->listaAeroportos, $novoAeroporto);
     }
 
     static public function getFilename() 

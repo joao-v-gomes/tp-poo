@@ -1,5 +1,5 @@
 <?php
-include_once("classVoo.php");
+include_once("classViagem.php");
 include_once("classAeronave.php");
 
 class CompanhiaAerea extends persist
@@ -13,7 +13,7 @@ class CompanhiaAerea extends persist
 
 		static $local_filename = "companhiaAerea.txt";
 
-    public function __construct(string $nome, string $codigo, string 				$razaoSocial, string $cnpj, string $sigla)
+    public function __construct(string $nome, string $codigo, string $razaoSocial, string $cnpj, string $sigla)
     {
 			$this->nome = $nome;
 			$this->codigo = $codigo;
@@ -39,7 +39,7 @@ class CompanhiaAerea extends persist
 			print_r($this->sigla); 	
 		}
 	
-    public function executaVoo(Voo $novoVoo)
+    public function executaViagem(Viagem $novaViagem)
     {
     }
 
