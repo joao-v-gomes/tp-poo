@@ -1,4 +1,6 @@
 <?php
+include_once("../libs/global.php");
+
 class Aeronave extends persist
 {
 	private string $fabricante;
@@ -7,6 +9,9 @@ class Aeronave extends persist
 	private float $capacidadeCargaKg;
 	private string $registro;
 	private bool $disponivel;
+	private $listaAssentos = array();
+
+
 	static $local_filename = "aeronaves.txt";
 
 

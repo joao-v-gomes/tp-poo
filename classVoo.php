@@ -1,7 +1,7 @@
 <?php
 include_once("../libs/global.php");
 
-class Voo extends persist
+class Linha extends persist
 {
   public string $aeroportoOrigem;
   private string $aeroportoDestino;
