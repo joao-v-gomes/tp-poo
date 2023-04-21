@@ -1,20 +1,21 @@
 <?php
 include_once("../libs/global.php");
 
-class Voo extends persist
+class Viagem extends persist
 {
   public string $aeroportoOrigem;
   private string $aeroportoDestino;
+  private string $conexao;
   private DateTime $horarioPartida;
   private DateTime $horarioChegada;
   private float $duracaoEstimada;
   private string $companhiaAerea;
   private Aeronave $aeronave;
-  private array $passageiros;
+  private $passageiros = array();
   private float $carga;
   static $local_filename = "viagem.txt";
 
-  public function __construct(string $aeroportoOrigem, string $aeroportoDestino, DateTime $horarioPartida, DateTime $horarioChegada, float $duracaoEstimada, string $companhiaAerea, Aeronave $aeronave, array $passageiros, float $carga)
+  public function __construct(string $aeroportoOrigem, string $aeroportoDestino, DateTime $horarioPartida, DateTime $horarioChegada, float $duracaoEstimada, string $companhiaAerea, Aeronave $aeronave, float $carga)
   {
     $this->aeroportoOrigem = $aeroportoOrigem;
     $this->aeroportoDestino = $aeroportoDestino;
@@ -23,7 +24,7 @@ class Voo extends persist
     $this->duracaoEstimada = $duracaoEstimada;
     $this->companhiaAerea = $companhiaAerea;
     $this->aeronave = $aeronave;
-    $this->passageiros = $passageiros;
+    // $this->passageiros = $passageiros;
     $this->carga = $carga;
   }
 

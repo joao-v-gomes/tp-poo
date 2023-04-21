@@ -1,8 +1,7 @@
 <?php
 include_once("../libs/global.php");
 
-
-class Passagem
+class Passagem extends persist
 {
   private string $siglaAeroportoOrigem;
   private string $siglaAeroportoDestino;
@@ -18,5 +17,10 @@ class Passagem
 
   public function validaDocumentoidentificacao()
   {
+  }
+
+  static public function getFilename()
+  {
+    return get_called_class()::$local_filename;
   }
 }
