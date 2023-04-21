@@ -1,9 +1,9 @@
 <?php
-include_once("classPassageiro.php");
-include_once("classCliente.php");
+include_once("../libs/global.php");
 
 
-class Passagem{
+class Passagem
+{
   private string $siglaAeroportoOrigem;
   private string $siglaAeroportoDestino;
   private float $preco;
@@ -12,12 +12,11 @@ class Passagem{
   private Passageiro $passageiro;
   private Cliente $cliente;
 
-  public function __construct(string $siglaAeroportoOrigem,string $siglaAeroportoDestino,float $preco,string $assento,int $franquiasBagagem,Passageiro $passageiro,Cliente $cliente){
-    
+  public function __construct(string $siglaAeroportoOrigem, string $siglaAeroportoDestino, float $preco, string $assento, int $franquiasBagagem, Passageiro $passageiro, Cliente $cliente)
+  {
   }
-  
-  public function validaDocumentoidentificacao(){
-    
+
+  public function validaDocumentoidentificacao()
+  {
   }
-  
 }

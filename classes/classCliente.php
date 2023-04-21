@@ -1,5 +1,8 @@
 <?php
-class Cliente{
+include_once("../libs/global.php");
+
+class Cliente
+{
   private int $id;
   private string $nome;
   private string $sobrenome;
@@ -7,7 +10,8 @@ class Cliente{
   private string $passaporte;
   private string $documentoIdentifi;
 
-  public function __construct(int $id,string $nome,string $sobrenome,string $rg,string $passaporte,string $documentoIdentifi){
+  public function __construct(int $id, string $nome, string $sobrenome, string $rg, string $passaporte, string $documentoIdentifi)
+  {
     $this->id = $id;
     $this->nome = $nome;
     $this->sobrenome = $sobrenome;
@@ -15,7 +19,7 @@ class Cliente{
     $this->passaporte = $passaporte;
     $this->documentoIdentifi = $documentoIdentifi;
   }
-  public function validaDocumentoidentificacao(){
-    
+  public function validaDocumentoidentificacao()
+  {
   }
 }

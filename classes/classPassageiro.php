@@ -1,4 +1,6 @@
 <?php
+  include_once("../libs/global.php");
+
   class Passageiro
   {
     private string $nome;
@@ -10,4 +12,3 @@
       $this->id = $id;
     }
   }
-?>
