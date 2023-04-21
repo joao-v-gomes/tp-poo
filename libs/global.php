@@ -38,7 +38,7 @@ function autoloader($pClassName)
         // $path = '/home/joao/ufmg/poo/tp-poo/' . 'class' . $pClassName . '.php';
     }
 
-    print_r('Caminho: ' . $path);
+    // print_r('Caminho: ' . $path . '\n');
 
     if (is_file($path)) {
         include_once $path;
