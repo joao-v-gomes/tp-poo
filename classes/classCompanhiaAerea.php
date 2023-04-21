@@ -14,6 +14,11 @@ class CompanhiaAerea extends persist
 
 	static $local_filename = "companhiaAerea.txt";
 
+	static public function getFilename()
+	{
+		return get_called_class()::$local_filename;
+	}
+
 	public function __construct(string $nome, string $codigo, string $razaoSocial, string $cnpj, string $sigla)
 	{
 		$this->nome = $nome;
@@ -21,11 +26,6 @@ class CompanhiaAerea extends persist
 		$this->razaoSocial = $razaoSocial;
 		$this->cnpj = $cnpj;
 		$this->sigla = $sigla;
-	}
-
-	static public function getFilename()
-	{
-		return get_called_class()::$local_filename;
 	}
 
 	public function exibirCompanhia()
