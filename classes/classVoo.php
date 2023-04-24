@@ -7,21 +7,21 @@ class Voo extends persist
   private DateTime $previsaoPartida;
   private DateTime $previsaoChegada;
   private float $previsaoDuracao;
-  private Viagem $viagem;
+  //private Viagem $viagem;
   private $listaViagens = array();
   private string $codigoVoo;
 
   static $local_filename = "voo.txt";
 
 
-  public function __construct(array $frequencia, DateTime $previsaoPartida, DateTime $previsaoChegada, float $previsaoDuracao, Viagem $viagem, string $codigoVoo)
+  public function __construct(array $frequencia, DateTime $previsaoPartida, DateTime $previsaoChegada, float $previsaoDuracao, array $listaViagens, string $codigoVoo)
   {
     $this->frequencia = $frequencia;
     $this->previsaoPartida = $previsaoPartida;
     $this->previsaoChegada = $previsaoChegada;
     $this->previsaoDuracao = $previsaoDuracao;
     $this->codigoVoo = $codigoVoo;
-    $this->viagem = $viagem;
+    $this->listaViagens = $listaViagens;
   }
 
   public function alteraViagem(Viagem $novaViagem)

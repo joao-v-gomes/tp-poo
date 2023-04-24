@@ -24,8 +24,9 @@ class Viagem extends persist
     $this->duracaoEstimada = $duracaoEstimada;
     $this->companhiaAerea = $companhiaAerea;
     $this->aeronave = $aeronave;
-    // $this->passageiros = $passageiros;
+    //$this->passageiros = $passageiros;
     $this->carga = $carga;
+    //$this->conexao = $conexao;
   }
 
   public function alterarAeronave(Aeronave $novaAeronave)

@@ -13,9 +13,16 @@ class Passagem extends persist
 
   public function __construct(string $siglaAeroportoOrigem, string $siglaAeroportoDestino, float $preco, string $assento, int $franquiasBagagem, Passageiro $passageiro, Cliente $cliente)
   {
+    $this->siglaAeroportoOrigem = $siglaAeroportoOrigem;
+    $this->siglaAeroportoDestino = $siglaAeroportoDestino;
+    $this->preco = $preco;
+    $this->assento = $assento;
+    $this->franquiasBagagem = $franquiasBagagem;
+    $this->passageiro = $passageiro;
+    $this->cliente = $cliente;
   }
 
-  public function validaDocumentoidentificacao()
+  public function validaDocumentoIdentificacao()
   {
   }
 

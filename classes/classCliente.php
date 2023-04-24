@@ -6,6 +6,7 @@ define('VAZIO', '');
 
 class Cliente extends persist
 {
+  //private int $id;
   private string $nome;
   private string $sobrenome;
   private string $rg = '';
@@ -16,6 +17,7 @@ class Cliente extends persist
 
   public function __construct(string $nome, string $sobrenome, string $documentoIdentifi)
   {
+    //$this->id = $id;
     $this->nome = $nome;
     $this->sobrenome = $sobrenome;
     // $this->rg = $rg;

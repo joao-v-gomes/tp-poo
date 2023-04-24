@@ -11,13 +11,14 @@ class Aeroporto extends persist
   private $listaAeroportos = array();
   static $local_filename = "aeroporto.txt";
 
-  public function __construct(string $sigla, string $cidade, string $estado, array $listaVoos, array $listaCompanhiasAereas)
+  public function __construct(string $sigla, string $cidade, string $estado, array $listaVoos, array $listaCompanhiasAereas, array $listaAeroportos)
   {
     $this->sigla = $sigla;
     $this->cidade = $cidade;
     $this->estado = $estado;
     $this->listaVoos = $listaVoos;
     $this->listaCompanhiasAereas = $listaCompanhiasAereas;
+    $this->listaAeroportos = $listaAeroportos;
   }
 
   public function cadastraNovoVoo(Voo $novoVoo)
