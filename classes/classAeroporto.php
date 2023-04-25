@@ -6,16 +6,19 @@ class Aeroporto extends persist
   private string $sigla;
   private string $cidade;
   private string $estado;
+
   private $listaVoos = array();
   private $listaCompanhiasAereas = array();
   private $listaAeroportos = array();
-  static $local_filename = "aeroporto.txt";
+
+  static $local_filename = "aeroportos.txt";
 
   public function __construct(string $sigla, string $cidade, string $estado, array $listaVoos, array $listaCompanhiasAereas, array $listaAeroportos)
   {
-    $this->sigla = $sigla;
-    $this->cidade = $cidade;
-    $this->estado = $estado;
+    $this->setSigla($sigla);
+    $this->setCidade($cidade);
+    $this->setEstado($estado);
+
     $this->listaVoos = $listaVoos;
     $this->listaCompanhiasAereas = $listaCompanhiasAereas;
 
@@ -26,6 +29,36 @@ class Aeroporto extends persist
     // Fiquei pensando depois se Aeroporto precisa dessa lista.
     // Pensei em deixar essa lista na "classeSistema", que seria a "main" e que chamaria todas as outras.
     $this->listaAeroportos = $listaAeroportos;
+  }
+
+  public function getSigla()
+  {
+    return $this->sigla;
+  }
+
+  public function getCidade()
+  {
+    return $this->cidade;
+  }
+
+  public function getEstado()
+  {
+    return $this->estado;
+  }
+
+  public function setSigla(string $sigla)
+  {
+    $this->sigla = $sigla;
+  }
+
+  public function setCidade(string $cidade)
+  {
+    $this->cidade = $cidade;
+  }
+
+  public function setEstado(string $estado)
+  {
+    $this->estado = $estado;
   }
 
   public function cadastraNovoVoo(Voo $novoVoo)
