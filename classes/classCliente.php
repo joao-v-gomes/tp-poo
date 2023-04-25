@@ -18,24 +18,13 @@ class Cliente extends persist
   public function __construct(string $nome, string $sobrenome, string $documentoIdentifi)
   {
     //$this->id = $id;
-    $this->nome = $nome;
-    $this->sobrenome = $sobrenome;
+    $this->setNome($nome);
+    $this->setSobrenome($sobrenome);
     // $this->rg = $rg;
     // $this->passaporte = $passaporte;
     // $this->documentoIdentifi = $documentoIdentifi;
 
-    $this->validaDocumentoidentificacao($documentoIdentifi);
-  }
-
-  public function validaDocumentoidentificacao(string $documentoIdentificacao)
-  {
-    // Vamos aceitar o rg so com numeros, tipo 11111111, oito digitos sem ponto ou hifen
-    // O passaporte tem duas letras no começo, tipo AA11111.
-    if (is_numeric($documentoIdentificacao)) {
-      $this->rg = $documentoIdentificacao;
-    } else {
-      $this->passaporte = $documentoIdentificacao;
-    }
+    $this->setDocumentoIdentificacao($documentoIdentifi);
   }
 
   public function getNome()
@@ -43,9 +32,19 @@ class Cliente extends persist
     return $this->nome;
   }
 
+  public function setNome(string $nome)
+  {
+    $this->nome = $nome;
+  }
+
   public function getSobrenome()
   {
     return $this->sobrenome;
+  }
+
+  public function setSobrenome(string $sobrenome)
+  {
+    $this->sobrenome = $sobrenome;
   }
 
   public function getDocumentoIdentificacao()
@@ -57,14 +56,35 @@ class Cliente extends persist
     }
   }
 
+  public function setDocumentoIdentificacao(string $documentoIdentificacao)
+  {
+    // Vamos aceitar o rg so com numeros, tipo 11111111, oito digitos sem ponto ou hifen
+    // O passaporte tem duas letras no começo, tipo AA11111.
+    if (is_numeric($documentoIdentificacao)) {
+      $this->setRg($documentoIdentificacao);
+    } else {
+      $this->setPassaporte($documentoIdentificacao);
+    }
+  }
+
   public function getRg()
   {
     return $this->rg;
   }
 
+  public function setRg(string $rg)
+  {
+    $this->rg = $rg;
+  }
+
   public function getPassaporte()
   {
     return $this->passaporte;
+  }
+
+  public function setPassaporte(string $passaporte)
+  {
+    $this->passaporte = $passaporte;
   }
 
   static public function getFilename()
