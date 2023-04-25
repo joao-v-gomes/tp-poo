@@ -11,7 +11,7 @@ class Voo extends persist
   private $listaViagens = array();
   private string $codigoVoo;
 
-  static $local_filename = "voo.txt";
+  static $local_filename = "voos.txt";
 
 
   public function __construct(array $frequencia, DateTime $previsaoPartida, DateTime $previsaoChegada, float $previsaoDuracao, array $listaViagens, string $codigoVoo)

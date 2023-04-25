@@ -12,7 +12,7 @@ class CompanhiaAerea extends persist
 	private $listaDeViagensExecutadas = array();
 	private $listaAeronaves = array();
 
-	static $local_filename = "companhiaAerea.txt";
+	static $local_filename = "companhiasAereas.txt";
 
 	static public function getFilename()
 	{

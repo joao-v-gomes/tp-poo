@@ -13,7 +13,7 @@ class Viagem extends persist
   private Aeronave $aeronave;
   private $passageiros = array();
   private float $carga;
-  static $local_filename = "viagem.txt";
+  static $local_filename = "viagens.txt";
 
   public function __construct(string $aeroportoOrigem, string $aeroportoDestino, DateTime $horarioPartida, DateTime $horarioChegada, float $duracaoEstimada, string $companhiaAerea, Aeronave $aeronave, float $carga)
   {
