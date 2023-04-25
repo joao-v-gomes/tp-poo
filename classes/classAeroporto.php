@@ -13,14 +13,15 @@ class Aeroporto extends persist
 
   static $local_filename = "aeroportos.txt";
 
-  public function __construct(string $sigla, string $cidade, string $estado, array $listaVoos, array $listaCompanhiasAereas, array $listaAeroportos)
+  // public function __construct(string $sigla, string $cidade, string $estado, array $listaVoos, array $listaCompanhiasAereas, array $listaAeroportos)
+  public function __construct(string $sigla, string $cidade, string $estado)
   {
     $this->setSigla($sigla);
     $this->setCidade($cidade);
     $this->setEstado($estado);
 
-    $this->listaVoos = $listaVoos;
-    $this->listaCompanhiasAereas = $listaCompanhiasAereas;
+    // $this->listaVoos = $listaVoos;
+    // $this->listaCompanhiasAereas = $listaCompanhiasAereas;
 
     // Quais serao os aeroportos dessa lista? Todos? Só os que temos voos?
     // - Se for todos, acho merda pq vamos precisar ficar atualizando sempre que um novo aeroporto for criado
@@ -28,7 +29,7 @@ class Aeroporto extends persist
     //
     // Fiquei pensando depois se Aeroporto precisa dessa lista.
     // Pensei em deixar essa lista na "classeSistema", que seria a "main" e que chamaria todas as outras.
-    $this->listaAeroportos = $listaAeroportos;
+    // $this->listaAeroportos = $listaAeroportos;
   }
 
   public function getSigla()

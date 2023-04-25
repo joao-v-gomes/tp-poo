@@ -15,7 +15,8 @@ class CompanhiaAerea extends persist
 
 	static $local_filename = "companhiasAereas.txt";
 
-	public function __construct(string $nome, string $codigo, string $razaoSocial, string $cnpj, string $sigla, array $listaDeViagens, array $listaDeViagensExecutadas, array $listaAeronaves)
+	// public function __construct(string $nome, string $codigo, string $razaoSocial, string $cnpj, string $sigla, array $listaDeViagens, array $listaDeViagensExecutadas, array $listaAeronaves)
+	public function __construct(string $nome, string $codigo, string $razaoSocial, string $cnpj, string $sigla)
 	{
 		$this->setNome($nome);
 		$this->setCodigo($codigo);
@@ -24,9 +25,9 @@ class CompanhiaAerea extends persist
 		$this->setSigla($sigla);
 
 
-		$this->listaDeViagens = $listaDeViagens;
-		$this->listaDeViagensExecutadas = $listaDeViagensExecutadas;
-		$this->$listaAeronaves = $listaAeronaves;
+		// $this->listaDeViagens = $listaDeViagens;
+		// $this->listaDeViagensExecutadas = $listaDeViagensExecutadas;
+		// $this->$listaAeronaves = $listaAeronaves;
 	}
 
 	public function getNome()
