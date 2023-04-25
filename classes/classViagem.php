@@ -19,15 +19,15 @@ class Viagem extends persist
 
   public function __construct(string $aeroportoOrigem, string $aeroportoDestino, DateTime $horarioPartida, DateTime $horarioChegada, float $duracaoEstimada, string $companhiaAerea, Aeronave $aeronave, float $carga)
   {
-    $this->aeroportoOrigem = $aeroportoOrigem;
-    $this->aeroportoDestino = $aeroportoDestino;
-    $this->horarioPartida = $horarioPartida;
-    $this->horarioChegada = $horarioChegada;
-    $this->duracaoEstimada = $duracaoEstimada;
-    $this->companhiaAerea = $companhiaAerea;
-    $this->aeronave = $aeronave;
+    $this->setAeroportoOrigem($aeroportoOrigem);
+    $this->setAeroportoDestino($aeroportoDestino);
+    $this->setHorarioPartida($horarioPartida);
+    $this->setHorarioChegada($horarioChegada);
+    $this->setDuracaoEstimada($duracaoEstimada);
+    $this->setCompanhiaAerea($companhiaAerea);
+    $this->setAeronave($aeronave);
     //$this->passageiros = $passageiros;
-    $this->carga = $carga;
+    $this->setCarga($carga);
     //$this->conexao = $conexao;
   }
 
