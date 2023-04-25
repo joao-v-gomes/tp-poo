@@ -17,12 +17,8 @@ class Cliente extends persist
 
   public function __construct(string $nome, string $sobrenome, string $documentoIdentifi)
   {
-    //$this->id = $id;
     $this->setNome($nome);
     $this->setSobrenome($sobrenome);
-    // $this->rg = $rg;
-    // $this->passaporte = $passaporte;
-    // $this->documentoIdentifi = $documentoIdentifi;
 
     $this->setDocumentoIdentificacao($documentoIdentifi);
   }
