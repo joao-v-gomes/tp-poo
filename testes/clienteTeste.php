@@ -3,24 +3,24 @@ include_once("../libs/global.php");
 
 $i = 0;
 
-while ($i < 1000) {
+// while ($i < 1000) {
 
-    print_r($i . "\n");
+print_r($i . "\n");
 
-    $cliente1 = new Cliente("Joao Victor", "Gomes", 11111111);
+$cliente1 = new Cliente("Joao Victor", "Gomes", 11111111);
 
-    // print_r($cliente1);
+// print_r($cliente1);
 
-    $cliente1->save();
+$cliente1->save();
 
-    $cliente2 = new Cliente("Joao 2 Victor 2", "Gomes 2", "AA11111");
+$cliente2 = new Cliente("Joao 2 Victor 2", "Gomes 2", "AA11111");
 
-    // print_r($cliente2);
+// print_r($cliente2);
 
-    $cliente2->save();
+$cliente2->save();
 
-    $i++;
-}
+$i++;
+// }
 
 $clientes = Cliente::getRecords();
 // print_r($clientes);
