@@ -39,7 +39,7 @@ if (!$flag) {
 if ($flag) {
     $voos = Voo::getRecordsByField('aeroportoOrigem', 'NY');
     $aeroportoOri = $voos[0];
-    $aeroportoOri->alterarAeronave($razorCrest);
+    $aeroportoOri->setAeronave($razorCrest);
     $aeroportoOri->save();
     print_r($voos);
 }
