@@ -11,6 +11,8 @@ class Passagem extends persist
   private Passageiro $passageiro;
   private Cliente $cliente;
 
+
+
   public function __construct(string $siglaAeroportoOrigem, string $siglaAeroportoDestino, float $preco, string $assento, int $franquiasBagagem, Passageiro $passageiro, Cliente $cliente)
   {
     $this->setSiglaAeroportoOrigem($siglaAeroportoOrigem);
