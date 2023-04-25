@@ -27,11 +27,6 @@ class Aeronave extends persist
 		$this->setDisponibilidadeAeronave($disponivel);
 	}
 
-	static public function getFilename()
-	{
-		return get_called_class()::$local_filename;
-	}
-
 	public function getFabricante()
 	{
 		return $this->fabricante;
@@ -157,5 +152,10 @@ class Aeronave extends persist
 	public function getListaAssentos()
 	{
 		return $this->listaAssentos;
+	}
+
+	static public function getFilename()
+	{
+		return get_called_class()::$local_filename;
 	}
 }
