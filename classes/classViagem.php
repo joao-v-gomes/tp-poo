@@ -11,8 +11,10 @@ class Viagem extends persist
   private float $duracaoEstimada;
   private string $companhiaAerea;
   private Aeronave $aeronave;
-  private $passageiros = array();
   private float $carga;
+
+  private $passageiros = array();
+
   static $local_filename = "viagens.txt";
 
   public function __construct(string $aeroportoOrigem, string $aeroportoDestino, DateTime $horarioPartida, DateTime $horarioChegada, float $duracaoEstimada, string $companhiaAerea, Aeronave $aeronave, float $carga)
@@ -29,15 +31,87 @@ class Viagem extends persist
     //$this->conexao = $conexao;
   }
 
-  public function alterarAeronave(Aeronave $novaAeronave)
-  {
-    // verificar capacidade de carga e passageiros antes de alterar
-    $this->aeronave = $novaAeronave;
-  }
+
 
   public function getAeroportoOrigem()
   {
     return $this->aeroportoOrigem;
+  }
+
+  public function getAeroportoDestino()
+  {
+    return $this->aeroportoDestino;
+  }
+
+  public function getHorarioPartida()
+  {
+    return $this->horarioPartida;
+  }
+
+  public function getHorarioChegada()
+  {
+    return $this->horarioChegada;
+  }
+
+  public function getDuracaoEstimada()
+  {
+    return $this->duracaoEstimada;
+  }
+
+  public function getCompanhiaAerea()
+  {
+    return $this->companhiaAerea;
+  }
+
+  public function getAeronave()
+  {
+    return $this->aeronave;
+  }
+
+  public function getCarga()
+  {
+    return $this->carga;
+  }
+
+  public function setAeroportoOrigem(string $aeroportoOrigem)
+  {
+    $this->aeroportoOrigem = $aeroportoOrigem;
+  }
+
+  public function setAeroportoDestino(string $aeroportoDestino)
+  {
+    $this->aeroportoDestino = $aeroportoDestino;
+  }
+
+  public function setHorarioPartida(DateTime $horarioPartida)
+  {
+    $this->horarioPartida = $horarioPartida;
+  }
+
+  public function setHorarioChegada(DateTime $horarioChegada)
+  {
+    $this->horarioChegada = $horarioChegada;
+  }
+
+  public function setDuracaoEstimada(float $duracaoEstimada)
+  {
+    $this->duracaoEstimada = $duracaoEstimada;
+  }
+
+  public function setCompanhiaAerea(string $companhiaAerea)
+  {
+    $this->companhiaAerea = $companhiaAerea;
+  }
+
+  public function setAeronave(Aeronave $aeronave)
+  {
+    // verificar capacidade de carga e passageiros antes de alterar
+    $this->aeronave = $aeronave;
+  }
+
+  public function setCarga(float $carga)
+  {
+    $this->carga = $carga;
   }
 
   // public function inserirPassageiro(Passageiro $novoPassageiro)
