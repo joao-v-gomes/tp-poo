@@ -8,6 +8,7 @@ class CompanhiaAerea extends persist
 	private string $razaoSocial;
 	private string $cnpj;
 	private string $sigla;
+
 	private $listaDeViagens = array();
 	private $listaDeViagensExecutadas = array();
 	private $listaAeronaves = array();
@@ -21,14 +22,66 @@ class CompanhiaAerea extends persist
 
 	public function __construct(string $nome, string $codigo, string $razaoSocial, string $cnpj, string $sigla, array $listaDeViagens, array $listaDeViagensExecutadas, array $listaAeronaves)
 	{
+		$this->setNome($nome);
+		$this->setCodigo($codigo);
+		$this->setRazaoSocial($razaoSocial);
+		$this->setCnpj($cnpj);
+		$this->setSigla($sigla);
+
+
+		$this->listaDeViagens = $listaDeViagens;
+		$this->listaDeViagensExecutadas = $listaDeViagensExecutadas;
+		$this->$listaAeronaves = $listaAeronaves;
+	}
+
+	public function getNome()
+	{
+		return $this->nome;
+	}
+
+	public function getCodigo()
+	{
+		return $this->codigo;
+	}
+
+	public function getRazaoSocial()
+	{
+		return $this->razaoSocial;
+	}
+
+	public function getCnpj()
+	{
+		return $this->cnpj;
+	}
+
+	public function getSigla()
+	{
+		return $this->sigla;
+	}
+
+	public function setNome(string $nome)
+	{
 		$this->nome = $nome;
+	}
+
+	public function setCodigo(string $codigo)
+	{
 		$this->codigo = $codigo;
+	}
+
+	public function setRazaoSocial(string $razaoSocial)
+	{
 		$this->razaoSocial = $razaoSocial;
+	}
+
+	public function setCnpj(string $cnpj)
+	{
 		$this->cnpj = $cnpj;
+	}
+
+	public function setSigla(string $sigla)
+	{
 		$this->sigla = $sigla;
-    $this->listaDeViagens = $listaDeViagens;
-    $this->listaDeViagensExecutadas = $listaDeViagensExecutadas;
-    $this->$listaAeronaves = $listaAeronaves;
 	}
 
 	public function exibirCompanhia()
@@ -57,9 +110,9 @@ class CompanhiaAerea extends persist
 	{
 	}
 
-	public function vendaPassagem(Cliente cliente)
-	{
-	}
+	// public function vendaPassagem(Cliente cliente)
+	// {
+	// }
 
 	public function cadastrarCliente()
 	{
