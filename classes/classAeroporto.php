@@ -18,6 +18,13 @@ class Aeroporto extends persist
     $this->estado = $estado;
     $this->listaVoos = $listaVoos;
     $this->listaCompanhiasAereas = $listaCompanhiasAereas;
+
+    // Quais serao os aeroportos dessa lista? Todos? Só os que temos voos?
+    // - Se for todos, acho merda pq vamos precisar ficar atualizando sempre que um novo aeroporto for criado
+    // - Se for só os que temos voos, já temos essa lista nos voos
+    //
+    // Fiquei pensando depois se Aeroporto precisa dessa lista.
+    // Pensei em deixar essa lista na "classeSistema", que seria a "main" e que chamaria todas as outras.
     $this->listaAeroportos = $listaAeroportos;
   }
 
