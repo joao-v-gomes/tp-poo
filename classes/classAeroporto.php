@@ -67,14 +67,26 @@ class Aeroporto extends persist
     array_push($this->listaVoos, $novoVoo);
   }
 
-  public function cadastraNovaCompanhiaAerea(CompanhiaAerea $novaCompanhiaAerea)
+  public function cadastraNovaCompanhiaAerea(int $indexCompAerea)
   {
-    array_push($this->listaCompanhiasAereas, $novaCompanhiaAerea);
+    array_push($this->listaCompanhiasAereas, $indexCompAerea);
+  }
+
+  public function getCompanhiasAereas()
+  {
+    return $this->listaCompanhiasAereas;
   }
 
   public function cadastraNovoAeroporto(Aeroporto $novoAeroporto)
   {
     array_push($this->listaAeroportos, $novoAeroporto);
+  }
+
+  public function getTodosOsAeroportos()
+  {
+    $listaAeroportos = Aeroporto::getRecords();
+
+    return $listaAeroportos;
   }
 
   static public function getFilename()
