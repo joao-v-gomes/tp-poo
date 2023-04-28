@@ -13,17 +13,20 @@ while ($sair == 0) {
     print_r("\n--- AEROPORTOS ---\r\n");
     print_r(++$opcMenu . " - Cadastrar Aeroporto\r\n");
     print_r(++$opcMenu . " - Ver Aeroportos\r\n");
+    print_r(++$opcMenu . " - Editar Aeroportos\r\n");
     print_r(++$opcMenu . " - Adicionar uma Companhia Aerea a um Aeroporto\r\n");
     print_r(++$opcMenu . " - Ver Companhias Aereas de um Aeroporto\r\n");
 
     print_r("\n--- COMPANHIAS AEREAS ---\r\n");
     print_r(++$opcMenu . " - Cadastrar Companhia Aerea\r\n");
     print_r(++$opcMenu . " - Ver Companhias Aereas\r\n");
+    print_r(++$opcMenu . " - Editar Companhia Aerea\r\n");
     print_r(++$opcMenu . " - Ver Aeronaves da Comp Aerea\r\n");
 
     print_r("\n--- AERONAVES ---\r\n");
     print_r(++$opcMenu . " - Cadastrar Aeronave\r\n");
     print_r(++$opcMenu . " - Ver Aeronaves\r\n");
+    print_r(++$opcMenu . " - Editar Aeronave\r\n");
 
     print_r("\r\n-1 para sair do sistema\r\n");
 
@@ -43,6 +46,12 @@ while ($sair == 0) {
             print_r("Ver aeroportos\r\n");
             print_r("\n\n");
             sis_verAeroportos();
+            break;
+
+        case ++$opcMenu:
+            print_r("Editar Aeroporto\r\n");
+            print_r("\n\n");
+            sis_editarAeroporto();
             break;
 
         case ++$opcMenu:
@@ -70,6 +79,12 @@ while ($sair == 0) {
             break;
 
         case ++$opcMenu:
+            print_r("Editar Companhia Aerea\r\n");
+            print_r("\n\n");
+            sis_editarCompanhiaAerea();
+            break;
+
+        case ++$opcMenu:
             print_r("Ver Aeronaves da Comp Aerea\r\n");
             print_r("\n\n");
             sis_verAeronavesDaCompanhiaAerea();
@@ -85,6 +100,12 @@ while ($sair == 0) {
             print_r("Ver Aeronaves\r\n");
             print_r("\n\n");
             sis_verAeronaves();
+            break;
+
+        case ++$opcMenu:
+            print_r("Editar Aeronave\r\n");
+            print_r("\n\n");
+            sis_editarAeronave();
             break;
 
         case -1:
@@ -135,6 +156,31 @@ function mostraAeroportos(array $aeroportos)
     }
 }
 
+function sis_editarAeroporto()
+{
+    $aeroportos = Aeroporto::getRecords();
+
+    mostraAeroportos($aeroportos);
+
+    $index = (int)readline("Digite o index do aeroporto que deseja editar: ");
+
+    $aeroporto = $aeroportos[$index - 1];
+
+    $sigla = (string)readline("Digite a sigla do aeroporto: ");
+    $cidade = (string)readline("Digite a cidade do aeroporto: ");
+    $estado = (string)readline("Digite o estado do aeroporto: ");
+
+    $aeroporto->setSigla($sigla);
+    $aeroporto->setCidade($cidade);
+    $aeroporto->setEstado($estado);
+
+    $aeroporto->save();
+
+    print_r("Aeroporto editado com sucesso!\r\n");
+
+    print_r("\n\n");
+}
+
 function sis_CadastrarCompanhiaAerea()
 {
     $nome = (string)readline("Digite o nome da companhia aerea: ");
@@ -169,6 +215,35 @@ function mostraCompanhiasAereas(array $companhiasAereas)
     foreach ($companhiasAereas as $companhiaAerea) {
         print_r($companhiaAerea->getIndex() . " - " . $companhiaAerea->getNome() . " - " . $companhiaAerea->getCodigo() . " - " . $companhiaAerea->getRazaoSocial() . " - " . $companhiaAerea->getCnpj() . " - " . $companhiaAerea->getSigla() . "\r\n");
     }
+}
+
+function sis_editarCompanhiaAerea()
+{
+    $companhiasAereas = CompanhiaAerea::getRecords();
+
+    mostraCompanhiasAereas($companhiasAereas);
+
+    $index = (int)readline("Digite o index da companhia aerea que deseja editar: ");
+
+    $companhiaAerea = $companhiasAereas[$index - 1];
+
+    $nome = (string)readline("Digite o nome da companhia aerea: ");
+    $codigo = (string)readline("Digite o codigo da companhia aerea: ");
+    $razaoSocial = (string)readline("Digite a razao social da companhia aerea: ");
+    $cnpj = (string)readline("Digite o CNPJ da companhia aerea: ");
+    $sigla = (string)readline("Digite a sigla da companhia aerea: ");
+
+    $companhiaAerea->setNome($nome);
+    $companhiaAerea->setCodigo($codigo);
+    $companhiaAerea->setRazaoSocial($razaoSocial);
+    $companhiaAerea->setCnpj($cnpj);
+    $companhiaAerea->setSigla($sigla);
+
+    $companhiaAerea->save();
+
+    print_r("Companhia Aerea editada com sucesso!\r\n");
+
+    print_r("\n\n");
 }
 
 function sis_conectarCompanhiaAereaEmAeroporto()
@@ -277,6 +352,35 @@ function mostraAeronaves(array $aeronaves)
     foreach ($aeronaves as $aeronave) {
         print_r($aeronave->getIndex() . " - " . $aeronave->getFabricante() . " - " . $aeronave->getModelo() . " - " . $aeronave->getCapacidadePassageiros() . " - " . $aeronave->getCapacidadeCarga() . " - " . $aeronave->getRegistro() . " - " . $aeronave->getCompAereaPertencente() . "\r\n");
     }
+}
+
+function sis_editarAeronave()
+{
+    $aeronaves = Aeronave::getRecords();
+
+    mostraAeronaves($aeronaves);
+
+    $indexAeronave = (int)readline("Digite o index da aeronave: ");
+
+    $aeronave = $aeronaves[$indexAeronave - 1];
+
+    $fabricante = (string)readline("Digite o fabricante da aeronave: ");
+    $modelo = (string)readline("Digite o modelo da aeronave: ");
+    $capacidadePassageiros = (int)readline("Digite a capacidade de passageiros da aeronave: ");
+    $capacidadeCarga = (float)readline("Digite a capacidade de carga da aeronave: ");
+    $registro = (string)readline("Digite o registro da aeronave: ");
+
+    $aeronave->setFabricante($fabricante);
+    $aeronave->setModelo($modelo);
+    $aeronave->setCapacidadePassageiros($capacidadePassageiros);
+    $aeronave->setCapacidadeCargaKg($capacidadeCarga);
+    $aeronave->setRegistro($registro);
+
+    $aeronave->save();
+
+    print_r("Aeronave editada com sucesso!\r\n");
+
+    print_r("\n\n");
 }
 
 function sis_verAeronavesDaCompanhiaAerea()
