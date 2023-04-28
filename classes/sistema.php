@@ -97,6 +97,8 @@ function sis_verAeroportos()
 {
     $aeroportos = Aeroporto::getRecords();
 
+    // print_r($aeroportos);
+
     mostraAeroportos($aeroportos);
 
     print_r("\n\n");
@@ -156,7 +158,7 @@ function sis_conectarCompanhiaAereaEmAeroporto()
 
     $indexAeroporto = (int)readline("Digite o index do aeroporto: ");
 
-    $aeroporto = $aeroportos[$indexAeroporto];
+    $aeroporto = $aeroportos[$indexAeroporto - 1];
 
     // print_r("Aeroporto selecionado: " . $aeroporto);
 
@@ -187,7 +189,7 @@ function sis_verCompanhiasAereasEmAeroporto()
 
     print_r("\n\n");
 
-    $aeroporto = $aeroportos[$indexAeroporto];
+    $aeroporto = $aeroportos[$indexAeroporto - 1];
 
     // print_r("Aeroporto selecionado: " . $aeroporto);
 
