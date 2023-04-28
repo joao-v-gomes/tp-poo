@@ -19,6 +19,7 @@ while ($sair == 0) {
     print_r("\n--- COMPANHIAS AEREAS ---\r\n");
     print_r(++$opcMenu . " - Cadastrar Companhia Aerea\r\n");
     print_r(++$opcMenu . " - Ver Companhias Aereas\r\n");
+    print_r(++$opcMenu . " - Ver Aeronaves da Comp Aerea\r\n");
 
     print_r("\n--- AERONAVES ---\r\n");
     print_r(++$opcMenu . " - Cadastrar Aeronave\r\n");
@@ -66,6 +67,12 @@ while ($sair == 0) {
             print_r("Ver Companhia Aerea\r\n");
             print_r("\n\n");
             sis_verCompanhiasAereas();
+            break;
+
+        case ++$opcMenu:
+            print_r("Ver Aeronaves da Comp Aerea\r\n");
+            print_r("\n\n");
+            sis_verAeronavesDaCompanhiaAerea();
             break;
 
         case ++$opcMenu:
@@ -232,7 +239,19 @@ function sis_CadastrarAeronave()
     $capacidadeCarga = (float)readline("Digite a capacidade de carga da aeronave: ");
     $registro = (string)readline("Digite o registro da aeronave: ");
 
-    $aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro);
+    $companhiasAereas = CompanhiaAerea::getRecords();
+
+    mostraCompanhiasAereas($companhiasAereas);
+
+    $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea a qual pertence essa aeronave: ");
+
+    $companhiaAerea = $companhiasAereas[$indexCompanhiaAerea - 1];
+
+    // print_r("Companhia Aerea selecionada: " . $companhiaAerea);
+
+    $siglaCompAereaSelecionada = $companhiaAerea->getSigla();
+
+    $aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $siglaCompAereaSelecionada);
 
     $aeronave->save();
 
@@ -253,9 +272,32 @@ function sis_verAeronaves()
 function mostraAeronaves(array $aeronaves)
 {
     print_r("Aeronaves cadastradas:\r\n");
-    print_r("Index - Fabricante - Modelo - Capacidade de Passageiros - Capacidade de Carga - Registro\r\n");
+    print_r("Index - Fabricante - Modelo - Capacidade de Passageiros - Capacidade de Carga - Registro - Comp. Aerea\r\n");
 
     foreach ($aeronaves as $aeronave) {
-        print_r($aeronave->getIndex() . " - " . $aeronave->getFabricante() . " - " . $aeronave->getModelo() . " - " . $aeronave->getCapacidadePassageiros() . " - " . $aeronave->getCapacidadeCarga() . " - " . $aeronave->getRegistro() . "\r\n");
+        print_r($aeronave->getIndex() . " - " . $aeronave->getFabricante() . " - " . $aeronave->getModelo() . " - " . $aeronave->getCapacidadePassageiros() . " - " . $aeronave->getCapacidadeCarga() . " - " . $aeronave->getRegistro() . " - " . $aeronave->getCompAereaPertencente() . "\r\n");
     }
+}
+
+function sis_verAeronavesDaCompanhiaAerea()
+{
+    $companhiasAereas = CompanhiaAerea::getRecords();
+
+    mostraCompanhiasAereas($companhiasAereas);
+
+    $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea: ");
+
+    $companhiaAerea = $companhiasAereas[$indexCompanhiaAerea - 1];
+
+    // print_r("Companhia Aerea selecionada: " . $companhiaAerea);
+
+    $siglaCompAereaSelecionada = $companhiaAerea->getSigla();
+
+    // print_r("Sigla da Companhia Aerea selecionada: " . $siglaCompAereaSelecionada . "\r\n");
+
+    $aeronaves = Aeronave::getRecordsByField('compAereaPertencente', $siglaCompAereaSelecionada);
+
+    mostraAeronaves($aeronaves);
+
+    print_r("\n\n");
 }

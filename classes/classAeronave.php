@@ -11,6 +11,9 @@ class Aeronave extends persist
 	private float $capacidadeCargaKg;
 	private string $registro;
 	private bool $disponivel;
+
+	protected string $compAereaPertencente;
+
 	private $listaAssentos = array();
 
 
@@ -18,8 +21,7 @@ class Aeronave extends persist
 
 
 	// public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, bool $disponivel)
-	public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro)
-
+	public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, string $compAereaPertencente)
 	{
 		$this->setFabricante($fabricante);
 		$this->setModelo($modelo);
@@ -27,6 +29,9 @@ class Aeronave extends persist
 		$this->setCapacidadeCargaKg($capacidadeCarga);
 		$this->setRegistro($registro);
 		$this->setDisponibilidadeAeronave(true);
+		$this->setCompAereaPertencente($compAereaPertencente);
+
+		$this->preecheListaAssentos();
 	}
 
 	public function getFabricante()
@@ -151,9 +156,32 @@ class Aeronave extends persist
 		$this->disponivel = false;
 	}
 
+	public function getCompAereaPertencente()
+	{
+		return $this->compAereaPertencente;
+	}
+
+	public function setCompAereaPertencente(string $compAereaPertencente)
+	{
+		$this->compAereaPertencente = $compAereaPertencente;
+	}
+
 	public function getListaAssentos()
 	{
 		return $this->listaAssentos;
+	}
+
+	public function preecheListaAssentos()
+	{
+		$listaAssentos = array();
+
+		for ($i = 1; $i <= $this->getCapacidadePassageiros(); $i++) {
+			$listaAssentos[$i] = 0;
+		}
+
+		$this->listaAssentos = $listaAssentos;
+
+		// print_r($this->listaAssentos);
 	}
 
 	static public function getFilename()
