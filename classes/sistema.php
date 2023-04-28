@@ -20,7 +20,9 @@ while ($sair == 0) {
     print_r(++$opcMenu . " - Cadastrar Companhia Aerea\r\n");
     print_r(++$opcMenu . " - Ver Companhias Aereas\r\n");
 
-
+    print_r("\n--- AERONAVES ---\r\n");
+    print_r(++$opcMenu . " - Cadastrar Aeronave\r\n");
+    print_r(++$opcMenu . " - Ver Aeronaves\r\n");
 
     print_r("\r\n-1 para sair do sistema\r\n");
 
@@ -64,6 +66,18 @@ while ($sair == 0) {
             print_r("Ver Companhia Aerea\r\n");
             print_r("\n\n");
             sis_verCompanhiasAereas();
+            break;
+
+        case ++$opcMenu:
+            print_r("Cadastramento de Aeronave\r\n");
+            print_r("\n\n");
+            sis_CadastrarAeronave();
+            break;
+
+        case ++$opcMenu:
+            print_r("Ver Aeronaves\r\n");
+            print_r("\n\n");
+            sis_verAeronaves();
             break;
 
         case -1:
@@ -208,4 +222,40 @@ function sis_verCompanhiasAereasEmAeroporto()
     mostraCompanhiasAereas($companhiasAereasDoAeroporto);
 
     print_r("\n\n");
+}
+
+function sis_CadastrarAeronave()
+{
+    $fabricante = (string)readline("Digite o fabricante da aeronave: ");
+    $modelo = (string)readline("Digite o modelo da aeronave: ");
+    $capacidadePassageiros = (int)readline("Digite a capacidade de passageiros da aeronave: ");
+    $capacidadeCarga = (float)readline("Digite a capacidade de carga da aeronave: ");
+    $registro = (string)readline("Digite o registro da aeronave: ");
+
+    $aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro);
+
+    $aeronave->save();
+
+    print_r("Aeronave cadastrada com sucesso!\r\n");
+
+    print_r("\n\n");
+}
+
+function sis_verAeronaves()
+{
+    $aeronaves = Aeronave::getRecords();
+
+    mostraAeronaves($aeronaves);
+
+    print_r("\n\n");
+}
+
+function mostraAeronaves(array $aeronaves)
+{
+    print_r("Aeronaves cadastradas:\r\n");
+    print_r("Index - Fabricante - Modelo - Capacidade de Passageiros - Capacidade de Carga - Registro\r\n");
+
+    foreach ($aeronaves as $aeronave) {
+        print_r($aeronave->getIndex() . " - " . $aeronave->getFabricante() . " - " . $aeronave->getModelo() . " - " . $aeronave->getCapacidadePassageiros() . " - " . $aeronave->getCapacidadeCarga() . " - " . $aeronave->getRegistro() . "\r\n");
+    }
 }

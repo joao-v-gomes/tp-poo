@@ -17,14 +17,16 @@ class Aeronave extends persist
 	static $local_filename = "aeronaves.txt";
 
 
-	public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, bool $disponivel)
+	// public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, bool $disponivel)
+	public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro)
+
 	{
 		$this->setFabricante($fabricante);
 		$this->setModelo($modelo);
 		$this->setCapacidadePassageiros($capacidadePassageiros);
 		$this->setCapacidadeCargaKg($capacidadeCarga);
 		$this->setRegistro($registro);
-		$this->setDisponibilidadeAeronave($disponivel);
+		$this->setDisponibilidadeAeronave(true);
 	}
 
 	public function getFabricante()
