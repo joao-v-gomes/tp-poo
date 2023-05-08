@@ -1,12 +1,25 @@
 <?php
 include_once("../libs/global.php");
 
-$topgun = new Aeronave("russian", "mk-dir", 500, 10000, "pa-abc", true);
+$topgun = new Aeronave("russian", "mk-dir", 10, 10000, "pa-abc", true);
 
-$topgun->save();
+// $topgun->save();
 
-$aeronaves = Aeronave::getRecords();
+// $aeronaves = Aeronave::getRecords();
 
-print_r($aeronaves);
+// var_dump($topgun->getIndex());
 
-// print_r($topgun);
+
+// var_dump(isset($topgun->getRegistro()));
+
+// if ($topgun->getTeste() == true) {
+//     echo "Aeronave Criada\n";
+// } else {
+//     echo "Aeronave não Criada\n";
+// }
+
+// var_dump($topgun->getRegistro());
+
+print_r($topgun);
+
+// print_r($aeronaves);
