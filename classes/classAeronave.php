@@ -12,9 +12,9 @@ class Aeronave extends persist
 	private string $registro;
 	private bool $disponivel;
 
-	protected string $compAereaPertencente;
+	private string $compAereaPertencente;
 
-	private $listaAssentos = array();
+	private array $listaAssentos;
 
 
 	static $local_filename = "aeronaves.txt";
@@ -23,15 +23,19 @@ class Aeronave extends persist
 	// public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, bool $disponivel)
 	public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, string $compAereaPertencente)
 	{
-		$this->setFabricante($fabricante);
-		$this->setModelo($modelo);
-		$this->setCapacidadePassageiros($capacidadePassageiros);
-		$this->setCapacidadeCargaKg($capacidadeCarga);
-		$this->setRegistro($registro);
-		$this->setDisponibilidadeAeronave(true);
-		$this->setCompAereaPertencente($compAereaPertencente);
 
-		$this->preecheListaAssentos();
+		try {
+			$this->setRegistro($registro);
+			$this->setFabricante($fabricante);
+			$this->setModelo($modelo);
+			$this->setCapacidadePassageiros($capacidadePassageiros);
+			$this->setCapacidadeCargaKg($capacidadeCarga);
+			$this->setDisponibilidadeAeronave(true);
+			$this->setCompAereaPertencente($compAereaPertencente);
+			$this->preecheListaAssentos();
+		} catch (Exception $e) {
+			echo 'Exceção capturada: ',  $e->getMessage(), "\n";
+		}
 	}
 
 	public function getFabricante()
@@ -84,11 +88,12 @@ class Aeronave extends persist
 
 		$retornoValidacao = $this->validaRegistro($registro);
 
-		if ($retornoValidacao == 1) {
+		if ($retornoValidacao != true) {
+			throw new Exception($retornoValidacao);
+		} else {
 			$registro = strtoupper($registro);
 			$this->registro = $registro;
-		} else {
-			print_r($retornoValidacao);
+			return true;
 		}
 	}
 
@@ -128,8 +133,8 @@ class Aeronave extends persist
 			return "Os tres ultimos digitos nao sao numericos \r\n";
 		}
 
-		// Retorna 1 se der tudo certo
-		return 1;
+		// Retorna true se der tudo certo
+		return true;
 	}
 
 	public function setDisponibilidadeAeronave(bool $disponibilidade)
