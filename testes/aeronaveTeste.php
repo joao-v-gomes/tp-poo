@@ -1,7 +1,7 @@
 <?php
 include_once("../libs/global.php");
 
-$topgun = new Aeronave("russian", "mk-dir", 10, 10000, "pa-abc", true);
+$topgun = new Aeronave("russian", "mk-dir", 10, 10000, "12-abc", true);
 
 // $topgun->save();
 
