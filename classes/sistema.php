@@ -312,7 +312,6 @@ function sis_CadastrarAeronave()
     $modelo = (string)readline("Digite o modelo da aeronave: ");
     $capacidadePassageiros = (int)readline("Digite a capacidade de passageiros da aeronave: ");
     $capacidadeCarga = (float)readline("Digite a capacidade de carga da aeronave: ");
-    $registro = (string)readline("Digite o registro da aeronave: ");
 
     $companhiasAereas = CompanhiaAerea::getRecords();
 
@@ -326,7 +325,14 @@ function sis_CadastrarAeronave()
 
     $siglaCompAereaSelecionada = $companhiaAerea->getSigla();
 
-    $aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $siglaCompAereaSelecionada);
+    // $aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $siglaCompAereaSelecionada);
+
+    do {
+
+        $registro = (string)readline("Digite o registro da aeronave: ");
+
+        $aeronave = Aeronave::criarAeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $siglaCompAereaSelecionada);
+    } while ($aeronave == null);
 
     $aeronave->save();
 

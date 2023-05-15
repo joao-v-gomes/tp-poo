@@ -18,7 +18,7 @@ abstract class persist
 
     public function __destruct()
     {
-        //print "Destroying " . __CLASS__ . "\n";
+        // print_r("Destroying " . __CLASS__ . "\n");
     }
 
     public function load($p_obj)

@@ -23,8 +23,7 @@ class Tripulantes extends persist
     private int $companhiaAerea;
     private int $aeroportoBase;
 
-    static $local_filename = "tripulantes.txt";
-
+    static $local_filename = "tripulantes.txt"; // nao usamos esse arquivo, criamos um txt para cada filho de Tripulantes
 
     public function __construct(string $tipoTripulante, string $nome, string $sobrenome, string $documentoIdentificacao, string $cpf, string $nacionalidade, string $dataNascimento, string $email, string $cht, string $endRua, string $endNumero, string $endComplemento, string $endCep, string $endCidade, string $endEstado, int $companhiaAerea, int $aeroportoBase)
     {
