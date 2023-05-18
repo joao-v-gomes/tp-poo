@@ -4,8 +4,8 @@ include_once("../libs/global.php");
 class Voo extends persist
 {
   private array $frequencia;
-  private  string $aeroportoOrigem;
-  private string $aeroportoDestino;
+  private int $aeroportoOrigem;
+  private int $aeroportoDestino;
   private Aeronave $aeronave;
   private int $piloto;
   private int $copiloto;
@@ -21,26 +21,46 @@ class Voo extends persist
   static $local_filename = "voos.txt";
 
 
-  public function __construct(array $frequencia, string $aeroportoOrigem, string $aeroportoDestino, Aeronave $aeronave, int $piloto, int $copiloto, array $listaComissarios,  DateTime $previsaoPartida, DateTime $previsaoChegada, string $codigoVoo)
+  // public function __construct(array $frequencia, string $aeroportoOrigem, string $aeroportoDestino, Aeronave $aeronave, int $piloto, int $copiloto, array $listaComissarios,  DateTime $previsaoPartida, DateTime $previsaoChegada, string $codigoVoo)
+  public function __construct(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida, DateTime $previsaoChegada)
   {
     $this->setFrequencia($frequencia);
     $this->setAeroportoOrigem($aeroportoOrigem);
     $this->setAeroportoDestino($aeroportoDestino);
-    $this->setAeronave($aeronave);
-    $this->setPiloto($piloto);
-    $this->setCopiloto($copiloto);
-    $this->setListaComissarios($listaComissarios);
+    // $this->setAeronave($aeronave);
+    // $this->setPiloto($piloto);
+    // $this->setCopiloto($copiloto);
+    // $this->setListaComissarios($listaComissarios);
     $this->setPrevisaoPartida($previsaoPartida);
     $this->setPrevisaoChegada($previsaoChegada);
-    $this->setPrevisaoDuracao($previsaoPartida, $previsaoPartida);
-    $this->setCodigoVoo($codigoVoo);
+    $this->setPrevisaoDuracao($previsaoChegada, $previsaoPartida);
+    // $this->setCodigoVoo($codigoVoo);
 
     // $this->listaViagens = $listaViagens;
   }
 
   public function getFrequencia()
   {
-    return $this->frequencia;
+    // return $this->frequencia;
+    $freqString = "";
+
+    // print_r("Count: " . count($this->frequencia) . "\n");
+
+    $tamanhoArrayFreq = count($this->frequencia);
+
+    $i = 0;
+
+    foreach ($this->frequencia as $dia) {
+      $i++;
+
+      $freqString .= $dia;
+
+      if ($i < $tamanhoArrayFreq) {
+        $freqString .= ",";
+      }
+    }
+
+    return $freqString;
   }
 
   public function getAeroportoOrigem()
@@ -86,6 +106,7 @@ class Voo extends persist
   public function getPrevisaoDuracao()
   {
     return $this->previsaoDuracao;
+    // return $this->previsaoDuracao->format("%H:%I");
   }
 
   public function getCodigoVoo()
@@ -103,12 +124,12 @@ class Voo extends persist
     $this->frequencia = $frequencia;
   }
 
-  public function setAeroportoOrigem(string $aeroportoOrigem)
+  public function setAeroportoOrigem(int $aeroportoOrigem)
   {
     $this->aeroportoOrigem = $aeroportoOrigem;
   }
 
-  public function setAeroportoDestino(string $aeroportoDestino)
+  public function setAeroportoDestino(int $aeroportoDestino)
   {
     $this->aeroportoDestino = $aeroportoDestino;
   }

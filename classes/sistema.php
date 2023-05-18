@@ -328,61 +328,69 @@ function sis_cadastrarVoo()
     // $aeroportoOrigem = $aeroportos[$indexAeroportoOrigem - 1]->getSigla();
     // $aeroportoDestino = $aeroportos[$indexAeroportoDestino - 1]->getSigla();
 
-    $aeroportoOrigem = $aeroportos[$indexAeroportoOrigem - 1];
-    $aeroportoDestino = $aeroportos[$indexAeroportoDestino - 1];
+    $aeroportoOrigem = $aeroportos[$indexAeroportoOrigem - 1]->getIndex();
+    $aeroportoDestino = $aeroportos[$indexAeroportoDestino - 1]->getIndex();
 
-    print_r("Aeroporto Origem: " . $aeroportoOrigem->getSigla() . "\r\n");
-    print_r("Aeroporto Destino: " . $aeroportoDestino->getSigla() . "\r\n");
+    print_r("Aeroporto Origem: " . $aeroportoOrigem . "\r\n");
+    print_r("Aeroporto Destino: " . $aeroportoDestino . "\r\n");
 
-    $aeronaves = Aeronave::getRecords();
+    // $aeronaves = Aeronave::getRecords();
 
-    mostraAeronaves($aeronaves);
+    // mostraAeronaves($aeronaves);
 
-    $indexAeronave = (int)readline("Digite o index da aeronave: ");
+    // $indexAeronave = (int)readline("Digite o index da aeronave: ");
 
-    $aeronave = $aeronaves[$indexAeronave - 1];
+    // $aeronave = $aeronaves[$indexAeronave - 1];
 
-    $piloto = Piloto::getRecords();
+    // $piloto = Piloto::getRecords();
 
-    mostraPilotos($piloto);
+    // mostraPilotos($piloto);
 
-    $indexPiloto = (int)readline("Digite o index do piloto: ");
+    // $indexPiloto = (int)readline("Digite o index do piloto: ");
 
-    $piloto = $piloto[$indexPiloto - 1];
+    // $piloto = $piloto[$indexPiloto - 1];
 
-    $copiloto = Piloto::getRecords();
+    // $copiloto = Piloto::getRecords();
 
-    mostraPilotos($copiloto);
+    // mostraPilotos($copiloto);
 
-    $indexCopiloto = (int)readline("Digite o index do copiloto: ");
+    // $indexCopiloto = (int)readline("Digite o index do copiloto: ");
 
-    $copiloto = $copiloto[$indexCopiloto - 1];
+    // $copiloto = $copiloto[$indexCopiloto - 1];
 
-    $comissario = Comissario::getRecordsByField("companhiaAerea", $copiloto->getCompanhiaAerea());
+    // $comissario = Comissario::getRecordsByField("companhiaAerea", $copiloto->getCompanhiaAerea());
 
-    mostraComissarios($comissario);
+    // mostraComissarios($comissario);
 
-    $indexComissario = (int)readline("Digite o index dos comissarios: ");
+    // $indexComissario = (int)readline("Digite o index dos comissarios: ");
 
-    $listaIndexComissario = explode(",", $indexComissario);
+    // $listaIndexComissario = explode(",", $indexComissario);
 
-    $listaComissarios = [];
+    // $listaComissarios = [];
 
-    foreach ($listaIndexComissario as $index) {
-        // $comissarios[] = $comissario[$index - 1];
-        array_push($listaComissarios, $comissario[$index - 1]);
-    }
+    // foreach ($listaIndexComissario as $index) {
+    //     // $comissarios[] = $comissario[$index - 1];
+    //     array_push($listaComissarios, $comissario[$index - 1]);
+    // }
 
-    print_r("Comissarios: ");
-    print_r($listaComissarios);
+    // print_r("Comissarios: ");
+    // print_r($listaComissarios);
 
-    // $dataHoraPartida = (string)readline("Digite a data e hora de previsao partida (dd/mm/aaaa hh:mm): ");
+    $dataHoraPartida = (string)readline("Digite a data e hora de previsao partida (dd/mm/aaaa hh:mm): ");
 
-    // $dataHoraPartida = DateTime::createFromFormat("d-m-Y H:i", $dataHoraPartida);
+    $dataHoraPartida = DateTime::createFromFormat("d/m/Y H:i", $dataHoraPartida);
 
-    // $dataHoraChegada = (string)readline("Digite a data e hora de previsao chegada (dd/mm/aaaa hh:mm): ");
+    print_r("Data Hora Partida: ");
+    print_r($dataHoraPartida->format("d/m/Y H:i"));
+    print_r("\n");
 
-    // $dataHoraChegada = DateTime::createFromFormat("d-m-Y H:i", $dataHoraChegada);
+    $dataHoraChegada = (string)readline("Digite a data e hora de previsao chegada (dd/mm/aaaa hh:mm): ");
+
+    $dataHoraChegada = DateTime::createFromFormat("d/m/Y H:i", $dataHoraChegada);
+
+    print_r("Data Hora Chegada: ");
+    print_r($dataHoraChegada->format("d/m/Y H:i"));
+    print_r("\n");
 
     // $codigo = (string)readline("Digite o codigo do voo: ");
 
@@ -390,13 +398,15 @@ function sis_cadastrarVoo()
 
     // $voo = new Voo($frequencia, $aeroportoOrigem, $aeroportoDestino, $aeronave, $piloto, $copiloto, $listaComissarios, $dataHoraPartida, $dataHoraChegada, $codigo);
 
+    $voo = new Voo($frequencia, $aeroportoOrigem, $aeroportoDestino, $dataHoraPartida, $dataHoraChegada);
+
     // print_r($voo);
 
-    // $voo->save();
+    $voo->save();
 
-    // print_r("Voo cadastrado com sucesso!\r\n");
+    print_r("Voo cadastrado com sucesso!\r\n");
 
-    // print_r("\n\n");
+    print_r("\n\n");
 }
 
 function sis_verVoos()
@@ -414,7 +424,8 @@ function mostraVoos(array $voos)
     print_r("Index - Frequencia - Aeroporto Origem - Aeroporto Destino - Aeronave - Piloto - Copiloto - Comissarios - Data Hora Partida - Data Hora Chegada - Codigo\r\n");
 
     foreach ($voos as $voo) {
-        print_r($voo->getIndex() . " - " . $voo->getFrequencia() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $voo->getAeronave() . " - " . $voo->getPiloto() . " - " . $voo->getCopiloto() . " - " . $voo->getComissarios() . " - " . $voo->getDataHoraPartida() . " - " . $voo->getDataHoraChegada() . " - " . $voo->getCodigo() . "\r\n");
+        // print_r($voo->getIndex() . " - " . $voo->getFrequencia() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $voo->getAeronave() . " - " . $voo->getPiloto() . " - " . $voo->getCopiloto() . " - " . $voo->getComissarios() . " - " . $voo->getDataHoraPartida() . " - " . $voo->getDataHoraChegada() . " - " . $voo->getCodigo() . "\r\n");
+        print_r($voo->getIndex() . " - " . $voo->getFrequencia() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $voo->getPrevisaoPartida()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoChegada()->format("d/m/Y H:i")  . " - " . $voo->getPrevisaoDuracao()->format("%H:%I:%S") . "\r\n");
     }
 }
 
