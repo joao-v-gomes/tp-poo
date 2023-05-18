@@ -13,6 +13,7 @@ class CompanhiaAerea extends persist
 	private $listaDeViagensExecutadas = array();
 	private $listaAeronaves = array();
 
+  private  int $ProgramaMilhagem;
 	static $local_filename = "companhiasAereas.txt";
 
 	// public function __construct(string $nome, string $codigo, string $razaoSocial, string $cnpj, string $sigla, array $listaDeViagens, array $listaDeViagensExecutadas, array $listaAeronaves)
@@ -121,7 +122,8 @@ class CompanhiaAerea extends persist
 	public function validaViagem()
 	{
 	}
-
+  // public function compraDeFranquia(Passagem $passagem){
+  // }
 	public function exibirListaAeronaves()
 	{
 		print_r($this->listaAeronaves);

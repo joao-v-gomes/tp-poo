@@ -3,7 +3,7 @@ include_once("../libs/global.php");
 
 class Tripulantes extends persist
 {
-    private string $tipoTripulante;
+    private string $tipoTripulante; //precisa disso, João?
     private string $nome;
     private string $sobrenome;
     private string $rg;

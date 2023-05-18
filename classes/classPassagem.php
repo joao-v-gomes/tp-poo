@@ -1,6 +1,6 @@
 <?php
 include_once("../libs/global.php");
-
+DEFINE ('PESO_FRANQUIA_BAGAGEM', 23);
 class Passagem extends persist
 {
   private string $siglaAeroportoOrigem;
@@ -10,10 +10,13 @@ class Passagem extends persist
   private int $franquiasBagagem;
   private Passageiro $passageiro;
   private Cliente $cliente;
+  private string $statusPassagem;
+  private $listaViagensEConexoes = array();
+  private float $pesoTotal;
 
   static $local_filename = "passagens.txt";
 
-  public function __construct(string $siglaAeroportoOrigem, string $siglaAeroportoDestino, float $preco, string $assento, int $franquiasBagagem, Passageiro $passageiro, Cliente $cliente)
+  public function __construct(string $siglaAeroportoOrigem, string $siglaAeroportoDestino, float $preco, string $assento, int $franquiasBagagem, Passageiro $passageiro, Cliente $cliente, array $listaViagensEConexoes)
   {
     $this->setSiglaAeroportoOrigem($siglaAeroportoOrigem);
     $this->setSiglaAeroportoDestino($siglaAeroportoDestino);
@@ -22,6 +25,9 @@ class Passagem extends persist
     $this->setFranquiasBagagem($franquiasBagagem);
     $this->setPassageiro($passageiro);
     $this->setCliente($cliente);
+    $this->setStatus($status);
+    $this->setlistaViagensEConexoes($listaViagensEConexoes);
+    $this->setPesoTotal($pesoTotal);
   }
 
   public function getSiglaAeroportoOrigem()
@@ -58,6 +64,10 @@ class Passagem extends persist
   {
     return $this->cliente;
   }
+  public function getStatus()
+  {
+    return $this->statusPassagem;
+  }
 
   public function setSiglaAeroportoOrigem(string $siglaAeroportoOrigem)
   {
@@ -93,9 +103,22 @@ class Passagem extends persist
   {
     $this->cliente = $cliente;
   }
-
-  public function validaDocumentoIdentificacao()
+  public function setSatus(string $status)
   {
+    $this->statusPassagem = $status;
+  }
+  public function getlistaViagensEConexoes()
+  {
+    return $this->listaViagensEConexoes;
+  }
+  public function setlistaViagensEConexoes(array $listaViagensEConexoes)
+  {
+    $this->listaViagensEConexoes = $listaViagensEConexoes;
+  }
+
+  public function setPesoTotal(int $franquiasBagagem)
+  {
+    $this->pesoTotal = $franquiasBagagem * PESO_FRANQUIA_BAGAGEM;
   }
 
   static public function getFilename()

@@ -3,35 +3,38 @@ include_once("../libs/global.php");
 
 class Viagem extends persist
 {
-  public string $aeroportoOrigem;
-  private string $aeroportoDestino;
-  private string $conexao;
+  // public string $aeroportoOrigem;
+  // private string $aeroportoDestino;
   private DateTime $horarioPartida;
   private DateTime $horarioChegada;
-  private float $duracaoEstimada;
+  private float $duracao;
   private string $companhiaAerea;
   private Aeronave $aeronave;
   private float $carga;
-
   private $passageiros = array();
+  private int $voo;
+  private int $milhasViagem;
+  private float $valorViagem;
+  private float $valorFranquiaBagagem;
+  
 
   static $local_filename = "viagens.txt";
 
-  public function __construct(string $aeroportoOrigem, string $aeroportoDestino, DateTime $horarioPartida, DateTime $horarioChegada, float $duracaoEstimada, string $companhiaAerea, Aeronave $aeronave, float $carga)
+  public function __construct(DateTime $horarioPartida, DateTime $horarioChegada, float $duracao, string $companhiaAerea, Aeronave $aeronave, float $carga, int $voo, int $milhasViagem, float $valorViagem, float $valorFranquiaBagagem)
   {
-    $this->setAeroportoOrigem($aeroportoOrigem);
-    $this->setAeroportoDestino($aeroportoDestino);
+    // $this->setAeroportoOrigem($aeroportoOrigem);
+    // $this->setAeroportoDestino($aeroportoDestino);
     $this->setHorarioPartida($horarioPartida);
     $this->setHorarioChegada($horarioChegada);
-    $this->setDuracaoEstimada($duracaoEstimada);
+    $this->setDuracao($duracao);
     $this->setCompanhiaAerea($companhiaAerea);
     $this->setAeronave($aeronave);
-    //$this->passageiros = $passageiros;
     $this->setCarga($carga);
-    //$this->conexao = $conexao;
+    $this->setVoo($voo);
+    $this->setMilhasViagem($milhasViagem);
+    $this->setvalorViagem($valorViagem);
+    $this->setvalorFranquiaBagagem($valorFranquiaBagagem);
   }
-
-
 
   public function getAeroportoOrigem()
   {
@@ -93,9 +96,9 @@ class Viagem extends persist
     $this->horarioChegada = $horarioChegada;
   }
 
-  public function setDuracaoEstimada(float $duracaoEstimada)
+  public function setDuracao(DateTime $horarioPartida, DateTime $horarioChegada)
   {
-    $this->duracaoEstimada = $duracaoEstimada;
+    $this->duracao = $horarioChegada->diff($horarioPartida);
   }
 
   public function setCompanhiaAerea(string $companhiaAerea)
@@ -114,26 +117,47 @@ class Viagem extends persist
     $this->carga = $carga;
   }
 
-  // public function inserirPassageiro(Passageiro $novoPassageiro)
-  // {
-  // }
+  public function setVoo($voo)
+  {
+    $this->voo = $voo;
+  }
+  
+  public function setMilhasViagem($milhasViagem)
+  {
+    $this->milhasViagem = $milhasViagem;
+  }
+  
+  public function setvalorViagem($valorViagem)
+  {
+    $this->valorViagem = $valorViagem;
+  }
+  
+  public function setvalorFranquiaBagagem($valorFranquiaBagagem){
+    $this->valorFranquiaBagagem = $valorFranquiaBagagem;
+  }
+  
+  public function inserirPassageiro(Passageiro $novoPassageiro)
+  {
+    array_push($passageiros, $novoPassageiro);
+  }
 
   // public function removerPassageiro(Passageiro $novoPassageiro)
   // {
+    
   // }
 
-  public function inserirCarga(float $novaCarga)
-  {
-    // depois precisamos conferir se já atingiu
-    // a capacidade máxima de carga
-    $this->carga = $this->carga + $novaCarga;
-  }
+  // public function inserirCarga(float $novaCarga)
+  // {
+  //   // depois precisamos conferir se já atingiu
+  //   // a capacidade máxima de carga
+  //   $this->carga = $this->carga + $novaCarga;
+  // }
 
-  public function removerCarga(float $novaCarga)
-  {
-    // verificar se nao e negativo  
-    $this->carga = $this->carga - $novaCarga;
-  }
+  // public function removerCarga(float $novaCarga)
+  // {
+  //   // verificar se nao e negativo  
+  //   $this->carga = $this->carga - $novaCarga;
+  // }
 
   static public function getFilename()
   {

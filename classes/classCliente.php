@@ -11,7 +11,7 @@ class Cliente extends persist
   private string $sobrenome;
   private string $rg = '';
   private string $passaporte = '';
-  // private string $documentoIdentifi;
+  private string $documentoIdentifi;
 
   static $local_filename = "clientes.txt";
 
@@ -19,7 +19,6 @@ class Cliente extends persist
   {
     $this->setNome($nome);
     $this->setSobrenome($sobrenome);
-
     $this->setDocumentoIdentificacao($documentoIdentifi);
   }
 
@@ -88,3 +87,22 @@ class Cliente extends persist
     return get_called_class()::$local_filename;
   }
 }
+// public function validaDocumentoIdentificacao(){
+
+  
+// }
+
+public function alteracaoPassagem(Passagem $novaPassagem){
+    $this->setSiglaAeroportoOrigem($novaPassagem->getSiglaAeroportoOrigem());
+    $this->setSiglaAeroportoDestino($novaPassagem);
+    $this->setAssento($novaPassagem);
+    $this->setFranquiasBagagem($novaPassagem);
+    $this->setPassageiro($novaPassagem);
+    $this->setStatus($novaPassagem);
+    $this->setlistaViagensEConexoes($novaPassagem);
+}
+public function cancelamentoDePassagem(Passagem $passagem){
+  setStatus("Passagem cancelada");
+}
+// public function compraDeFranquia(Passagem $passagem){
+// }

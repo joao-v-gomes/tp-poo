@@ -9,7 +9,7 @@ class Aeroporto extends persist
 
   private $listaVoos = array();
   private $listaCompanhiasAereas = array();
-  private $listaAeroportos = array();
+  //private $listaAeroportos = array();
 
   static $local_filename = "aeroportos.txt";
 
