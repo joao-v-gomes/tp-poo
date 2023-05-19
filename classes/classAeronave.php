@@ -54,6 +54,18 @@ class Aeronave extends persist
 		}
 	}
 
+	public function alteraAeronave(Aeronave $novaAeronave)
+	{
+		$this->setFabricante($novaAeronave->getFabricante());
+		$this->setModelo($novaAeronave->getModelo());
+		$this->setCapacidadePassageiros($novaAeronave->getCapacidadePassageiros());
+		$this->setCapacidadeCargaKg($novaAeronave->getCapacidadeCarga());
+		$this->setDisponibilidadeAeronave($novaAeronave->getDisponibilidadeAeronave());
+		$this->setCompAereaPertencente($novaAeronave->getCompAereaPertencente());
+
+		// $this->save();
+	}
+
 	public function getFabricante()
 	{
 		return $this->fabricante;

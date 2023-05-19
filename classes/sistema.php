@@ -990,11 +990,34 @@ function sis_editarAeronave()
     $capacidadeCarga = (float)readline("Digite a capacidade de carga da aeronave: ");
     $registro = (string)readline("Digite o registro da aeronave: ");
 
-    $aeronave->setFabricante($fabricante);
-    $aeronave->setModelo($modelo);
-    $aeronave->setCapacidadePassageiros($capacidadePassageiros);
-    $aeronave->setCapacidadeCargaKg($capacidadeCarga);
-    $aeronave->setRegistro($registro);
+    $companhiasAereas = CompanhiaAerea::getRecords();
+
+    mostraCompanhiasAereas($companhiasAereas);
+
+    $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea a qual pertence essa aeronave: ");
+
+    $companhiaAerea = $companhiasAereas[$indexCompanhiaAerea - 1];
+
+    // print_r("Companhia Aerea selecionada: " . $companhiaAerea);
+
+    $siglaCompAereaSelecionada = $companhiaAerea->getSigla();
+
+    // $aeronave->setFabricante($fabricante);
+    // $aeronave->setModelo($modelo);
+    // $aeronave->setCapacidadePassageiros($capacidadePassageiros);
+    // $aeronave->setCapacidadeCargaKg($capacidadeCarga);
+    // $aeronave->setRegistro($registro);
+
+    $aeronaveNova = Aeronave::criarAeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $siglaCompAereaSelecionada);
+
+    // print_r("Aeronave velha: ");
+    // print_r($aeronave);
+
+    $aeronave->alteraAeronave($aeronaveNova);
+
+
+    // print_r("Aeronave nova: ");
+    // print_r($aeronave);
 
     $aeronave->save();
 
