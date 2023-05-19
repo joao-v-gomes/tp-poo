@@ -117,17 +117,76 @@ function sis_verAeronavesDaCompanhiaAerea()
 
     $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea: ");
 
-    // $companhiaAerea = $companhiasAereas[$indexCompanhiaAerea - 1];
-
-    // print_r("Companhia Aerea selecionada: " . $companhiaAerea);
-
-    // $siglaCompAereaSelecionada = $companhiaAerea->getSigla();
-
-    // print_r("Sigla da Companhia Aerea selecionada: " . $siglaCompAereaSelecionada . "\r\n");
-
     $aeronaves = Aeronave::getRecordsByField('compAereaPertencente', $indexCompanhiaAerea);
 
+    if (count($aeronaves) == 0) {
+        print_r("Nao ha aeronaves nessa companhia aerea!\r\n");
+        return;
+    }
+
     mostraAeronaves($aeronaves);
+
+    print_r("\n\n");
+}
+
+function sis_conectarVeiculoEmCompanhiaAerea()
+{
+    $veiculos = Veiculo::getRecordsByField('compAereaPertencente', SEM_COMPANHIA_AEREA);
+
+    // print_r("Aeronaves sem companhia aerea:\r\n");
+    // print_r($aeronaves);
+
+    if (count($veiculos) == 0) {
+        print_r("Nao ha veiculos sem companhia aerea!\r\n");
+        return;
+    }
+
+    mostraVeiculos($veiculos);
+
+    $indexVeiculo = (int)readline("Digite o index do veiculos: ");
+
+    $companhiasAereas = CompanhiaAerea::getRecords();
+
+    if (count($companhiasAereas) == 0) {
+        print_r("Nao ha companhias aereas cadastradas!\r\n");
+        return;
+    }
+
+    mostraCompanhiasAereas($companhiasAereas);
+
+    $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea: ");
+
+    foreach ($veiculos as $veiculo) {
+        if ($veiculo->getIndex() == $indexVeiculo) {
+            $veiculo->setCompAereaPertencente($indexCompanhiaAerea);
+
+            $veiculo->save();
+
+            break;
+        }
+    }
+
+    print_r("Veiculo conectado com sucesso!\r\n");
+
+    print_r("\n\n");
+}
+
+function sis_verVeiculosDaCompanhiaAerea()
+{
+    $companhiasAereas = CompanhiaAerea::getRecords();
+
+    mostraCompanhiasAereas($companhiasAereas);
+
+    $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea: ");
+
+    $veiculos = Veiculo::getRecordsByField('compAereaPertencente', $indexCompanhiaAerea);
+
+    if (count($veiculos) == 0) {
+        print_r("Nao ha veiculos nessa companhia aerea!\r\n");
+        return;
+    }
+
+    mostraVeiculos($veiculos);
 
     print_r("\n\n");
 }

@@ -10,7 +10,8 @@ class Veiculo extends persist
     private array $rota;
     private DateTime $tempoPercurso;
     private DateTime $horarioEmbarquePrevisto;
-    private int $CompAereaPertencente;
+
+    protected int $compAereaPertencente; // protected para acessar na busca pelo index
 
     static $local_filename = "veiculos.txt";
 
@@ -20,8 +21,21 @@ class Veiculo extends persist
         $this->setCodigo($codigo);
         $this->setPlaca($placa);
         $this->setQtdeAssentos($qtdeAssentos);
-        // $this->setHorarioEmbarquePrevisto($horarioEmbarquePrevisto);
-        // $this->setCompAereaPertencente($CompAereaPertencente);
+
+        $dataInit = DateTime::createFromFormat('d/m/Y H:i', '01/01/1970 00:00');
+
+        $this->setHorarioEmbarquePrevisto($dataInit);
+
+        $this->setCompAereaPertencente(SEM_COMPANHIA_AEREA);
+    }
+
+    public function alteraVeiculo(Veiculo $novoVeiculo)
+    {
+        $this->setCodigo($novoVeiculo->getCodigo());
+        $this->setPlaca($novoVeiculo->getPlaca());
+        $this->setQtdeAssentos($novoVeiculo->getQtdeAssentos());
+        $this->setHorarioEmbarquePrevisto($novoVeiculo->getHorarioEmbarquePrevisto());
+        $this->setCompAereaPertencente($novoVeiculo->getCompAereaPertencente());
     }
 
     public function getCodigo()
@@ -29,7 +43,7 @@ class Veiculo extends persist
         return $this->codigo;
     }
 
-    public function setCodigo($codigo): void
+    public function setCodigo(string $codigo): void
     {
         $this->codigo = $codigo;
     }
@@ -39,7 +53,7 @@ class Veiculo extends persist
         return $this->placa;
     }
 
-    public function setPlaca($placa): void
+    public function setPlaca(string $placa): void
     {
         $this->placa = $placa;
     }
@@ -49,7 +63,7 @@ class Veiculo extends persist
         return $this->qtdeAssentos;
     }
 
-    public function setQtdeAssentos($qtdeAssentos): void
+    public function setQtdeAssentos(int $qtdeAssentos): void
     {
         $this->qtdeAssentos = $qtdeAssentos;
     }
@@ -59,12 +73,12 @@ class Veiculo extends persist
         return $this->rota;
     }
 
-    public function setRota($rota): void
+    public function setRota(array $rota): void
     {
         $this->rota = $rota;
     }
 
-    public function addRota($endereco): void
+    public function addRota(Endereco $endereco): void
     {
         array_push($this->rota, $endereco);
     }
@@ -74,7 +88,7 @@ class Veiculo extends persist
         return $this->tempoPercurso;
     }
 
-    public function setTempoPercurso($tempoPercurso): void
+    public function setTempoPercurso(Dateinterval $tempoPercurso): void
     {
         $this->tempoPercurso = $tempoPercurso;
     }
@@ -84,19 +98,19 @@ class Veiculo extends persist
         return $this->horarioEmbarquePrevisto;
     }
 
-    public function setHorarioEmbarquePrevisto($horarioEmbarquePrevisto): void
+    public function setHorarioEmbarquePrevisto(Datetime $horarioEmbarquePrevisto): void
     {
         $this->horarioEmbarquePrevisto = $horarioEmbarquePrevisto;
     }
 
     public function getCompAereaPertencente()
     {
-        return $this->CompAereaPertencente;
+        return $this->compAereaPertencente;
     }
 
-    public function setCompAereaPertencente($CompAereaPertencente): void
+    public function setCompAereaPertencente(int $compAereaPertencente): void
     {
-        $this->CompAereaPertencente = $CompAereaPertencente;
+        $this->compAereaPertencente = $compAereaPertencente;
     }
 
     static public function getFilename()

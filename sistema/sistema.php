@@ -4,6 +4,7 @@ include_once("../libs/global.php");
 include_once("files/sistemaAeroporto.php");
 include_once("files/sistemaCompAerea.php");
 include_once("files/sistemaAeronave.php");
+include_once("files/sistemaVeiculo.php");
 include_once("files/sistemaTripulante.php");
 
 define("PILOTO", 1);
@@ -33,6 +34,8 @@ while ($sair == 0) {
     print_r(++$opcMenu . " - Editar Companhia Aerea\r\n");
     print_r(++$opcMenu . " - Adicionar uma Aeronave a uma Companhia Aerea\r\n");
     print_r(++$opcMenu . " - Ver Aeronaves da Comp Aerea\r\n");
+    print_r(++$opcMenu . " - Adicionar um Veiculo a uma Companhia Aerea\r\n");
+    print_r(++$opcMenu . " - Ver Veiculos da Comp Aerea\r\n");
 
     print_r("\n--- TRIPULANTES ---\r\n");
     print_r(++$opcMenu . " - Cadastrar Piloto\r\n");
@@ -46,6 +49,11 @@ while ($sair == 0) {
     print_r(++$opcMenu . " - Cadastrar Aeronave\r\n");
     print_r(++$opcMenu . " - Ver Aeronaves\r\n");
     print_r(++$opcMenu . " - Editar Aeronave\r\n");
+
+    print_r("\n--- VEICULOS ---\r\n");
+    print_r(++$opcMenu . " - Cadastrar Veiculo\r\n");
+    print_r(++$opcMenu . " - Ver Veiculos\r\n");
+    print_r(++$opcMenu . " - Editar Veiculo\r\n");
 
     print_r("\r\n-1 para sair do sistema\r\n");
 
@@ -134,6 +142,18 @@ while ($sair == 0) {
             break;
 
         case ++$opcMenu:
+            print_r("Conexao Veiculo em Companhia Aerea\r\n");
+            print_r("\n\n");
+            sis_conectarVeiculoEmCompanhiaAerea();
+            break;
+
+        case ++$opcMenu:
+            print_r("Ver Veiculos da Comp Aerea\r\n");
+            print_r("\n\n");
+            sis_verVeiculosDaCompanhiaAerea();
+            break;
+
+        case ++$opcMenu:
             print_r("Cadastramento de Piloto\r\n");
             print_r("\n\n");
             sis_CadastrarPiloto();
@@ -185,6 +205,24 @@ while ($sair == 0) {
             print_r("Editar Aeronave\r\n");
             print_r("\n\n");
             sis_editarAeronave();
+            break;
+
+        case ++$opcMenu:
+            print_r("Cadastramento de Veiculo\r\n");
+            print_r("\n\n");
+            sis_CadastrarVeiculo();
+            break;
+
+        case ++$opcMenu:
+            print_r("Ver Veiculos\r\n");
+            print_r("\n\n");
+            sis_verVeiculos();
+            break;
+
+        case ++$opcMenu:
+            print_r("Editar Veiculo\r\n");
+            print_r("\n\n");
+            sis_editarVeiculo();
             break;
 
         case -1:
