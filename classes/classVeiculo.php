@@ -26,7 +26,7 @@ class Veiculo extends persist
 
         $this->setHorarioEmbarquePrevisto($dataInit);
 
-        $this->setCompAereaPertencente(SEM_COMPANHIA_AEREA);
+        $this->setCompAereaPertencente(SEM_COMPANHIA_AEREA_DEFINIDA);
     }
 
     public function alteraVeiculo(Veiculo $novoVeiculo)

@@ -36,15 +36,18 @@ class Aeronave extends persist
 
 		// sempre cadastramos uma nova Aeronave com -1, pois ela não pertence a nenhuma companhia aérea ainda
 		// quando definimos a companhia aérea, alteramos esse valor
-		$this->setCompAereaPertencente(SEM_COMPANHIA_AEREA);
+		$this->setCompAereaPertencente(SEM_COMPANHIA_AEREA_DEFINIDA);
 	}
 
-	static public function criarAeronave(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro)
+	static public function criarAeronave(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, int $indexCompAerea)
 	{
 		$validaRegistro = self::validaRegistro($registro);
 
 		if ($validaRegistro == 1) {
 			$aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro);
+
+			$aeronave->setCompAereaPertencente($indexCompAerea);
+
 			return $aeronave;
 		} else {
 			print_r("Erro ao criar aeronave: " . $validaRegistro . "\n");
@@ -59,6 +62,7 @@ class Aeronave extends persist
 		$this->setCapacidadePassageiros($novaAeronave->getCapacidadePassageiros());
 		$this->setCapacidadeCargaKg($novaAeronave->getCapacidadeCarga());
 		$this->setCompAereaPertencente($novaAeronave->getCompAereaPertencente());
+		$this->setRegistro($novaAeronave->getRegistro());
 
 		// nao precisamos alterar a disponibilidade da aeronave desse jeito
 		// $this->setDisponibilidadeAeronave($novaAeronave->getDisponibilidadeAeronave());

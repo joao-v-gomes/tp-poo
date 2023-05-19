@@ -6,7 +6,9 @@ class Voo extends persist
   private array $frequencia;
   private int $aeroportoOrigem;
   private int $aeroportoDestino;
-  private Aeronave $aeronave;
+  // private Aeronave $aeronave;
+  private int $companhiaAerea;
+  private $aeronave;
   private int $piloto;
   private int $copiloto;
   private array $listaComissarios;
@@ -14,32 +16,74 @@ class Voo extends persist
   private DateTime $previsaoChegada;
   private DateInterval $previsaoDuracao;
   private string $codigoVoo;
-  // private Viagem $viagem;
-
-  // private array $listaViagens;
 
   static $local_filename = "voos.txt";
 
 
-  // public function __construct(array $frequencia, string $aeroportoOrigem, string $aeroportoDestino, Aeronave $aeronave, int $piloto, int $copiloto, array $listaComissarios,  DateTime $previsaoPartida, DateTime $previsaoChegada, string $codigoVoo)
+  static function criarVooCompleto(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida, DateTime $previsaoChegada, int $companhiaAerea,  Aeronave $aeronave, int $piloto, int $copiloto, array $comissarios, string $codigoVoo)
+  {
+    $validaCodigoVoo = self::validaCodigoVoo($codigoVoo);
+
+    if ($validaCodigoVoo == 1) {
+      $voo = new Voo($frequencia, $aeroportoOrigem, $aeroportoDestino, $previsaoPartida, $previsaoChegada);
+
+      $voo->setCompanhiaAerea($companhiaAerea);
+      $voo->setAeronave($aeronave);
+      $voo->setPiloto($piloto);
+      $voo->setCopiloto($copiloto);
+      $voo->setListaComissarios($comissarios);
+      $voo->setCodigoVoo($codigoVoo);
+
+      return $voo;
+    } else {
+      print_r("Erro ao criar voo: " . $validaCodigoVoo . "\n");
+      return NULL;
+    }
+  }
+
   public function __construct(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida, DateTime $previsaoChegada)
   {
     $this->setFrequencia($frequencia);
     $this->setAeroportoOrigem($aeroportoOrigem);
     $this->setAeroportoDestino($aeroportoDestino);
+    $this->setPrevisaoPartida($previsaoPartida);
+    $this->setPrevisaoChegada($previsaoChegada);
+
+    $this->setPrevisaoDuracao($previsaoChegada, $previsaoPartida);
+
     // $this->setAeronave($aeronave);
     // $this->setPiloto($piloto);
     // $this->setCopiloto($copiloto);
     // $this->setListaComissarios($listaComissarios);
-    $this->setPrevisaoPartida($previsaoPartida);
-    $this->setPrevisaoChegada($previsaoChegada);
-    $this->setPrevisaoDuracao($previsaoChegada, $previsaoPartida);
     // $this->setCodigoVoo($codigoVoo);
 
-    // $this->listaViagens = $listaViagens;
+    // Para resolver o problema de setAeronave receber uma Aeronave, removi a tipagem.
+    // Agora, ela recebe um -1, quando é criada, e só é alterada quando o voo é realmente atribuido a uma aeronave.
+    $this->setAeronave(SEM_AERONAVE_DEFINIDA);
+    $this->setCompanhiaAerea(SEM_COMPANHIA_AEREA_DEFINIDA);
+    $this->setPiloto(SEM_PILOTO_DEFINIDO);
+    $this->setCopiloto(SEM_PILOTO_DEFINIDO);
+    $this->setListaComissarios([]);
+    $this->setCodigoVoo(SEM_CODIGO_VOO_DEFINIDO);
   }
 
-  public function getFrequencia()
+  public function alterarVoo(Voo $novoVoo)
+  {
+    $this->setFrequencia($novoVoo->getFrequenciaArray());
+    $this->setAeroportoOrigem($novoVoo->getAeroportoOrigem());
+    $this->setAeroportoDestino($novoVoo->getAeroportoDestino());
+    $this->setPrevisaoPartida($novoVoo->getPrevisaoPartida());
+    $this->setPrevisaoChegada($novoVoo->getPrevisaoChegada());
+    $this->setPrevisaoDuracao($novoVoo->getPrevisaoChegada(), $novoVoo->getPrevisaoPartida());
+    $this->setCompanhiaAerea($novoVoo->getCompanhiaAerea());
+    $this->setAeronave($novoVoo->getAeronave());
+    $this->setPiloto($novoVoo->getPiloto());
+    $this->setCopiloto($novoVoo->getCopiloto());
+    $this->setListaComissarios($novoVoo->getListaComissariosArray());
+    $this->setCodigoVoo($novoVoo->getCodigoVoo());
+  }
+
+  public function getFrequenciaString()
   {
     // return $this->frequencia;
     $freqString = "";
@@ -63,6 +107,11 @@ class Voo extends persist
     return $freqString;
   }
 
+  public function getFrequenciaArray()
+  {
+    return $this->frequencia;
+  }
+
   public function getAeroportoOrigem()
   {
     return $this->aeroportoOrigem;
@@ -71,6 +120,11 @@ class Voo extends persist
   public function getAeroportoDestino()
   {
     return $this->aeroportoDestino;
+  }
+
+  public function getCompanhiaAerea()
+  {
+    return $this->companhiaAerea;
   }
 
   public function getAeronave()
@@ -88,10 +142,43 @@ class Voo extends persist
     return $this->copiloto;
   }
 
-  public function getListaComissarios()
+  public function getListaComissariosString()
+  {
+    // return $this->frequencia;
+    $comissariosString = "";
+
+    // print_r("Count: " . count($this->frequencia) . "\n");
+
+    $tamanhoArrayFreq = count($this->listaComissarios);
+
+    if ($tamanhoArrayFreq == 0) {
+
+      $comissariosString = SEM_COMISSARIO_DEFINIDO;
+
+      return $comissariosString;
+    } else {
+
+      $i = 0;
+
+      foreach ($this->listaComissarios as $dia) {
+        $i++;
+
+        $comissariosString .= $dia;
+
+        if ($i < $tamanhoArrayFreq) {
+          $comissariosString .= ",";
+        }
+      }
+
+      return $comissariosString;
+    }
+  }
+
+  public function getListaComissariosArray()
   {
     return $this->listaComissarios;
   }
+
 
   public function getPrevisaoPartida()
   {
@@ -134,7 +221,12 @@ class Voo extends persist
     $this->aeroportoDestino = $aeroportoDestino;
   }
 
-  public function setAeronave(Aeronave $aeronave)
+  public function setCompanhiaAerea(int $companhiaAerea)
+  {
+    $this->companhiaAerea = $companhiaAerea;
+  }
+
+  public function setAeronave($aeronave)
   {
     $this->aeronave = $aeronave;
   }
@@ -191,8 +283,9 @@ class Voo extends persist
   //   $this->viagem = $novaViagem;
   // }
 
-  public function validaCodigoVoo()
+  static public function validaCodigoVoo()
   {
+    return 1;
   }
 
   static public function getFilename()
