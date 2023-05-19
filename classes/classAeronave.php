@@ -20,22 +20,50 @@ class Aeronave extends persist
 	static $local_filename = "aeronaves.txt";
 
 
-	// public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, bool $disponivel)
 	public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, string $compAereaPertencente)
 	{
 
-		try {
-			$this->setRegistro($registro);
-			$this->setFabricante($fabricante);
-			$this->setModelo($modelo);
-			$this->setCapacidadePassageiros($capacidadePassageiros);
-			$this->setCapacidadeCargaKg($capacidadeCarga);
-			$this->setDisponibilidadeAeronave(true);
-			$this->setCompAereaPertencente($compAereaPertencente);
-			$this->preecheListaAssentos();
-		} catch (Exception $e) {
-			echo 'Exceção capturada: ',  $e->getMessage(), "\n";
+		// try {
+		$this->setRegistro($registro);
+		$this->setFabricante($fabricante);
+		$this->setModelo($modelo);
+		$this->setCapacidadePassageiros($capacidadePassageiros);
+		$this->setCapacidadeCargaKg($capacidadeCarga);
+		$this->setDisponibilidadeAeronave(true);
+		$this->setCompAereaPertencente($compAereaPertencente);
+		$this->preecheListaAssentos();
+		// } catch (Exception $e) {
+		// print_r("Index: " . $this->getIndex());
+		// echo 'Exceção capturada: ',  $e->getMessage(), "\n";
+		// unset($this->index);
+		// $this->__destruct();
+		// }
+	}
+
+	static public function criarAeronave(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, string $compAereaPertencente)
+	{
+		$validaRegistro = self::validaRegistro($registro);
+
+		if ($validaRegistro == 1) {
+			$aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $compAereaPertencente);
+			// $aeronave->save();
+			return $aeronave;
+		} else {
+			print_r("Erro ao criar aeronave: " . $validaRegistro . "\n");
+			return NULL;
 		}
+	}
+
+	public function alteraAeronave(Aeronave $novaAeronave)
+	{
+		$this->setFabricante($novaAeronave->getFabricante());
+		$this->setModelo($novaAeronave->getModelo());
+		$this->setCapacidadePassageiros($novaAeronave->getCapacidadePassageiros());
+		$this->setCapacidadeCargaKg($novaAeronave->getCapacidadeCarga());
+		$this->setDisponibilidadeAeronave($novaAeronave->getDisponibilidadeAeronave());
+		$this->setCompAereaPertencente($novaAeronave->getCompAereaPertencente());
+
+		// $this->save();
 	}
 
 	public function getFabricante()
@@ -86,18 +114,20 @@ class Aeronave extends persist
 	public function setRegistro(string $registro)
 	{
 
-		$retornoValidacao = $this->validaRegistro($registro);
+		// $retornoValidacao = $this->validaRegistro($registro);
 
-		if ($retornoValidacao != true) {
-			throw new Exception($retornoValidacao);
-		} else {
-			$registro = strtoupper($registro);
-			$this->registro = $registro;
-			return true;
-		}
+		// print_r("Retorno valida: " . $retornoValidacao);
+
+		// if ($retornoValidacao != 1) {
+		// 	throw new Exception($retornoValidacao);
+		// } else {
+		$registro = strtoupper($registro);
+		$this->registro = $registro;
+		// return true;
+		// }
 	}
 
-	public function validaRegistro(string $registro)
+	static public function validaRegistro(string $registro)
 	{
 
 		// Coloca tudo maiusculo
@@ -134,7 +164,7 @@ class Aeronave extends persist
 		}
 
 		// Retorna true se der tudo certo
-		return true;
+		return 1;
 	}
 
 	public function setDisponibilidadeAeronave(bool $disponibilidade)

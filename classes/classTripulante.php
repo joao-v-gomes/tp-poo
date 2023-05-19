@@ -1,9 +1,11 @@
 <?php
 include_once("../libs/global.php");
 
-class Tripulantes extends persist
+define('VAZIO', '');
+
+class Tripulante extends persist
 {
-    private string $tipoTripulante; //precisa disso, João?
+    private string $tipoTripulante; // Piloto - 1, Comissario - 2
     private string $nome;
     private string $sobrenome;
     private string $rg;
@@ -14,19 +16,19 @@ class Tripulantes extends persist
     private string $dataNascimento;
     private string $email;
     private string $cht;
-    private string $endRua;
-    private string $endNumero;
-    private string $endComplemento;
-    private string $endCep;
-    private string $endCidade;
-    private string $endEstado;
+    private Endereco $endereco;
+    // private string $endRua;
+    // private string $endNumero;
+    // private string $endComplemento;
+    // private string $endCep;
+    // private string $endCidade;
+    // private string $endEstado;
     private int $companhiaAerea;
     private int $aeroportoBase;
 
-    static $local_filename = "tripulantes.txt";
+    static $local_filename = "tripulantes.txt"; // nao usamos esse arquivo, criamos um txt para cada filho de Tripulantes
 
-
-    public function __construct(string $tipoTripulante, string $nome, string $sobrenome, string $documentoIdentificacao, string $cpf, string $nacionalidade, string $dataNascimento, string $email, string $cht, string $endRua, string $endNumero, string $endComplemento, string $endCep, string $endCidade, string $endEstado, int $companhiaAerea, int $aeroportoBase)
+    public function __construct(string $tipoTripulante, string $nome, string $sobrenome, string $documentoIdentificacao, string $cpf, string $nacionalidade, string $dataNascimento, string $email, string $cht, Endereco $endereco, int $companhiaAerea, int $aeroportoBase)
     {
         $this->setTipoTripulante($tipoTripulante);
         $this->setNome($nome);
@@ -37,12 +39,13 @@ class Tripulantes extends persist
         $this->setDataNascimento($dataNascimento);
         $this->setEmail($email);
         $this->setCht($cht);
-        $this->setEndRua($endRua);
-        $this->setEndNumero($endNumero);
-        $this->setEndComplemento($endComplemento);
-        $this->setEndCep($endCep);
-        $this->setEndCidade($endCidade);
-        $this->setEndEstado($endEstado);
+        $this->setEndereco($endereco);
+        // $this->setEndRua($endRua);
+        // $this->setEndNumero($endNumero);
+        // $this->setEndComplemento($endComplemento);
+        // $this->setEndCep($endCep);
+        // $this->setEndCidade($endCidade);
+        // $this->setEndEstado($endEstado);
         $this->setCompanhiaAerea($companhiaAerea);
         $this->setAeroportoBase($aeroportoBase);
     }
@@ -106,35 +109,40 @@ class Tripulantes extends persist
         return $this->cht;
     }
 
-    public function getEndRua(): string
+    public function getEndereco()
     {
-        return $this->endRua;
+        return $this->endereco;
     }
 
-    public function getEndNumero(): string
-    {
-        return $this->endNumero;
-    }
+    // public function getEndRua(): string
+    // {
+    //     return $this->endRua;
+    // }
 
-    public function getEndComplemento(): string
-    {
-        return $this->endComplemento;
-    }
+    // public function getEndNumero(): string
+    // {
+    //     return $this->endNumero;
+    // }
 
-    public function getEndCep(): string
-    {
-        return $this->endCep;
-    }
+    // public function getEndComplemento(): string
+    // {
+    //     return $this->endComplemento;
+    // }
 
-    public function getEndCidade(): string
-    {
-        return $this->endCidade;
-    }
+    // public function getEndCep(): string
+    // {
+    //     return $this->endCep;
+    // }
 
-    public function getEndEstado(): string
-    {
-        return $this->endEstado;
-    }
+    // public function getEndCidade(): string
+    // {
+    //     return $this->endCidade;
+    // }
+
+    // public function getEndEstado(): string
+    // {
+    //     return $this->endEstado;
+    // }
 
     public function getCompanhiaAerea(): int
     {
@@ -207,35 +215,40 @@ class Tripulantes extends persist
         $this->cht = $cht;
     }
 
-    public function setEndRua(string $endRua)
+    public function setEndereco(Endereco $endereco)
     {
-        $this->endRua = $endRua;
+        $this->endereco = $endereco;
     }
 
-    public function setEndNumero(string $endNumero)
-    {
-        $this->endNumero = $endNumero;
-    }
+    // public function setEndRua(string $endRua)
+    // {
+    //     $this->endRua = $endRua;
+    // }
 
-    public function setEndComplemento(string $endComplemento)
-    {
-        $this->endComplemento = $endComplemento;
-    }
+    // public function setEndNumero(string $endNumero)
+    // {
+    //     $this->endNumero = $endNumero;
+    // }
 
-    public function setEndCep(string $endCep)
-    {
-        $this->endCep = $endCep;
-    }
+    // public function setEndComplemento(string $endComplemento)
+    // {
+    //     $this->endComplemento = $endComplemento;
+    // }
 
-    public function setEndCidade(string $endCidade)
-    {
-        $this->endCidade = $endCidade;
-    }
+    // public function setEndCep(string $endCep)
+    // {
+    //     $this->endCep = $endCep;
+    // }
 
-    public function setEndEstado(string $endEstado)
-    {
-        $this->endEstado = $endEstado;
-    }
+    // public function setEndCidade(string $endCidade)
+    // {
+    //     $this->endCidade = $endCidade;
+    // }
+
+    // public function setEndEstado(string $endEstado)
+    // {
+    //     $this->endEstado = $endEstado;
+    // }
 
     public function setCompanhiaAerea(int $companhiaAerea)
     {

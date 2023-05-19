@@ -7,9 +7,13 @@ class Aeroporto extends persist
   private string $cidade;
   private string $estado;
 
-  private $listaVoos = array();
-  private $listaCompanhiasAereas = array();
-  //private $listaAeroportos = array();
+  // private $listaVoos = array();
+  // private $listaCompanhiasAereas = array();
+  // private $listaAeroportos = array();
+
+  private array $listaVoos;
+  private array $listaCompanhiasAereas;
+  // private array $listaAeroportos;
 
   static $local_filename = "aeroportos.txt";
 
@@ -62,6 +66,7 @@ class Aeroporto extends persist
     $this->estado = $estado;
   }
 
+  // não usamos essa funcao devido ao persist
   public function cadastraNovoVoo(Voo $novoVoo)
   {
     array_push($this->listaVoos, $novoVoo);
@@ -77,17 +82,17 @@ class Aeroporto extends persist
     return $this->listaCompanhiasAereas;
   }
 
-  public function cadastraNovoAeroporto(Aeroporto $novoAeroporto)
-  {
-    array_push($this->listaAeroportos, $novoAeroporto);
-  }
+  // public function cadastraNovoAeroporto(Aeroporto $novoAeroporto)
+  // {
+  //   array_push($this->listaAeroportos, $novoAeroporto);
+  // }
 
-  public function getTodosOsAeroportos()
-  {
-    $listaAeroportos = Aeroporto::getRecords();
+  // public function getTodosOsAeroportos()
+  // {
+  //   $listaAeroportos = Aeroporto::getRecords();
 
-    return $listaAeroportos;
-  }
+  //   return $listaAeroportos;
+  // }
 
   static public function getFilename()
   {
