@@ -46,24 +46,18 @@ function cadastrarTripulante($tipoTripulante)
 
     $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea a qual pertence esse " . $tripulanteTexto . ": ");
 
-    // $companhiaAerea = $companhiasAereas[$indexCompanhiaAerea - 1];
-
-    // print_r("Companhia Aerea selecionada: " . $companhiaAerea);
-
     $aeroportos = Aeroporto::getRecords();
 
     mostraAeroportos($aeroportos);
 
     $indexAeroporto = (int)readline("Digite o index do aeroporto a qual pertence esse " . $tripulanteTexto . ": ");
 
-    // $aeroporto = $aeroportos[$indexAeroporto - 1];
-
-    // print_r("Aeroporto selecionado: " . $aeroporto);
-
     if ($tipoTripulante == PILOTO) {
-        $tripulante = new Piloto($tipoTripulante, $nome, $sobrenome, $documentoIdentificacao, $cpf, $nacionalidade, $dataNascimento, $email, $cht, $endereco, $indexCompanhiaAerea, $indexAeroporto);
+        $tripulante = new Piloto($nome, $sobrenome, $documentoIdentificacao, $cpf, $nacionalidade, $dataNascimento, $email, $cht, $endereco, $indexCompanhiaAerea, $indexAeroporto);
+        $tripulante->setTipoTripulante(PILOTO);
     } else if ($tipoTripulante == COMISSARIO) {
-        $tripulante = new Comissario($tipoTripulante, $nome, $sobrenome, $documentoIdentificacao, $cpf, $nacionalidade, $dataNascimento, $email, $cht, $endereco, $indexCompanhiaAerea, $indexAeroporto);
+        $tripulante = new Comissario($nome, $sobrenome, $documentoIdentificacao, $cpf, $nacionalidade, $dataNascimento, $email, $cht, $endereco, $indexCompanhiaAerea, $indexAeroporto);
+        $tripulante->setTipoTripulante(COMISSARIO);
     } else {
         print_r("Tipo de tripulante invalido!\r\n");
         $tripulante = null;
@@ -124,69 +118,14 @@ function sis_editarPiloto()
 
     $piloto = $pilotos[$indexPiloto - 1];
 
-    // print_r("Piloto selecionado: " . $piloto);
+    $novoPiloto = cadastrarTripulante(PILOTO);
 
-    $nome = (string)readline("Digite o nome do piloto: ");
-
-    $sobrenome = (string)readline("Digite o sobrenome do piloto: ");
-
-    $documentoIdentificacao = (string)readline("Digite o documento de identificacao do piloto: ");
-
-    $cpf = (string)readline("Digite o CPF do piloto: ");
-
-    $nacionalidade = (string)readline("Digite a nacionalidade do piloto: ");
-
-    $dataNascimento = (string)readline("Digite a data de nascimento do piloto: ");
-
-    $email = (string)readline("Digite o email do piloto: ");
-
-    $cht = (string)readline("Digite o CHT do piloto: ");
-
-    $endRua = (string)readline("Digite a rua do endereco do piloto: ");
-
-    $endNumero = (string)readline("Digite o numero do endereco do piloto: ");
-
-    $endComplemento = (string)readline("Digite o complemento do endereco do piloto: ");
-
-    $endCep = (string)readline("Digite o CEP do endereco do piloto: ");
-
-    $endCidade = (string)readline("Digite a cidade do endereco do piloto: ");
-
-    $endEstado = (string)readline("Digite o estado do endereco do piloto: ");
-
-    $endereco = new Endereco($endRua, $endNumero, $endComplemento, $endCep, $endCidade, $endEstado);
-
-    $companhiasAereas = CompanhiaAerea::getRecords();
-
-    mostraCompanhiasAereas($companhiasAereas);
-
-    $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea a qual pertence esse piloto: ");
-
-    // $companhiaAerea = $companhiasAereas[$indexCompanhiaAerea - 1];
-
-    // print_r("Companhia Aerea selecionada: " . $companhiaAerea);
-
-    $aeroportos = Aeroporto::getRecords();
-
-    mostraAeroportos($aeroportos);
-
-    $indexAeroporto = (int)readline("Digite o index do aeroporto a qual pertence esse piloto: ");
-
-    // $aeroporto = $aeroportos[$indexAeroporto - 1];
-
-    // print_r("Aeroporto selecionado: " . $aeroporto);
-
-    $piloto->setNome($nome);
-    $piloto->setSobrenome($sobrenome);
-    $piloto->setDocumentoIdentificacao($documentoIdentificacao);
-    $piloto->setCpf($cpf);
-    $piloto->setNacionalidade($nacionalidade);
-    $piloto->setDataNascimento($dataNascimento);
-    $piloto->setEmail($email);
-    $piloto->setCht($cht);
-    $piloto->setEndereco($endereco);
-    $piloto->setCompanhiaAerea($indexCompanhiaAerea);
-    $piloto->setAeroportoBase($indexAeroporto);
+    if ($novoPiloto == null) {
+        print_r("Piloto nao editado!\r\n");
+        return;
+    } else {
+        $piloto->alterarTripulante($novoPiloto);
+    }
 
     $piloto->save();
 
@@ -240,69 +179,14 @@ function sis_editarComissario()
 
     $comissario = $comissarios[$indexComissario - 1];
 
-    // print_r("Piloto selecionado: " . $piloto);
+    $novoComissario = cadastrarTripulante(COMISSARIO);
 
-    $nome = (string)readline("Digite o nome do comissario: ");
-
-    $sobrenome = (string)readline("Digite o sobrenome do comissario: ");
-
-    $documentoIdentificacao = (string)readline("Digite o documento de identificacao do comissario: ");
-
-    $cpf = (string)readline("Digite o CPF do picomissarioloto: ");
-
-    $nacionalidade = (string)readline("Digite a nacionalidade do comissario: ");
-
-    $dataNascimento = (string)readline("Digite a data de nascimento do comissario: ");
-
-    $email = (string)readline("Digite o email do comissario: ");
-
-    $cht = (string)readline("Digite o CHT do comissario: ");
-
-    $endRua = (string)readline("Digite a rua do endereco do comissario: ");
-
-    $endNumero = (string)readline("Digite o numero do endereco do comissario: ");
-
-    $endComplemento = (string)readline("Digite o complemento do endereco do comissario: ");
-
-    $endCep = (string)readline("Digite o CEP do endereco do comissario: ");
-
-    $endCidade = (string)readline("Digite a cidade do endereco do comissario: ");
-
-    $endEstado = (string)readline("Digite o estado do endereco do comissario: ");
-
-    $endereco = new Endereco($endRua, $endNumero, $endComplemento, $endCep, $endCidade, $endEstado);
-
-    $companhiasAereas = CompanhiaAerea::getRecords();
-
-    mostraCompanhiasAereas($companhiasAereas);
-
-    $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea a qual pertence esse comissario: ");
-
-    // $companhiaAerea = $companhiasAereas[$indexCompanhiaAerea - 1];
-
-    // print_r("Companhia Aerea selecionada: " . $companhiaAerea);
-
-    $aeroportos = Aeroporto::getRecords();
-
-    mostraAeroportos($aeroportos);
-
-    $indexAeroporto = (int)readline("Digite o index do aeroporto a qual pertence esse comissario: ");
-
-    // $aeroporto = $aeroportos[$indexAeroporto - 1];
-
-    // print_r("Aeroporto selecionado: " . $aeroporto);
-
-    $comissario->setNome($nome);
-    $comissario->setSobrenome($sobrenome);
-    $comissario->setDocumentoIdentificacao($documentoIdentificacao);
-    $comissario->setCpf($cpf);
-    $comissario->setNacionalidade($nacionalidade);
-    $comissario->setDataNascimento($dataNascimento);
-    $comissario->setEmail($email);
-    $comissario->setCht($cht);
-    $comissario->setEndereco($endereco);
-    $comissario->setCompanhiaAerea($indexCompanhiaAerea);
-    $comissario->setAeroportoBase($indexAeroporto);
+    if ($novoComissario == null) {
+        print_r("Comissario nao editado!\r\n");
+        return;
+    } else {
+        $comissario->alterarTripulante($novoComissario);
+    }
 
     $comissario->save();
 
