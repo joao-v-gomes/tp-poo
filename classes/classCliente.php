@@ -1,8 +1,8 @@
 <?php
 include_once("../libs/global.php");
 
-// define("TAMANHO_RG", 8);
-define('VAZIO', '');
+// // define("TAMANHO_RG", 8);
+// define('VAZIO', '');
 
 class Cliente extends persist
 {

@@ -1,4 +1,7 @@
 <?php
+
+include_once("../classes/defines.php");
+
 function autoloader($pClassName)
 {
     echo __NAMESPACE__;

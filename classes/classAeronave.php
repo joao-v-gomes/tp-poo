@@ -1,8 +1,8 @@
 <?php
 include_once("../libs/global.php");
 
-define("TAMANHO_REGISTRO", 6);
-define("SEM_COMPANHIA_AEREA", -1);
+// define("TAMANHO_REGISTRO", 6);
+// define("SEM_COMPANHIA_AEREA", -1);
 
 class Aeronave extends persist
 {

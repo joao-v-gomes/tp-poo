@@ -1,7 +1,7 @@
 <?php
 include_once("../libs/global.php");
 
-define('VAZIO', '');
+// define('VAZIO', '');
 
 class Passageiro extends persist
 {

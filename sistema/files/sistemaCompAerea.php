@@ -54,11 +54,9 @@ function sis_editarCompanhiaAerea()
     $cnpj = (string)readline("Digite o CNPJ da companhia aerea: ");
     $sigla = (string)readline("Digite a sigla da companhia aerea: ");
 
-    $companhiaAerea->setNome($nome);
-    $companhiaAerea->setCodigo($codigo);
-    $companhiaAerea->setRazaoSocial($razaoSocial);
-    $companhiaAerea->setCnpj($cnpj);
-    $companhiaAerea->setSigla($sigla);
+    $novaCompanhiaAerea = new CompanhiaAerea($nome, $codigo, $razaoSocial, $cnpj, $sigla);
+
+    $companhiaAerea->alterarCompanhiaAerea($novaCompanhiaAerea);
 
     $companhiaAerea->save();
 

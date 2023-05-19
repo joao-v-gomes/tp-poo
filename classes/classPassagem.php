@@ -1,7 +1,7 @@
 <?php
 include_once("../libs/global.php");
 
-DEFINE('PESO_FRANQUIA_BAGAGEM', 23);
+// DEFINE('PESO_FRANQUIA_BAGAGEM', 23);
 
 class Passagem extends persist
 {

@@ -9,14 +9,14 @@ class CompanhiaAerea extends persist
 	private string $cnpj;
 	private string $sigla;
 
-	private $listaDeViagens = array();
-	private $listaDeViagensExecutadas = array();
-	private $listaAeronaves = array();
+	private array $listaDeViagens;
+	private array $listaDeViagensExecutadas;
+	private array $listaAeronaves;
 
-  private  int $ProgramaMilhagem;
+	private  int $ProgramaMilhagem;
+
 	static $local_filename = "companhiasAereas.txt";
 
-	// public function __construct(string $nome, string $codigo, string $razaoSocial, string $cnpj, string $sigla, array $listaDeViagens, array $listaDeViagensExecutadas, array $listaAeronaves)
 	public function __construct(string $nome, string $codigo, string $razaoSocial, string $cnpj, string $sigla)
 	{
 		$this->setNome($nome);
@@ -24,11 +24,15 @@ class CompanhiaAerea extends persist
 		$this->setRazaoSocial($razaoSocial);
 		$this->setCnpj($cnpj);
 		$this->setSigla($sigla);
+	}
 
-
-		// $this->listaDeViagens = $listaDeViagens;
-		// $this->listaDeViagensExecutadas = $listaDeViagensExecutadas;
-		// $this->$listaAeronaves = $listaAeronaves;
+	public function alterarCompaAerea(CompanhiaAerea $novaCompAerea)
+	{
+		$this->setNome($novaCompAerea->getNome());
+		$this->setCodigo($novaCompAerea->getCodigo());
+		$this->setRazaoSocial($novaCompAerea->getRazaoSocial());
+		$this->setCnpj($novaCompAerea->getCnpj());
+		$this->setSigla($novaCompAerea->getSigla());
 	}
 
 	public function getNome()
@@ -81,18 +85,18 @@ class CompanhiaAerea extends persist
 		$this->sigla = $sigla;
 	}
 
-	public function exibirCompanhia()
-	{
-		print_r($this->nome);
-		echo "\n";
-		print_r($this->codigo);
-		echo "\n";
-		print_r($this->razaoSocial);
-		echo "\n";
-		print_r($this->cnpj);
-		echo "\n";
-		print_r($this->sigla);
-	}
+	// public function exibirCompanhia()
+	// {
+	// 	print_r($this->nome);
+	// 	echo "\n";
+	// 	print_r($this->codigo);
+	// 	echo "\n";
+	// 	print_r($this->razaoSocial);
+	// 	echo "\n";
+	// 	print_r($this->cnpj);
+	// 	echo "\n";
+	// 	print_r($this->sigla);
+	// }
 
 	public function executaViagem(Viagem $novaViagem)
 	{
@@ -122,8 +126,10 @@ class CompanhiaAerea extends persist
 	public function validaViagem()
 	{
 	}
-  // public function compraDeFranquia(Passagem $passagem){
-  // }
+
+	// public function compraDeFranquia(Passagem $passagem){
+	// }
+
 	public function exibirListaAeronaves()
 	{
 		print_r($this->listaAeronaves);

@@ -1,11 +1,14 @@
 <?php
 include_once("../libs/global.php");
 
-define('VAZIO', '');
+// define('VAZIO', '');
+
+// define("PILOTO", 1);
+// define("COMISSARIO", 2);
 
 class Tripulante extends persist
 {
-    private string $tipoTripulante; // Piloto - 1, Comissario - 2
+    private int $tipoTripulante; // Piloto - 1, Comissario - 2
     private string $nome;
     private string $sobrenome;
     private string $rg;
@@ -17,20 +20,13 @@ class Tripulante extends persist
     private string $email;
     private string $cht;
     private Endereco $endereco;
-    // private string $endRua;
-    // private string $endNumero;
-    // private string $endComplemento;
-    // private string $endCep;
-    // private string $endCidade;
-    // private string $endEstado;
     private int $companhiaAerea;
     private int $aeroportoBase;
 
-    static $local_filename = "tripulantes.txt"; // nao usamos esse arquivo, criamos um txt para cada filho de Tripulantes
+    static $local_filename = "tripulantes.txt"; // nao usamos esse arquivo, criamos um txt para cada filho de Tripulante
 
-    public function __construct(string $tipoTripulante, string $nome, string $sobrenome, string $documentoIdentificacao, string $cpf, string $nacionalidade, string $dataNascimento, string $email, string $cht, Endereco $endereco, int $companhiaAerea, int $aeroportoBase)
+    public function __construct(string $nome, string $sobrenome, string $documentoIdentificacao, string $cpf, string $nacionalidade, string $dataNascimento, string $email, string $cht, Endereco $endereco, int $companhiaAerea, int $aeroportoBase)
     {
-        $this->setTipoTripulante($tipoTripulante);
         $this->setNome($nome);
         $this->setSobrenome($sobrenome);
         $this->setDocumentoIdentificacao($documentoIdentificacao);
@@ -40,14 +36,24 @@ class Tripulante extends persist
         $this->setEmail($email);
         $this->setCht($cht);
         $this->setEndereco($endereco);
-        // $this->setEndRua($endRua);
-        // $this->setEndNumero($endNumero);
-        // $this->setEndComplemento($endComplemento);
-        // $this->setEndCep($endCep);
-        // $this->setEndCidade($endCidade);
-        // $this->setEndEstado($endEstado);
         $this->setCompanhiaAerea($companhiaAerea);
         $this->setAeroportoBase($aeroportoBase);
+    }
+
+    public function alterarTripulante(Tripulante $novoTripulante)
+    {
+        $this->setTipoTripulante($novoTripulante->getTipoTripulante());
+        $this->setNome($novoTripulante->getNome());
+        $this->setSobrenome($novoTripulante->getSobrenome());
+        $this->setDocumentoIdentificacao($novoTripulante->getDocumentoIdentificacao());
+        $this->setCpf($novoTripulante->getCpf());
+        $this->setNacionalidade($novoTripulante->getNacionalidade());
+        $this->setDataNascimento($novoTripulante->getDataNascimento());
+        $this->setEmail($novoTripulante->getEmail());
+        $this->setCht($novoTripulante->getCht());
+        $this->setEndereco($novoTripulante->getEndereco());
+        $this->setCompanhiaAerea($novoTripulante->getCompanhiaAerea());
+        $this->setAeroportoBase($novoTripulante->getAeroportoBase());
     }
 
     public function getTipoTripulante(): int
@@ -113,36 +119,6 @@ class Tripulante extends persist
     {
         return $this->endereco;
     }
-
-    // public function getEndRua(): string
-    // {
-    //     return $this->endRua;
-    // }
-
-    // public function getEndNumero(): string
-    // {
-    //     return $this->endNumero;
-    // }
-
-    // public function getEndComplemento(): string
-    // {
-    //     return $this->endComplemento;
-    // }
-
-    // public function getEndCep(): string
-    // {
-    //     return $this->endCep;
-    // }
-
-    // public function getEndCidade(): string
-    // {
-    //     return $this->endCidade;
-    // }
-
-    // public function getEndEstado(): string
-    // {
-    //     return $this->endEstado;
-    // }
 
     public function getCompanhiaAerea(): int
     {
@@ -219,36 +195,6 @@ class Tripulante extends persist
     {
         $this->endereco = $endereco;
     }
-
-    // public function setEndRua(string $endRua)
-    // {
-    //     $this->endRua = $endRua;
-    // }
-
-    // public function setEndNumero(string $endNumero)
-    // {
-    //     $this->endNumero = $endNumero;
-    // }
-
-    // public function setEndComplemento(string $endComplemento)
-    // {
-    //     $this->endComplemento = $endComplemento;
-    // }
-
-    // public function setEndCep(string $endCep)
-    // {
-    //     $this->endCep = $endCep;
-    // }
-
-    // public function setEndCidade(string $endCidade)
-    // {
-    //     $this->endCidade = $endCidade;
-    // }
-
-    // public function setEndEstado(string $endEstado)
-    // {
-    //     $this->endEstado = $endEstado;
-    // }
 
     public function setCompanhiaAerea(int $companhiaAerea)
     {
