@@ -67,7 +67,7 @@ function sis_editarCompanhiaAerea()
 
 function sis_conectarAeronaveEmCompanhiaAerea()
 {
-    $aeronaves = Aeronave::getRecordsByField('compAereaPertencente', SEM_COMPANHIA_AEREA);
+    $aeronaves = Aeronave::getRecordsByField('compAereaPertencente', SEM_COMPANHIA_AEREA_DEFINIDA);
 
     // print_r("Aeronaves sem companhia aerea:\r\n");
     // print_r($aeronaves);
@@ -129,7 +129,7 @@ function sis_verAeronavesDaCompanhiaAerea()
 
 function sis_conectarVeiculoEmCompanhiaAerea()
 {
-    $veiculos = Veiculo::getRecordsByField('compAereaPertencente', SEM_COMPANHIA_AEREA);
+    $veiculos = Veiculo::getRecordsByField('compAereaPertencente', SEM_COMPANHIA_AEREA_DEFINIDA);
 
     // print_r("Aeronaves sem companhia aerea:\r\n");
     // print_r($aeronaves);
@@ -185,6 +185,46 @@ function sis_verVeiculosDaCompanhiaAerea()
     }
 
     mostraVeiculos($veiculos);
+
+    print_r("\n\n");
+}
+
+function sis_verPilotosDaCompanhiaAerea()
+{
+    $companhiasAereas = CompanhiaAerea::getRecords();
+
+    mostraCompanhiasAereas($companhiasAereas);
+
+    $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea: ");
+
+    $pilotos = Piloto::getRecordsByField('companhiaAerea', $indexCompanhiaAerea);
+
+    if (count($pilotos) == 0) {
+        print_r("Nao ha pilotos nessa companhia aerea!\r\n");
+        return;
+    }
+
+    mostraPilotos($pilotos);
+
+    print_r("\n\n");
+}
+
+function sis_verComissariosDaCompanhiaAerea()
+{
+    $companhiasAereas = CompanhiaAerea::getRecords();
+
+    mostraCompanhiasAereas($companhiasAereas);
+
+    $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea: ");
+
+    $comissarios = Comissario::getRecordsByField('companhiaAerea', $indexCompanhiaAerea);
+
+    if (count($comissarios) == 0) {
+        print_r("Nao ha comissarios nessa companhia aerea!\r\n");
+        return;
+    }
+
+    mostraComissarios($comissarios);
 
     print_r("\n\n");
 }

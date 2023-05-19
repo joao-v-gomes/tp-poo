@@ -24,6 +24,9 @@ while ($sair == 0) {
     print_r(++$opcMenu . " - Editar Aeroportos\r\n");
     print_r(++$opcMenu . " - Adicionar uma Companhia Aerea a um Aeroporto\r\n");
     print_r(++$opcMenu . " - Ver Companhias Aereas de um Aeroporto\r\n");
+    print_r(++$opcMenu . " - Ver Voos de um Aeroporto\r\n");
+
+    print_r("\n--- VOOS ---\r\n");
     print_r(++$opcMenu . " - Cadastrar Voos\r\n");
     print_r(++$opcMenu . " - Ver Voos\r\n");
     print_r(++$opcMenu . " - Editar Voos\r\n");
@@ -36,6 +39,8 @@ while ($sair == 0) {
     print_r(++$opcMenu . " - Ver Aeronaves da Comp Aerea\r\n");
     print_r(++$opcMenu . " - Adicionar um Veiculo a uma Companhia Aerea\r\n");
     print_r(++$opcMenu . " - Ver Veiculos da Comp Aerea\r\n");
+    print_r(++$opcMenu . " - Ver Pilotos da Comp Aerea\r\n");
+    print_r(++$opcMenu . " - Ver Comissarios da Comp Aerea\r\n");
 
     print_r("\n--- TRIPULANTES ---\r\n");
     print_r(++$opcMenu . " - Cadastrar Piloto\r\n");
@@ -91,6 +96,12 @@ while ($sair == 0) {
             print_r("Ver Comp. Aerea em Aeroporto\r\n");
             print_r("\n\n");
             sis_verCompanhiasAereasEmAeroporto();
+            break;
+
+        case ++$opcMenu:
+            print_r("Ver Voos em Aeroporto\r\n");
+            print_r("\n\n");
+            sis_verVoosEmAeroporto();
             break;
 
         case ++$opcMenu:
@@ -151,6 +162,18 @@ while ($sair == 0) {
             print_r("Ver Veiculos da Comp Aerea\r\n");
             print_r("\n\n");
             sis_verVeiculosDaCompanhiaAerea();
+            break;
+
+        case ++$opcMenu:
+            print_r("Ver Pilotos da Comp Aerea\r\n");
+            print_r("\n\n");
+            sis_verPilotosDaCompanhiaAerea();
+            break;
+
+        case ++$opcMenu:
+            print_r("Ver Comissarios da Comp Aerea\r\n");
+            print_r("\n\n");
+            sis_verComissariosDaCompanhiaAerea();
             break;
 
         case ++$opcMenu:

@@ -63,14 +63,18 @@ function sis_editarAeronave()
 
     $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea a qual pertence essa aeronave: ");
 
-    $aeronaveNova = Aeronave::criarAeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro);
+    $aeronaveNova = Aeronave::criarAeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $indexCompanhiaAerea);
 
-    $aeronave->alteraAeronave($aeronaveNova);
-    $aeronave->setCompAereaPertencente($indexCompanhiaAerea);
+    if ($aeronaveNova == null) {
+        print_r("Aeronave não pode ser editada!\r\n");
+        return;
+    } else {
+        $aeronave->alteraAeronave($aeronaveNova);
 
-    $aeronave->save();
+        $aeronave->save();
 
-    print_r("Aeronave editada com sucesso!\r\n");
+        print_r("Aeronave editada com sucesso!\r\n");
+    }
 
     print_r("\n\n");
 }
