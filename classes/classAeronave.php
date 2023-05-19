@@ -2,6 +2,7 @@
 include_once("../libs/global.php");
 
 define("TAMANHO_REGISTRO", 6);
+define("SEM_COMPANHIA_AEREA", -1);
 
 class Aeronave extends persist
 {
@@ -12,41 +13,38 @@ class Aeronave extends persist
 	private string $registro;
 	private bool $disponivel;
 
-	private string $compAereaPertencente;
+	protected int $compAereaPertencente; // protected para acessar na busca pelo index
 
 	private array $listaAssentos;
 
-
 	static $local_filename = "aeronaves.txt";
 
-
-	public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, string $compAereaPertencente)
+	public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro)
 	{
 
-		// try {
 		$this->setRegistro($registro);
 		$this->setFabricante($fabricante);
 		$this->setModelo($modelo);
 		$this->setCapacidadePassageiros($capacidadePassageiros);
 		$this->setCapacidadeCargaKg($capacidadeCarga);
+
+		//Deixa a aeronave disponível por padrão
 		$this->setDisponibilidadeAeronave(true);
-		$this->setCompAereaPertencente($compAereaPertencente);
+
+		// Prepara a todos os assentos($listaAssentos) com 0 (assento vazio)
 		$this->preecheListaAssentos();
-		// } catch (Exception $e) {
-		// print_r("Index: " . $this->getIndex());
-		// echo 'Exceção capturada: ',  $e->getMessage(), "\n";
-		// unset($this->index);
-		// $this->__destruct();
-		// }
+
+		// sempre cadastramos uma nova Aeronave com -1, pois ela não pertence a nenhuma companhia aérea ainda
+		// quando definimos a companhia aérea, alteramos esse valor
+		$this->setCompAereaPertencente(SEM_COMPANHIA_AEREA);
 	}
 
-	static public function criarAeronave(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, string $compAereaPertencente)
+	static public function criarAeronave(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro)
 	{
 		$validaRegistro = self::validaRegistro($registro);
 
 		if ($validaRegistro == 1) {
-			$aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $compAereaPertencente);
-			// $aeronave->save();
+			$aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro);
 			return $aeronave;
 		} else {
 			print_r("Erro ao criar aeronave: " . $validaRegistro . "\n");
@@ -60,10 +58,11 @@ class Aeronave extends persist
 		$this->setModelo($novaAeronave->getModelo());
 		$this->setCapacidadePassageiros($novaAeronave->getCapacidadePassageiros());
 		$this->setCapacidadeCargaKg($novaAeronave->getCapacidadeCarga());
-		$this->setDisponibilidadeAeronave($novaAeronave->getDisponibilidadeAeronave());
 		$this->setCompAereaPertencente($novaAeronave->getCompAereaPertencente());
 
-		// $this->save();
+		// nao precisamos alterar a disponibilidade da aeronave desse jeito
+		// $this->setDisponibilidadeAeronave($novaAeronave->getDisponibilidadeAeronave());
+
 	}
 
 	public function getFabricante()
@@ -113,18 +112,8 @@ class Aeronave extends persist
 
 	public function setRegistro(string $registro)
 	{
-
-		// $retornoValidacao = $this->validaRegistro($registro);
-
-		// print_r("Retorno valida: " . $retornoValidacao);
-
-		// if ($retornoValidacao != 1) {
-		// 	throw new Exception($retornoValidacao);
-		// } else {
 		$registro = strtoupper($registro);
 		$this->registro = $registro;
-		// return true;
-		// }
 	}
 
 	static public function validaRegistro(string $registro)
@@ -196,7 +185,7 @@ class Aeronave extends persist
 		return $this->compAereaPertencente;
 	}
 
-	public function setCompAereaPertencente(string $compAereaPertencente)
+	public function setCompAereaPertencente(int $compAereaPertencente)
 	{
 		$this->compAereaPertencente = $compAereaPertencente;
 	}
