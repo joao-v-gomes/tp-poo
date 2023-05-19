@@ -7,8 +7,8 @@ include_once("files/sistemaAeronave.php");
 include_once("files/sistemaVeiculo.php");
 include_once("files/sistemaTripulante.php");
 
-define("PILOTO", 1);
-define("COMISSARIO", 2);
+// define("PILOTO", 1);
+// define("COMISSARIO", 2);
 
 $sair = 0;
 

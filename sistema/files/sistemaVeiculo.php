@@ -2,7 +2,7 @@
 
 include_once("../libs/global.php");
 
-define("SEM_COMPANHIA_AEREA", -1);
+// define("SEM_COMPANHIA_AEREA", -1);
 
 function sis_CadastrarVeiculo()
 {
