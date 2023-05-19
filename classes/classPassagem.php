@@ -1,6 +1,8 @@
 <?php
 include_once("../libs/global.php");
-DEFINE ('PESO_FRANQUIA_BAGAGEM', 23);
+
+DEFINE('PESO_FRANQUIA_BAGAGEM', 23);
+
 class Passagem extends persist
 {
   private string $siglaAeroportoOrigem;
@@ -11,7 +13,7 @@ class Passagem extends persist
   private Passageiro $passageiro;
   private Cliente $cliente;
   private string $statusPassagem;
-  private $listaViagensEConexoes = array();
+  private array $listaViagensEConexoes;
   private float $pesoTotal;
 
   static $local_filename = "passagens.txt";
@@ -25,9 +27,9 @@ class Passagem extends persist
     $this->setFranquiasBagagem($franquiasBagagem);
     $this->setPassageiro($passageiro);
     $this->setCliente($cliente);
-    $this->setStatus($status);
+    // $this->setStatus($status);
     $this->setlistaViagensEConexoes($listaViagensEConexoes);
-    $this->setPesoTotal($pesoTotal);
+    // $this->setPesoTotal($pesoTotal);
   }
 
   public function getSiglaAeroportoOrigem()
