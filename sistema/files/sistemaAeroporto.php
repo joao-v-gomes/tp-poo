@@ -152,32 +152,32 @@ function sis_verCompanhiasAereasEmAeroporto()
 
 function sis_verVoosEmAeroporto()
 {
-    print_r("Em desenvolvimento!\r\n");
-    // $aeroportos = Aeroporto::getRecords();
+    // print_r("Em desenvolvimento!\r\n");
+    $aeroportos = Aeroporto::getRecords();
 
-    // mostraAeroportos($aeroportos);
+    if (count($aeroportos) == 0) {
+        print_r("Nenhum aeroporto cadastrado!\r\n");
+        print_r("\n\n");
+        return;
+    }
 
-    // $indexAeroporto = (int)readline("Digite o index do aeroporto: ");
+    mostraAeroportos($aeroportos);
 
-    // print_r("\n\n");
+    $indexAeroporto = (int)readline("Digite o index do aeroporto: ");
 
-    // $aeroporto = $aeroportos[$indexAeroporto - 1];
+    print_r("\n\n");
 
-    // // print_r("Aeroporto selecionado: " . $aeroporto);
+    $aeroporto = $aeroportos[$indexAeroporto - 1]->getIndex();
 
-    // $listaDeIndexDosVoosDoAeroporto = $aeroporto->getVoos();
+    $voos = Voo::getRecordsByField('aeroportoOrigem', $aeroporto);
 
-    // // print_r("Companhias Aereas cadastradas no aeroporto:\r\n");
-    // // print_r($indexCompanhiasAereas);
+    if (count($voos) == 0) {
+        print_r("Nenhum voo cadastrado no aeroporto!\r\n");
+        print_r("\n\n");
+        return;
+    }
 
-    // $voosDoAeroporto = array();
+    mostraVoos($voos);
 
-    // foreach ($listaDeIndexDosVoosDoAeroporto as $indexVoo) {
-    //     $voo = Voo::getRecordsByField('index', $indexVoo);
-    //     array_push($voosDoAeroporto, $voo[0]);
-    // }
-
-    // mostraVoos($voosDoAeroporto);
-
-    // print_r("\n\n");
+    print_r("\n\n");
 }

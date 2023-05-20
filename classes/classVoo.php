@@ -4,7 +4,7 @@ include_once("../libs/global.php");
 class Voo extends persist
 {
   private array $frequencia;
-  private int $aeroportoOrigem;
+  protected int $aeroportoOrigem;
   private int $aeroportoDestino;
   private ?Aeronave $aeronave;
   private ?int $companhiaAerea;

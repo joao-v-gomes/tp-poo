@@ -6,8 +6,8 @@ function sis_cadastrarVoo()
 
     $frequencia = explode(",", $frequencia);
 
-    print_r("Freq: ");
-    print_r($frequencia);
+    // print_r("Freq: ");
+    // print_r($frequencia);
 
     $aeroportos = Aeroporto::getRecords();
 
@@ -19,24 +19,24 @@ function sis_cadastrarVoo()
     $aeroportoOrigem = $aeroportos[$indexAeroportoOrigem - 1]->getIndex();
     $aeroportoDestino = $aeroportos[$indexAeroportoDestino - 1]->getIndex();
 
-    print_r("Aeroporto Origem: " . $aeroportoOrigem . "\r\n");
-    print_r("Aeroporto Destino: " . $aeroportoDestino . "\r\n");
+    // print_r("Aeroporto Origem: " . $aeroportoOrigem . "\r\n");
+    // print_r("Aeroporto Destino: " . $aeroportoDestino . "\r\n");
 
     $dataHoraPartida = (string)readline("Digite a data e hora de previsao partida (dd/mm/aaaa hh:mm): ");
 
     $dataHoraPartida = DateTime::createFromFormat("d/m/Y H:i", $dataHoraPartida);
 
-    print_r("Data Hora Partida: ");
-    print_r($dataHoraPartida->format("d/m/Y H:i"));
-    print_r("\n");
+    // print_r("Data Hora Partida: ");
+    // print_r($dataHoraPartida->format("d/m/Y H:i"));
+    // print_r("\n");
 
     $dataHoraChegada = (string)readline("Digite a data e hora de previsao chegada (dd/mm/aaaa hh:mm): ");
 
     $dataHoraChegada = DateTime::createFromFormat("d/m/Y H:i", $dataHoraChegada);
 
-    print_r("Data Hora Chegada: ");
-    print_r($dataHoraChegada->format("d/m/Y H:i"));
-    print_r("\n");
+    // print_r("Data Hora Chegada: ");
+    // print_r($dataHoraChegada->format("d/m/Y H:i"));
+    // print_r("\n");
 
     $voo = new Voo($frequencia, $aeroportoOrigem, $aeroportoDestino, $dataHoraPartida, $dataHoraChegada);
 
