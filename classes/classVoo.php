@@ -215,7 +215,7 @@ class Voo extends persist
     $this->aeroportoDestino = $aeroportoDestino;
   }
 
-  public function setCompanhiaAerea(int $companhiaAerea)
+  public function setCompanhiaAerea(?int $companhiaAerea)
   {
     $this->companhiaAerea = $companhiaAerea;
   }
@@ -225,17 +225,17 @@ class Voo extends persist
     $this->aeronave = $aeronave;
   }
 
-  public function setPiloto(int $piloto)
+  public function setPiloto(?int $piloto)
   {
     $this->piloto = $piloto;
   }
 
-  public function setCopiloto(int $copiloto)
+  public function setCopiloto(?int $copiloto)
   {
     $this->copiloto = $copiloto;
   }
 
-  public function setListaComissarios(array $listaComissarios)
+  public function setListaComissarios(?array $listaComissarios)
   {
     $this->listaComissarios = $listaComissarios;
   }
@@ -261,7 +261,7 @@ class Voo extends persist
     $this->previsaoDuracao = $previsaoChegada->diff($previsaoPartida);
   }
 
-  public function setCodigoVoo(string $codigoVoo)
+  public function setCodigoVoo(?string $codigoVoo)
   {
     $this->codigoVoo = $codigoVoo;
   }

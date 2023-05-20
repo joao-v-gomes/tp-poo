@@ -6,6 +6,7 @@ include_once("files/sistemaCompAerea.php");
 include_once("files/sistemaAeronave.php");
 include_once("files/sistemaVeiculo.php");
 include_once("files/sistemaTripulante.php");
+include_once("files/sistemaVoo.php");
 
 // define("PILOTO", 1);
 // define("COMISSARIO", 2);
