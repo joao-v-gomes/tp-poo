@@ -93,6 +93,11 @@ function sis_verPilotos()
     // print_r("Pilotos cadastrados: \r\n");
     // print_r($pilotos);
 
+    if (count($pilotos) == 0) {
+        print_r("Nenhum piloto cadastrado!\r\n");
+        return;
+    }
+
     mostraPilotos($pilotos);
 
     print_r("\n\n");
@@ -104,13 +109,34 @@ function mostraPilotos(array $pilotos)
     print_r("Index | Nome | Sobrenome | Documento Identificacao | CPF | Nacionalidade | Data Nascimento | Email | CHT | Endereco | Companhia Aerea | Aeroporto \r\n");
 
     foreach ($pilotos as $piloto) {
-        print_r($piloto->getIndex() . " | " . $piloto->getNome() . " | " . $piloto->getSobrenome() . " | " . $piloto->getDocumentoIdentificacao() . " | " . $piloto->getCpf() . " | " . $piloto->getNacionalidade() . " | " . $piloto->getDataNascimento() . " | " . $piloto->getEmail() . " | " . $piloto->getCht() . " | " . $piloto->getEndereco()->getEndCompleto() . " | " . $piloto->getCompanhiaAerea() . " | " . $piloto->getAeroportoBase() . "\r\n");
+
+        $companhiaAereaPiloto = "";
+        $aeroportoBasePiloto = "";
+
+        if ($piloto->getCompanhiaAerea() == null) {
+            $companhiaAereaPiloto = "null";
+        } else {
+            $companhiaAereaPiloto = $piloto->getCompanhiaAerea();
+        }
+
+        if ($piloto->getAeroportoBase() == null) {
+            $aeroportoBasePiloto = "null";
+        } else {
+            $aeroportoBasePiloto = $piloto->getAeroportoBase();
+        }
+
+        print_r($piloto->getIndex() . " | " . $piloto->getNome() . " | " . $piloto->getSobrenome() . " | " . $piloto->getDocumentoIdentificacao() . " | " . $piloto->getCpf() . " | " . $piloto->getNacionalidade() . " | " . $piloto->getDataNascimento() . " | " . $piloto->getEmail() . " | " . $piloto->getCht() . " | " . $piloto->getEndereco()->getEndCompleto() . " | " . $companhiaAereaPiloto . " | " . $aeroportoBasePiloto . "\r\n");
     }
 }
 
 function sis_editarPiloto()
 {
     $pilotos = Piloto::getRecords();
+
+    if (count($pilotos) == 0) {
+        print_r("Nenhum piloto cadastrado!\r\n");
+        return;
+    }
 
     mostraPilotos($pilotos);
 
@@ -154,6 +180,11 @@ function sis_verComissarios()
 {
     $comissarios = Comissario::getRecords();
 
+    if (count($comissarios) == 0) {
+        print_r("Nenhum comissario cadastrado!\r\n");
+        return;
+    }
+
     mostraComissarios($comissarios);
 
     print_r("\n\n");
@@ -165,13 +196,35 @@ function mostraComissarios(array $comissarios)
     print_r("Index | Nome | Sobrenome | Documento Identificacao | CPF | Nacionalidade | Data Nascimento | Email | Endereco | Companhia Aerea | Aeroporto \r\n");
 
     foreach ($comissarios as $comissario) {
-        print_r($comissario->getIndex() . " | " . $comissario->getNome() . " | " . $comissario->getSobrenome() . " | " . $comissario->getDocumentoIdentificacao() . " | " . $comissario->getCpf() . " | " . $comissario->getNacionalidade() . " | " . $comissario->getDataNascimento() . " | " . $comissario->getEmail() . " | " . $comissario->getEndereco()->getEndCompleto() . " | " . $comissario->getCompanhiaAerea() . " | " . $comissario->getAeroportoBase() . "\r\n");
+
+        $companhiaAereaComissario = "";
+        $aeroportoBaseComissario = "";
+
+        if ($comissario->getCompanhiaAerea() == null) {
+            $companhiaAereaComissario = "null";
+        } else {
+            $companhiaAereaComissario = $comissario->getCompanhiaAerea();
+        }
+
+        if ($comissario->getAeroportoBase() == null) {
+            $aeroportoBaseComissario = "null";
+        } else {
+            $aeroportoBaseComissario = $comissario->getAeroportoBase();
+        }
+
+
+        print_r($comissario->getIndex() . " | " . $comissario->getNome() . " | " . $comissario->getSobrenome() . " | " . $comissario->getDocumentoIdentificacao() . " | " . $comissario->getCpf() . " | " . $comissario->getNacionalidade() . " | " . $comissario->getDataNascimento() . " | " . $comissario->getEmail() . " | " . $comissario->getEndereco()->getEndCompleto() . " | " . $companhiaAereaComissario . " | " . $aeroportoBaseComissario . "\r\n");
     }
 }
 
 function sis_editarComissario()
 {
     $comissarios = Comissario::getRecords();
+
+    if (count($comissarios) == 0) {
+        print_r("Nenhum comissario cadastrado!\r\n");
+        return;
+    }
 
     mostraPilotos($comissarios);
 
