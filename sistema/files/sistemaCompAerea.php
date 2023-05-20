@@ -23,6 +23,12 @@ function sis_verCompanhiasAereas()
 {
     $companhiasAereas = CompanhiaAerea::getRecords();
 
+    if (count($companhiasAereas) == 0) {
+        print_r("Nenhuma companhia aerea cadastrada!\r\n");
+        print_r("\n\n");
+        return;
+    }
+
     mostraCompanhiasAereas($companhiasAereas);
 
     print_r("\n\n");

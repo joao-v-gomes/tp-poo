@@ -30,7 +30,7 @@ class CompanhiaAerea extends persist
 		$this->listaAeronaves = array();
 	}
 
-	public function alterarCompaAerea(CompanhiaAerea $novaCompAerea)
+	public function alterarCompanhiaAerea(CompanhiaAerea $novaCompAerea)
 	{
 		$this->setNome($novaCompAerea->getNome());
 		$this->setCodigo($novaCompAerea->getCodigo());

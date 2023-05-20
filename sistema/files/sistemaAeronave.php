@@ -44,13 +44,28 @@ function mostraAeronaves(array $aeronaves)
     print_r("Index - Fabricante - Modelo - Capacidade de Passageiros - Capacidade de Carga - Registro - Comp. Aerea\r\n");
 
     foreach ($aeronaves as $aeronave) {
-        print_r($aeronave->getIndex() . " - " . $aeronave->getFabricante() . " - " . $aeronave->getModelo() . " - " . $aeronave->getCapacidadePassageiros() . " - " . $aeronave->getCapacidadeCarga() . " - " . $aeronave->getRegistro() . " - " . $aeronave->getCompAereaPertencente() . "\r\n");
+
+        $companhiasAereaAeronave = "";
+
+        if ($aeronave->getCompAereaPertencente() == null)
+            $companhiasAereaAeronave = "null";
+        else {
+            $companhiasAereaAeronave = $aeronave->getCompAereaPertencente();
+        }
+
+        print_r($aeronave->getIndex() . " - " . $aeronave->getFabricante() . " - " . $aeronave->getModelo() . " - " . $aeronave->getCapacidadePassageiros() . " - " . $aeronave->getCapacidadeCarga() . " - " . $aeronave->getRegistro() . " - " . $companhiasAereaAeronave . "\r\n");
     }
 }
 
 function sis_editarAeronave()
 {
     $aeronaves = Aeronave::getRecords();
+
+    if (count($aeronaves) == 0) {
+        print_r("Nenhuma aeronave cadastrada!\r\n");
+        print_r("\n\n");
+        return;
+    }
 
     mostraAeronaves($aeronaves);
 

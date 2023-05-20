@@ -40,13 +40,37 @@ function mostraVeiculos(array $veiculos)
     print_r("Index - Codigo - Placa - Quantidade de assentos - Horario Previsto Embarque - Comp. Aerea\r\n");
 
     foreach ($veiculos as $veiculo) {
-        print_r($veiculo->getIndex() . " - " . $veiculo->getCodigo() . " - " . $veiculo->getPlaca() . " - " . $veiculo->getQtdeAssentos() . " - " . $veiculo->getHorarioEmbarquePrevisto()->format("d/m/Y H:i") . " - " . $veiculo->getCompAereaPertencente() . "\r\n");
+
+        $companhiasAereaVeiculo = "";
+        $horarioEmbarquePrevisto = "";
+
+        if ($veiculo->getCompAereaPertencente() == null)
+            $companhiasAereaVeiculo = "null";
+        else {
+            $companhiasAereaVeiculo = $veiculo->getCompAereaPertencente();
+        }
+
+        if ($veiculo->getHorarioEmbarquePrevisto() == null)
+            $horarioEmbarquePrevisto = "null";
+        else {
+            $horarioEmbarquePrevisto = $veiculo->getHorarioEmbarquePrevisto()->format("d/m/Y H:i");
+        }
+
+
+
+        print_r($veiculo->getIndex() . " - " . $veiculo->getCodigo() . " - " . $veiculo->getPlaca() . " - " . $veiculo->getQtdeAssentos() . " - " . $horarioEmbarquePrevisto . " - " . $companhiasAereaVeiculo . "\r\n");
     }
 }
 
 function sis_editarVeiculo()
 {
     $veiculos = Veiculo::getRecords();
+
+    if (count($veiculos) == 0) {
+        print_r("Nenhum veiculo cadastrado!\r\n");
+        print_r("\n\n");
+        return;
+    }
 
     mostraVeiculos($veiculos);
 
@@ -60,7 +84,11 @@ function sis_editarVeiculo()
 
     $dataHoraEmbarque = (string)readline("Digite a data e hora previstas para o embarque (dd/mm/aaaa hh:mm): ");
 
-    $dataHoraEmbarque = DateTime::createFromFormat("d/m/Y H:i", $dataHoraEmbarque);
+    if ($dataHoraEmbarque != null) {
+        $dataHoraEmbarque = DateTime::createFromFormat("d/m/Y H:i", $dataHoraEmbarque);
+    } else {
+        $dataHoraEmbarque = null;
+    }
 
     $companhiasAereas = CompanhiaAerea::getRecords();
 

@@ -133,6 +133,12 @@ function sis_verCompanhiasAereasEmAeroporto()
         array_push($companhiasAereasDoAeroporto, $compAerea[0]);
     }
 
+    if (count($companhiasAereasDoAeroporto) == 0) {
+        print_r("Nenhuma companhia aerea cadastrada no aeroporto!\r\n");
+        print_r("\n\n");
+        return;
+    }
+
     mostraCompanhiasAereas($companhiasAereasDoAeroporto);
 
     print_r("\n\n");
