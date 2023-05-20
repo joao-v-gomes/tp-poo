@@ -12,7 +12,7 @@ function sis_CadastrarAeronave()
     do {
         $registro = (string)readline("Digite o registro da aeronave: ");
 
-        $aeronave = Aeronave::criarAeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro);
+        $aeronave = Aeronave::criarAeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, SEM_COMPANHIA_AEREA_DEFINIDA);
     } while ($aeronave == null);
 
     $aeronave->save();
@@ -26,9 +26,16 @@ function sis_verAeronaves()
 {
     $aeronaves = Aeronave::getRecords();
 
-    mostraAeronaves($aeronaves);
+    if (count($aeronaves) == 0) {
+        print_r("Nenhuma aeronave cadastrada!\r\n");
+        print_r("\n\n");
+        return;
+    } else {
 
-    print_r("\n\n");
+        mostraAeronaves($aeronaves);
+
+        print_r("\n\n");
+    }
 }
 
 function mostraAeronaves(array $aeronaves)

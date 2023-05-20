@@ -20,12 +20,12 @@ class Tripulante extends persist
     private string $email;
     private string $cht;
     private Endereco $endereco;
-    protected int $companhiaAerea;
-    private int $aeroportoBase;
+    protected ?int $companhiaAerea;
+    private ?int $aeroportoBase;
 
     static $local_filename = "tripulantes.txt"; // nao usamos esse arquivo, criamos um txt para cada filho de Tripulante
 
-    public function __construct(string $nome, string $sobrenome, string $documentoIdentificacao, string $cpf, string $nacionalidade, string $dataNascimento, string $email, string $cht, Endereco $endereco, int $companhiaAerea, int $aeroportoBase)
+    public function __construct(string $nome, string $sobrenome, string $documentoIdentificacao, string $cpf, string $nacionalidade, string $dataNascimento, string $email, string $cht, Endereco $endereco, ?int $companhiaAerea, ?int $aeroportoBase)
     {
         // $this->setTipoTripulante($tipoTripulante);
         $this->setNome($nome);
@@ -197,12 +197,12 @@ class Tripulante extends persist
         $this->endereco = $endereco;
     }
 
-    public function setCompanhiaAerea(int $companhiaAerea)
+    public function setCompanhiaAerea(?int $companhiaAerea)
     {
         $this->companhiaAerea = $companhiaAerea;
     }
 
-    public function setAeroportoBase(int $aeroportoBase)
+    public function setAeroportoBase(?int $aeroportoBase)
     {
         $this->aeroportoBase = $aeroportoBase;
     }

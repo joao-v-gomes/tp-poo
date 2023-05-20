@@ -23,9 +23,15 @@ function sis_verVeiculos()
 {
     $veiculos = Veiculo::getRecords();
 
-    mostraVeiculos($veiculos);
+    if (count($veiculos) == 0) {
+        print_r("Nenhum veiculo cadastrado!\r\n");
+        print_r("\n\n");
+        return;
+    } else {
+        mostraVeiculos($veiculos);
 
-    print_r("\n\n");
+        print_r("\n\n");
+    }
 }
 
 function mostraVeiculos(array $veiculos)

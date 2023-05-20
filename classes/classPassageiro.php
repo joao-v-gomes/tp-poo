@@ -31,6 +31,9 @@ class Passageiro extends persist
     $this->setNacionalidade($nacionalidade);
     $this->setDataDeNascimento($dataDeNascimento);
     $this->setEmail($email);
+
+    $this->listaPassagens = array();
+    $this->historicoViagens = array();
   }
 
   public function getTipoPassageiro(): bool

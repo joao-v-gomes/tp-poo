@@ -121,7 +121,7 @@ function sis_verCompanhiasAereasEmAeroporto()
 
     // print_r("Aeroporto selecionado: " . $aeroporto);
 
-    $listaDeIndexDasCompanihasAereasDoAeroporto = $aeroporto->getCompanhiasAereas();
+    $listaDeIndexDasCompanihasAereasDoAeroporto = $aeroporto->getListaCompanhiasAereas();
 
     // print_r("Companhias Aereas cadastradas no aeroporto:\r\n");
     // print_r($indexCompanhiasAereas);
@@ -232,7 +232,12 @@ function mostraVoos(array $voos)
     print_r("Index - Frequencia - Aeroporto Origem - Aeroporto Destino - Registro Aeronave - Piloto - Copiloto - Comissarios - Previsao Partida - Previsao Chegada - Previsao Duracao - Codigo Voo\r\n");
 
     foreach ($voos as $voo) {
-        print_r($voo->getIndex() . " - " . $voo->getFrequenciaString() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $voo->getAeronave() . " - " . $voo->getPiloto() . " - " . $voo->getCopiloto() . " - " . $voo->getListaComissariosString() . " - " . $voo->getPrevisaoPartida()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoChegada()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoDuracao()->format("%H:%I") . " - " . $voo->getCodigoVoo() . "\r\n");
+
+        $aeronaveVoo = "";
+
+        $voo->getAeronave() == null ? $aeronaveVoo = "null" : $aeronaveVoo = $voo->getAeronave()->getRegistro();
+
+        print_r($voo->getIndex() . " - " . $voo->getFrequenciaString() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $aeronaveVoo  . " - " . $voo->getPiloto() . " - " . $voo->getCopiloto() . " - " . $voo->getListaComissariosString() . " - " . $voo->getPrevisaoPartida()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoChegada()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoDuracao()->format("%H:%I") . " - " . $voo->getCodigoVoo() . "\r\n");
         // print_r($voo->getIndex() . " - " . $voo->getFrequenciaString() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $voo->getPrevisaoPartida()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoChegada()->format("d/m/Y H:i")  . " - " . $voo->getPrevisaoDuracao()->format("%H:%I:%S") . "\r\n");
     }
 }

@@ -7,11 +7,11 @@ class Veiculo extends persist
     private string $codigo;
     private string $placa;
     private int $qtdeAssentos;
-    private array $rota;
-    private DateTime $tempoPercurso;
-    private DateTime $horarioEmbarquePrevisto;
+    private ?array $rota;
+    private ?DateTime $tempoPercurso;
+    private ?DateTime $horarioEmbarquePrevisto;
 
-    protected int $compAereaPertencente; // protected para acessar na busca pelo index
+    protected ?int $compAereaPertencente; // protected para acessar na busca pelo index
 
     static $local_filename = "veiculos.txt";
 
@@ -22,11 +22,14 @@ class Veiculo extends persist
         $this->setPlaca($placa);
         $this->setQtdeAssentos($qtdeAssentos);
 
-        $dataInit = DateTime::createFromFormat('d/m/Y H:i', '01/01/1970 00:00');
+        // $dataInit = DateTime::createFromFormat('d/m/Y H:i', '01/01/1970 00:00');
 
-        $this->setHorarioEmbarquePrevisto($dataInit);
+        $this->setHorarioEmbarquePrevisto(SEM_HORARIO_EMBARQUE_DEFINIDO);
+        $this->setTempoPercurso(SEM_DURACAO_PERCURSO_DEFINIDA);
 
         $this->setCompAereaPertencente(SEM_COMPANHIA_AEREA_DEFINIDA);
+
+        $this->rota = array();
     }
 
     public function alteraVeiculo(Veiculo $novoVeiculo)
@@ -73,7 +76,7 @@ class Veiculo extends persist
         return $this->rota;
     }
 
-    public function setRota(array $rota): void
+    public function setRota(?array $rota): void
     {
         $this->rota = $rota;
     }
@@ -88,7 +91,7 @@ class Veiculo extends persist
         return $this->tempoPercurso;
     }
 
-    public function setTempoPercurso(Dateinterval $tempoPercurso): void
+    public function setTempoPercurso(?Dateinterval $tempoPercurso): void
     {
         $this->tempoPercurso = $tempoPercurso;
     }
@@ -98,7 +101,7 @@ class Veiculo extends persist
         return $this->horarioEmbarquePrevisto;
     }
 
-    public function setHorarioEmbarquePrevisto(Datetime $horarioEmbarquePrevisto): void
+    public function setHorarioEmbarquePrevisto(?Datetime $horarioEmbarquePrevisto): void
     {
         $this->horarioEmbarquePrevisto = $horarioEmbarquePrevisto;
     }
@@ -108,7 +111,7 @@ class Veiculo extends persist
         return $this->compAereaPertencente;
     }
 
-    public function setCompAereaPertencente(int $compAereaPertencente): void
+    public function setCompAereaPertencente(?int $compAereaPertencente): void
     {
         $this->compAereaPertencente = $compAereaPertencente;
     }

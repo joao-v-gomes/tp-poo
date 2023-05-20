@@ -30,6 +30,8 @@ class Passagem extends persist
     // $this->setStatus($status);
     $this->setlistaViagensEConexoes($listaViagensEConexoes);
     // $this->setPesoTotal($pesoTotal);
+
+    $this->listaViagensEConexoes = array();
   }
 
   public function getSiglaAeroportoOrigem()

@@ -4,12 +4,12 @@ include_once("../libs/global.php");
 class ProgramaMilhagem extends persist
 {
     private string $nome;
-    private array $listaCategorias;
+    private ?array $listaCategorias;
 
     static $local_filename = "programasMilhagem.txt";
 
 
-    public function __construct(string $nome, array $listaCategorias)
+    public function __construct(string $nome, ?array $listaCategorias)
     {
         $this->setNome($nome);
         $this->setListaCategorias($listaCategorias);
@@ -30,7 +30,7 @@ class ProgramaMilhagem extends persist
         $this->nome = $nome;
     }
 
-    public function setListaCategorias(array $listaCategorias)
+    public function setListaCategorias(?array $listaCategorias)
     {
         $this->listaCategorias = $listaCategorias;
     }

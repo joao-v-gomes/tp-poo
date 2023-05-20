@@ -25,6 +25,8 @@ class Aeroporto extends persist
     // Fiquei pensando depois se Aeroporto precisa dessa lista.
     // Pensei em deixar essa lista na "classeSistema", que seria a "main" e que chamaria todas as outras.
     // $this->listaAeroportos = $listaAeroportos;
+    $this->listaVoos = array();
+    $this->listaCompanhiasAereas = array();
   }
 
   public function alterarAeroporto(Aeroporto $novoAeroporto)

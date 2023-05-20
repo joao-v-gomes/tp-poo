@@ -7,26 +7,26 @@ class Viagem extends persist
   // private string $aeroportoDestino;
   private DateTime $horarioPartida;
   private DateTime $horarioChegada;
-  private float $duracao;
+  private DateInterval $duracao;
   private string $companhiaAerea;
   private Aeronave $aeronave;
   private float $carga;
-  private $passageiros = array();
+  private ?array $passageiros;
   private int $voo;
   private int $milhasViagem;
   private float $valorViagem;
   private float $valorFranquiaBagagem;
-  
+
 
   static $local_filename = "viagens.txt";
 
-  public function __construct(DateTime $horarioPartida, DateTime $horarioChegada, float $duracao, string $companhiaAerea, Aeronave $aeronave, float $carga, int $voo, int $milhasViagem, float $valorViagem, float $valorFranquiaBagagem)
+  public function __construct(DateTime $horarioPartida, DateTime $horarioChegada, string $companhiaAerea, Aeronave $aeronave, float $carga, int $voo, int $milhasViagem, float $valorViagem, float $valorFranquiaBagagem)
   {
     // $this->setAeroportoOrigem($aeroportoOrigem);
     // $this->setAeroportoDestino($aeroportoDestino);
     $this->setHorarioPartida($horarioPartida);
     $this->setHorarioChegada($horarioChegada);
-    $this->setDuracao($duracao);
+    $this->setDuracao($horarioPartida, $horarioChegada);
     $this->setCompanhiaAerea($companhiaAerea);
     $this->setAeronave($aeronave);
     $this->setCarga($carga);
@@ -34,17 +34,19 @@ class Viagem extends persist
     $this->setMilhasViagem($milhasViagem);
     $this->setvalorViagem($valorViagem);
     $this->setvalorFranquiaBagagem($valorFranquiaBagagem);
+
+    $this->passageiros = array();
   }
 
-  public function getAeroportoOrigem()
-  {
-    return $this->aeroportoOrigem;
-  }
+  // public function getAeroportoOrigem()
+  // {
+  //   return $this->aeroportoOrigem;
+  // }
 
-  public function getAeroportoDestino()
-  {
-    return $this->aeroportoDestino;
-  }
+  // public function getAeroportoDestino()
+  // {
+  //   return $this->aeroportoDestino;
+  // }
 
   public function getHorarioPartida()
   {
@@ -58,7 +60,7 @@ class Viagem extends persist
 
   public function getDuracaoEstimada()
   {
-    return $this->duracaoEstimada;
+    return $this->duracao;
   }
 
   public function getCompanhiaAerea()
@@ -76,15 +78,15 @@ class Viagem extends persist
     return $this->carga;
   }
 
-  public function setAeroportoOrigem(string $aeroportoOrigem)
-  {
-    $this->aeroportoOrigem = $aeroportoOrigem;
-  }
+  // public function setAeroportoOrigem(string $aeroportoOrigem)
+  // {
+  //   $this->aeroportoOrigem = $aeroportoOrigem;
+  // }
 
-  public function setAeroportoDestino(string $aeroportoDestino)
-  {
-    $this->aeroportoDestino = $aeroportoDestino;
-  }
+  // public function setAeroportoDestino(string $aeroportoDestino)
+  // {
+  //   $this->aeroportoDestino = $aeroportoDestino;
+  // }
 
   public function setHorarioPartida(DateTime $horarioPartida)
   {
@@ -121,21 +123,22 @@ class Viagem extends persist
   {
     $this->voo = $voo;
   }
-  
+
   public function setMilhasViagem($milhasViagem)
   {
     $this->milhasViagem = $milhasViagem;
   }
-  
+
   public function setvalorViagem($valorViagem)
   {
     $this->valorViagem = $valorViagem;
   }
-  
-  public function setvalorFranquiaBagagem($valorFranquiaBagagem){
+
+  public function setvalorFranquiaBagagem($valorFranquiaBagagem)
+  {
     $this->valorFranquiaBagagem = $valorFranquiaBagagem;
   }
-  
+
   public function inserirPassageiro(Passageiro $novoPassageiro)
   {
     array_push($passageiros, $novoPassageiro);
@@ -143,7 +146,7 @@ class Viagem extends persist
 
   // public function removerPassageiro(Passageiro $novoPassageiro)
   // {
-    
+
   // }
 
   // public function inserirCarga(float $novaCarga)

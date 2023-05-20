@@ -6,21 +6,20 @@ class Voo extends persist
   private array $frequencia;
   private int $aeroportoOrigem;
   private int $aeroportoDestino;
-  // private Aeronave $aeronave;
-  private int $companhiaAerea;
-  private $aeronave;
-  private int $piloto;
-  private int $copiloto;
-  private array $listaComissarios;
+  private ?Aeronave $aeronave;
+  private ?int $companhiaAerea;
+  private ?int $piloto;
+  private ?int $copiloto;
+  private ?array $listaComissarios;
   private DateTime $previsaoPartida;
   private DateTime $previsaoChegada;
   private DateInterval $previsaoDuracao;
-  private string $codigoVoo;
+  private ?string $codigoVoo;
 
   static $local_filename = "voos.txt";
 
 
-  static function criarVooCompleto(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida, DateTime $previsaoChegada, int $companhiaAerea,  Aeronave $aeronave, int $piloto, int $copiloto, array $comissarios, string $codigoVoo)
+  static function criarVooCompleto(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida, DateTime $previsaoChegada, ?int $companhiaAerea,  ?Aeronave $aeronave, ?int $piloto, ?int $copiloto, ?array $comissarios, ?string $codigoVoo)
   {
     $validaCodigoVoo = self::validaCodigoVoo($codigoVoo);
 
@@ -51,19 +50,14 @@ class Voo extends persist
 
     $this->setPrevisaoDuracao($previsaoChegada, $previsaoPartida);
 
-    // $this->setAeronave($aeronave);
-    // $this->setPiloto($piloto);
-    // $this->setCopiloto($copiloto);
-    // $this->setListaComissarios($listaComissarios);
-    // $this->setCodigoVoo($codigoVoo);
-
-    // Para resolver o problema de setAeronave receber uma Aeronave, removi a tipagem.
-    // Agora, ela recebe um -1, quando é criada, e só é alterada quando o voo é realmente atribuido a uma aeronave.
     $this->setAeronave(SEM_AERONAVE_DEFINIDA);
     $this->setCompanhiaAerea(SEM_COMPANHIA_AEREA_DEFINIDA);
     $this->setPiloto(SEM_PILOTO_DEFINIDO);
     $this->setCopiloto(SEM_PILOTO_DEFINIDO);
-    $this->setListaComissarios([]);
+
+    // $this->setListaComissarios(SEM_COMISSARIO_DEFINIDO);
+    $this->listaComissarios = array();
+
     $this->setCodigoVoo(SEM_CODIGO_VOO_DEFINIDO);
   }
 
@@ -226,7 +220,7 @@ class Voo extends persist
     $this->companhiaAerea = $companhiaAerea;
   }
 
-  public function setAeronave($aeronave)
+  public function setAeronave(?Aeronave $aeronave)
   {
     $this->aeronave = $aeronave;
   }

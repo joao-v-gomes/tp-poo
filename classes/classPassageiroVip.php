@@ -8,6 +8,11 @@ class PassageiroVip extends Passageiro
   private array $listaPontosMilhagem;
   private int $pontosMilhasTotais;
 
+  public function __construct()
+  {
+    $listaPontosMilhagem = array();
+  }
+
   public function setNumeroRegistroProgramaMilhagem(string $NumeroRegistroProgramaMilhagem)
   {
     $this->NumeroRegistroProgramaMilhagem = $NumeroRegistroProgramaMilhagem;

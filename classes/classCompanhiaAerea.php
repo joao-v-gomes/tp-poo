@@ -13,7 +13,7 @@ class CompanhiaAerea extends persist
 	private array $listaDeViagensExecutadas;
 	private array $listaAeronaves;
 
-	private  int $ProgramaMilhagem;
+	private  ?int $programaMilhagem;
 
 	static $local_filename = "companhiasAereas.txt";
 
@@ -24,6 +24,10 @@ class CompanhiaAerea extends persist
 		$this->setRazaoSocial($razaoSocial);
 		$this->setCnpj($cnpj);
 		$this->setSigla($sigla);
+
+		$this->listaDeViagens = array();
+		$this->listaDeViagensExecutadas = array();
+		$this->listaAeronaves = array();
 	}
 
 	public function alterarCompaAerea(CompanhiaAerea $novaCompAerea)

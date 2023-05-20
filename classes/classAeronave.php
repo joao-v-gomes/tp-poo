@@ -13,7 +13,7 @@ class Aeronave extends persist
 	private string $registro;
 	private bool $disponivel;
 
-	protected int $compAereaPertencente; // protected para acessar na busca pelo index
+	protected ?int $compAereaPertencente; // protected para acessar na busca pelo index
 
 	private array $listaAssentos;
 
@@ -39,7 +39,7 @@ class Aeronave extends persist
 		$this->setCompAereaPertencente(SEM_COMPANHIA_AEREA_DEFINIDA);
 	}
 
-	static public function criarAeronave(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, int $indexCompAerea)
+	static public function criarAeronave(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, ?int $indexCompAerea)
 	{
 		$validaRegistro = self::validaRegistro($registro);
 
@@ -189,7 +189,7 @@ class Aeronave extends persist
 		return $this->compAereaPertencente;
 	}
 
-	public function setCompAereaPertencente(int $compAereaPertencente)
+	public function setCompAereaPertencente(?int $compAereaPertencente)
 	{
 		$this->compAereaPertencente = $compAereaPertencente;
 	}
