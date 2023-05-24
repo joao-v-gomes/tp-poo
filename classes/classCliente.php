@@ -86,23 +86,22 @@ class Cliente extends persist
   {
     return get_called_class()::$local_filename;
   }
+
+  // public function alteracaoPassagem(Passagem $novaPassagem)
+  // {
+  //   $this->setSiglaAeroportoOrigem($novaPassagem->getSiglaAeroportoOrigem());
+  //   $this->setSiglaAeroportoDestino($novaPassagem->getSiglaAeroportoDestino());
+  //   $this->setAssento($novaPassagem->getAssento());
+  //   $this->setFranquiasBagagem($novaPassagem->getFranquiasBagagem());
+  //   $this->setPassageiro($novaPassagem->getPassageiro());
+  //   $this->setStatus($novaPassagem->getStatus());
+  //   $this->setlistaViagensEConexoes($novaPassagem->getlistaViagensEConexoes());
+  // }
+  // public function cancelamentoDePassagem(Passagem $passagem)
+  // {
+  // setStatus("Passagem cancelada");
+  // }
+  
 }
 // public function validaDocumentoIdentificacao(){
-
-  
-// }
-
-public function alteracaoPassagem(Passagem $novaPassagem){
-    $this->setSiglaAeroportoOrigem($novaPassagem->getSiglaAeroportoOrigem());
-    $this->setSiglaAeroportoDestino($novaPassagem);
-    $this->setAssento($novaPassagem);
-    $this->setFranquiasBagagem($novaPassagem);
-    $this->setPassageiro($novaPassagem);
-    $this->setStatus($novaPassagem);
-    $this->setlistaViagensEConexoes($novaPassagem);
-}
-public function cancelamentoDePassagem(Passagem $passagem){
-  setStatus("Passagem cancelada");
-}
-// public function compraDeFranquia(Passagem $passagem){
 // }

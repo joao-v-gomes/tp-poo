@@ -3,13 +3,10 @@ include_once("../libs/global.php");
 
 class Viagem extends persist
 {
-  // public string $aeroportoOrigem;
-  // private string $aeroportoDestino;
   private DateTime $horarioPartida;
   private DateTime $horarioChegada;
   private DateInterval $duracao;
-  private string $companhiaAerea;
-  private Aeronave $aeronave;
+  //private Aeronave $aeronave;
   private float $carga;
   private ?array $passageiros;
   private int $voo;
@@ -20,14 +17,13 @@ class Viagem extends persist
 
   static $local_filename = "viagens.txt";
 
-  public function __construct(DateTime $horarioPartida, DateTime $horarioChegada, string $companhiaAerea, Aeronave $aeronave, float $carga, int $voo, int $milhasViagem, float $valorViagem, float $valorFranquiaBagagem)
+  public function __construct(DateTime $horarioPartida, DateTime $horarioChegada, float $carga, int $voo, int $milhasViagem, float $valorViagem, float $valorFranquiaBagagem)
   {
     // $this->setAeroportoOrigem($aeroportoOrigem);
     // $this->setAeroportoDestino($aeroportoDestino);
     $this->setHorarioPartida($horarioPartida);
     $this->setHorarioChegada($horarioChegada);
     $this->setDuracao($horarioPartida, $horarioChegada);
-    $this->setCompanhiaAerea($companhiaAerea);
     $this->setAeronave($aeronave);
     $this->setCarga($carga);
     $this->setVoo($voo);
@@ -116,7 +112,7 @@ class Viagem extends persist
 
   public function setCarga(float $carga)
   {
-    $this->carga = $carga;
+    $this->carga += $carga;
   }
 
   public function setVoo($voo)
@@ -138,29 +134,37 @@ class Viagem extends persist
   {
     $this->valorFranquiaBagagem = $valorFranquiaBagagem;
   }
-
-  public function inserirPassageiro(Passageiro $novoPassageiro)
-  {
-    array_push($passageiros, $novoPassageiro);
-  }
-
-  // public function removerPassageiro(Passageiro $novoPassageiro)
+  //***Falta testar as funcoes comentadas abaixo***
+  
+  // public function inserirPassageiro($novaPassagem)
   // {
-
+  //   //qualquer tipo de verificacao deve ser feita na hora da venda (carga e assentos)
+  //   array_push($passageiros, $novaPassagem->getPassageiro());
+  //   $this->setCarga($novaPassagem->getPesoTotal()); 
   // }
 
-  // public function inserirCarga(float $novaCarga)
+  // public function removerPassageiro($passagemRemovida)
   // {
-  //   // depois precisamos conferir se já atingiu
-  //   // a capacidade máxima de carga
-  //   $this->carga = $this->carga + $novaCarga;
+  //   $cpfDoPassageiro = $passagemRemovida->getPassageiro()->getCpf();
+  //   $key = array_search($cpfDoPassageiro, $this->passageiros);
+  //   if($key !== false)
+  //   {
+  //     unset($passageiros[$key]);
+  //     $cargaRemovida = -($passagemRemovida->getPesoTotal());
+  //     $this->setCarga($cargaRemovida);
+  //   }
   // }
 
-  // public function removerCarga(float $novaCarga)
+  // public function fazerCheckIn ($passagem)
   // {
-  //   // verificar se nao e negativo  
-  //   $this->carga = $this->carga - $novaCarga;
+  //   $passagem->setSatus("Check-in realizado");
   // }
+
+  // public function cancelamentoDePassagem($passagem)
+  //   {
+  //     $passagem->setStatus("Passagem cancelada");
+  //     $this->removerPassageiro($passagem);
+  //   }
 
   static public function getFilename()
   {
