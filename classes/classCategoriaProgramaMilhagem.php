@@ -1,12 +1,12 @@
 <?php
 include_once("../libs/global.php");
 
-class CategoriaProgramaMilhagem extends persist
+class CategoriaProgramaMilhagem
 {
     private string $nome;
     private int $valor;
 
-    static $local_filename = "categoriaProgramaMilhagem.txt";
+    // static $local_filename = "categoriaProgramaMilhagem.txt";
 
 
     public function __construct(string $nome, int $valor)
@@ -35,8 +35,8 @@ class CategoriaProgramaMilhagem extends persist
         $this->valor = $valor;
     }
 
-    static public function getFilename()
-    {
-        return get_called_class()::$local_filename;
-    }
+    // static public function getFilename()
+    // {
+    //     return get_called_class()::$local_filename;
+    // }
 }

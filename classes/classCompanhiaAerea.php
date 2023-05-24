@@ -25,6 +25,8 @@ class CompanhiaAerea extends persist
 		$this->setCnpj($cnpj);
 		$this->setSigla($sigla);
 
+		$this->setProgramaMilhagem(SEM_PROGRAMA_DE_MILHAGEM_DEFINIDO);
+
 		$this->listaDeViagens = array();
 		$this->listaDeViagensExecutadas = array();
 		$this->listaAeronaves = array();
@@ -37,6 +39,7 @@ class CompanhiaAerea extends persist
 		$this->setRazaoSocial($novaCompAerea->getRazaoSocial());
 		$this->setCnpj($novaCompAerea->getCnpj());
 		$this->setSigla($novaCompAerea->getSigla());
+		$this->setProgramaMilhagem($novaCompAerea->getProgramaMilhagem());
 	}
 
 	public function getNome()
@@ -64,6 +67,11 @@ class CompanhiaAerea extends persist
 		return $this->sigla;
 	}
 
+	public function getProgramaMilhagem()
+	{
+		return $this->programaMilhagem;
+	}
+
 	public function setNome(string $nome)
 	{
 		$this->nome = $nome;
@@ -87,6 +95,11 @@ class CompanhiaAerea extends persist
 	public function setSigla(string $sigla)
 	{
 		$this->sigla = $sigla;
+	}
+
+	public function setProgramaMilhagem(?int $programaMilhagem)
+	{
+		$this->programaMilhagem = $programaMilhagem;
 	}
 
 	// public function exibirCompanhia()

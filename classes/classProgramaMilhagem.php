@@ -6,13 +6,26 @@ class ProgramaMilhagem extends persist
     private string $nome;
     private ?array $listaCategorias;
 
+    protected ?int $compAereaPertentencente;
+
     static $local_filename = "programasMilhagem.txt";
 
 
-    public function __construct(string $nome, ?array $listaCategorias)
+    // public function __construct(string $nome, ?array $listaCategorias)
+    public function __construct(string $nome, ?int $compAereaPertentencente)
     {
         $this->setNome($nome);
-        $this->setListaCategorias($listaCategorias);
+        $this->setCompAereaPertentencente($compAereaPertentencente);
+        // $this->setListaCategorias($listaCategorias);
+
+        $this->listaCategorias = array();
+    }
+
+    public function alterarProgramaMilhagem(ProgramaMilhagem $novoProgramaMilhagem)
+    {
+        $this->setNome($novoProgramaMilhagem->getNome());
+        $this->setCompAereaPertentencente($novoProgramaMilhagem->getCompAereaPertentencente());
+        $this->setListaCategorias($novoProgramaMilhagem->getListaCategorias());
     }
 
     public function getNome(): string
@@ -25,6 +38,11 @@ class ProgramaMilhagem extends persist
         return $this->listaCategorias;
     }
 
+    public function getCompAereaPertentencente(): ?int
+    {
+        return $this->compAereaPertentencente;
+    }
+
     public function setNome(string $nome)
     {
         $this->nome = $nome;
@@ -35,9 +53,19 @@ class ProgramaMilhagem extends persist
         $this->listaCategorias = $listaCategorias;
     }
 
-    public function addListaCategorias(CategoriaProgramaMilhagem $novaCategoria)
+    public function setCompAereaPertentencente(?int $compAereaPertentencente)
+    {
+        $this->compAereaPertentencente = $compAereaPertentencente;
+    }
+
+    public function addCategoria(CategoriaProgramaMilhagem $novaCategoria)
     {
         array_push($this->listaCategorias, $novaCategoria);
+    }
+
+    public function editarCategoria(int $index, CategoriaProgramaMilhagem $novaCategoria)
+    {
+        $this->listaCategorias[$index] = $novaCategoria;
     }
 
     static public function getFilename()

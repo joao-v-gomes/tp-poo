@@ -42,6 +42,13 @@ while ($sair == 0) {
     print_r(++$opcMenu . " - Ver Veiculos da Comp Aerea\r\n");
     print_r(++$opcMenu . " - Ver Pilotos da Comp Aerea\r\n");
     print_r(++$opcMenu . " - Ver Comissarios da Comp Aerea\r\n");
+    print_r(++$opcMenu . " - Cadastrar Programa de Milhagem\r\n");
+    print_r(++$opcMenu . " - Ver Programas de Milhagem\r\n");
+    print_r(++$opcMenu . " - Editar Programa de Milhagem\r\n");
+    print_r(++$opcMenu . " - Ver Programa de Milhagem da Companiha Aerea\r\n");
+    print_r(++$opcMenu . " - Cadastrar categoria no Programa de Milhagem\r\n");
+    print_r(++$opcMenu . " - Ver categorias do Programa de Milhagem\r\n");
+    print_r(++$opcMenu . " - Editar categoria do Programa de Milhagem\r\n");
 
     print_r("\n--- TRIPULANTES ---\r\n");
     print_r(++$opcMenu . " - Cadastrar Piloto\r\n");
@@ -69,6 +76,7 @@ while ($sair == 0) {
 
     switch ($opcao) {
 
+            // #### AEROPORTOS ####
         case ++$opcMenu:
             print_r("Cadastramento de Aeroporto\r\n");
             print_r("\n\n");
@@ -105,6 +113,8 @@ while ($sair == 0) {
             sis_verVoosEmAeroporto();
             break;
 
+            // #### VOOS ####
+
         case ++$opcMenu:
             print_r("Cadastramento de Voo\r\n");
             print_r("\n\n");
@@ -122,6 +132,8 @@ while ($sair == 0) {
             print_r("\n\n");
             sis_editarVoo();
             break;
+
+            // #### COMPANHIAS AEREAS ####
 
         case ++$opcMenu:
             print_r("Cadastramento de Companhia Aerea\r\n");
@@ -178,6 +190,50 @@ while ($sair == 0) {
             break;
 
         case ++$opcMenu:
+            print_r("Cadastrar programa de milhagem\r\n");
+            print_r("\n\n");
+            sis_cadastrarProgramaDeMilhagem();
+            break;
+
+        case ++$opcMenu:
+            print_r("Ver programas de milhagem\r\n");
+            print_r("\n\n");
+            sis_verProgramasDeMilhagem();
+            break;
+
+        case ++$opcMenu:
+            print_r("Editar programa de milhagem\r\n");
+            print_r("\n\n");
+            sis_editarProgramaDeMilhagem();
+            break;
+
+        case ++$opcMenu:
+            print_r("Ver programa de milhagem da Comp Aerea\r\n");
+            print_r("\n\n");
+            sis_verProgramaDeMilhagemDaCompanhiaAerea();
+            break;
+
+        case ++$opcMenu:
+            print_r("Cadastra categoria no programa de milhagem\r\n");
+            print_r("\n\n");
+            sis_cadastrarCategoriaNoProgramaDeMilhagem();
+            break;
+
+        case ++$opcMenu:
+            print_r("Ver categorias no programa de milhagem\r\n");
+            print_r("\n\n");
+            sis_verCategoriasNoProgramaDeMilhagem();
+            break;
+
+        case ++$opcMenu:
+            print_r("Editar categoria no programa de milhagem\r\n");
+            print_r("\n\n");
+            sis_editarCategoriaNoProgramaDeMilhagem();
+            break;
+
+            // #### TRIPULANTES ####
+
+        case ++$opcMenu:
             print_r("Cadastramento de Piloto\r\n");
             print_r("\n\n");
             sis_CadastrarPiloto();
@@ -213,6 +269,8 @@ while ($sair == 0) {
             sis_editarComissario();
             break;
 
+            // #### AERONAVES ####
+
         case ++$opcMenu:
             print_r("Cadastramento de Aeronave\r\n");
             print_r("\n\n");
@@ -231,6 +289,8 @@ while ($sair == 0) {
             sis_editarAeronave();
             break;
 
+            // #### VEICULOS ####
+
         case ++$opcMenu:
             print_r("Cadastramento de Veiculo\r\n");
             print_r("\n\n");
@@ -248,6 +308,8 @@ while ($sair == 0) {
             print_r("\n\n");
             sis_editarVeiculo();
             break;
+
+            // #### SISTEMA ####
 
         case -1:
             print_r("Saindo do sistema...\r\n");
