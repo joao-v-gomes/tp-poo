@@ -65,15 +65,22 @@ function sis_verVoos()
 function mostraVoos(array $voos)
 {
     print_r("Voos cadastrados:\r\n");
-    print_r("Index - Frequencia - Aeroporto Origem - Aeroporto Destino - Registro Aeronave - Piloto - Copiloto - Comissarios - Previsao Partida - Previsao Chegada - Previsao Duracao - Codigo Voo\r\n");
+    print_r("Index - Frequencia - Aeroporto Origem - Aeroporto Destino - Comp Aerea - Registro Aeronave - Piloto - Copiloto - Comissarios - Previsao Partida - Previsao Chegada - Previsao Duracao - Codigo Voo\r\n");
 
     foreach ($voos as $voo) {
 
+        $compAereaVoo = "";
         $aeronaveVoo = "";
         $pilotoVoo = "";
         $copilotoVoo = "";
         $comissariosVoo = "";
         $codigoVoo = "";
+
+        if ($voo->getCompanhiaAerea() == null) {
+            $compAereaVoo = "null";
+        } else {
+            $compAereaVoo = $voo->getCompanhiaAerea();
+        }
 
         if ($voo->getAeronave() == null) {
             $aeronaveVoo = "null";
@@ -105,7 +112,7 @@ function mostraVoos(array $voos)
             $codigoVoo = $voo->getCodigoVoo();
         }
 
-        print_r($voo->getIndex() . " - " . $voo->getFrequenciaString() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $aeronaveVoo  . " - " . $pilotoVoo . " - " . $copilotoVoo . " - " . $comissariosVoo . " - " . $voo->getPrevisaoPartida()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoChegada()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoDuracao()->format("%H:%I") . " - " . $codigoVoo . "\r\n");
+        print_r($voo->getIndex() . " - " . $voo->getFrequenciaString() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $compAereaVoo . " - " . $aeronaveVoo  . " - " . $pilotoVoo . " - " . $copilotoVoo . " - " . $comissariosVoo . " - " . $voo->getPrevisaoPartida()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoChegada()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoDuracao()->format("%H:%I") . " - " . $codigoVoo . "\r\n");
         // print_r($voo->getIndex() . " - " . $voo->getFrequenciaString() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $voo->getPrevisaoPartida()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoChegada()->format("d/m/Y H:i")  . " - " . $voo->getPrevisaoDuracao()->format("%H:%I:%S") . "\r\n");
     }
 }
@@ -242,6 +249,114 @@ function sis_editarVoo()
 
         print_r("Voo editado com sucesso!\r\n");
     }
+
+    print_r("\n\n");
+}
+
+function sis_conectarCompanhiaAereaEmVoo()
+{
+    $voos = Voo::getRecords();
+
+    if (count($voos) == 0) {
+        print_r("Não há voos cadastrados!\r\n");
+        return;
+    }
+
+    mostraVoos($voos);
+
+    $indexVoo = (int)readline("Digite o index do voo: ");
+
+    $voo = $voos[$indexVoo - 1];
+
+    $aeroportoOrigemVoo = $voo->getAeroportoOrigem();
+
+    $aeroportoVoo = Aeroporto::getRecordsByField('index', $aeroportoOrigemVoo);
+
+    $aeroportoVoo = $aeroportoVoo[0];
+
+    $listaDeIndexDasCompanihasAereasDoAeroporto = $aeroportoVoo->getListaCompanhiasAereas();
+
+    // print_r("Companhias Aereas cadastradas no aeroporto:\r\n");
+    // print_r($indexCompanhiasAereas);
+
+    $companhiasAereasDoAeroporto = array();
+
+    foreach ($listaDeIndexDasCompanihasAereasDoAeroporto as $indexCompanhiaAerea) {
+        $compAerea = CompanhiaAerea::getRecordsByField('index', $indexCompanhiaAerea);
+        array_push($companhiasAereasDoAeroporto, $compAerea[0]);
+    }
+
+    if (count($companhiasAereasDoAeroporto) == 0) {
+        print_r("Nenhuma companhia aerea cadastrada no aeroporto!\r\n");
+        print_r("\n\n");
+        return;
+    }
+
+    mostraCompanhiasAereas($companhiasAereasDoAeroporto);
+
+    $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea: ");
+
+    // $companhiaAerea = CompanhiaAerea::getRecordsByField('index', $indexCompanhiaAerea);
+
+    // $companhiaAerea = $companhiaAerea[0];
+
+    $aeronaves = Aeronave::getRecordsByField('compAereaPertencente', $indexCompanhiaAerea);
+
+    mostraAeronaves($aeronaves);
+
+    $indexAeronave = (int)readline("Digite o index da aeronave: ");
+
+    // $aeronave = $aeronaves[$indexAeronave - 1];
+
+    $aeronave = Aeronave::getRecordsByField('index', $indexAeronave);
+
+    $aeronave = $aeronave[0];
+
+    $pilotos = Piloto::getRecordsByField('companhiaAerea', $indexCompanhiaAerea);
+
+    mostraPilotos($pilotos);
+
+    $indexPiloto = (int)readline("Digite o index do piloto: ");
+
+    // $piloto = $piloto[$indexPiloto - 1];
+
+    $copilotos = Piloto::getRecordsByField('companhiaAerea', $indexCompanhiaAerea);
+
+    // foreach ($copilotos as &$copiloto) {
+    //     if ($copiloto->getIndex() == $indexPiloto) {
+    //         unset($copiloto);
+    //     }
+    // }
+
+    mostraPilotos($copilotos);
+
+    $indexCopiloto = (int)readline("Digite o index do copiloto: ");
+
+    // $copiloto = $copiloto[$indexCopiloto - 1];
+
+    $comissario = Comissario::getRecordsByField('companhiaAerea', $indexCompanhiaAerea);
+
+    mostraComissarios($comissario);
+
+    $indexComissario = (int)readline("Digite o index dos comissarios: ");
+
+    $listaIndexComissario = explode(",", $indexComissario);
+
+    $codigoVoo = (string)readline("Digite o codigo do voo: ");
+
+    $novoVooCompleto = Voo::criarVooCompleto($voo->getFrequenciaArray(), $voo->getAeroportoOrigem(), $voo->getAeroportoDestino(), $voo->getPrevisaoPartida(), $voo->getPrevisaoChegada(), $indexCompanhiaAerea, $aeronave, $indexPiloto, $indexCopiloto, $listaIndexComissario, $codigoVoo);
+
+    if ($novoVooCompleto == null) {
+        print_r("Não foi possivel realizar conectar a Comp aerea!!\r\n");
+        return;
+    } else {
+
+        $voo->alterarVoo($novoVooCompleto);
+
+        $voo->save();
+    }
+
+    print_r("Conexão de Comp Aerea com voo realizada com sucesso!\r\n");
 
     print_r("\n\n");
 }
