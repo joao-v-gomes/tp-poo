@@ -56,19 +56,6 @@ $origem = str_replace("++", "+", $origem);
 
 print_r($origem . "\n");
 
-// foreach (explode(" ", $origem) as $key => $value) {
-
-//     // if ($value == 'A') {
-//     //     // continue;
-//     //     print_r("Achou o a");
-//     // }
-
-
-
-//     $origemFix .= $value . "+";
-// }
-
-// print_r($origemFix);
 
 // $destino = "BeerBrothers - Contagem";
 // $destino = "Planet Insulfims - Contagem";
