@@ -27,11 +27,8 @@ class Passagem extends persist
     $this->setFranquiasBagagem($franquiasBagagem);
     $this->setPassageiro($passageiro);
     $this->setCliente($cliente);
-    // $this->setStatus($status);
+    $this->statusPassagem = "Passagem adquirida";
     $this->setlistaViagensEConexoes($listaViagensEConexoes);
-    // $this->setPesoTotal($pesoTotal);
-
-    $this->listaViagensEConexoes = array();
   }
 
   public function getSiglaAeroportoOrigem()
@@ -70,7 +67,10 @@ class Passagem extends persist
   }
   public function getStatus()
   {
-    return $this->statusPassagem;
+    if(isset($this->statusPassagem))
+    {
+      return $this->statusPassagem;
+    }
   }
 
   public function setSiglaAeroportoOrigem(string $siglaAeroportoOrigem)
@@ -88,7 +88,7 @@ class Passagem extends persist
     $this->preco = $preco;
   }
 
-  public function setAssento(float $assento)
+  public function setAssento(string $assento)
   {
     $this->assento = $assento;
   }
@@ -107,7 +107,7 @@ class Passagem extends persist
   {
     $this->cliente = $cliente;
   }
-  public function setSatus(string $status)
+  public function setStatus(string $status)
   {
     $this->statusPassagem = $status;
   }
@@ -124,6 +124,28 @@ class Passagem extends persist
   {
     $this->pesoTotal = $franquiasBagagem * PESO_FRANQUIA_BAGAGEM;
   }
+  public function getPesoTotal()
+  {
+    return $this->pesoTotal;
+  }
+
+  public function alteracaoPassagem(Passagem $novaPassagem)
+  {
+    //conferir oq faz sentido ser mudado e talvez passa função para a classe Viagem
+    $this->setSiglaAeroportoOrigem($novaPassagem->getSiglaAeroportoOrigem());
+    $this->setSiglaAeroportoDestino($novaPassagem->getSiglaAeroportoDestino());
+    $this->setAssento($novaPassagem->getAssento());
+    $this->setFranquiasBagagem($novaPassagem->getFranquiasBagagem());
+    $this->setPassageiro($novaPassagem->getPassageiro());
+    $this->setStatus($novaPassagem->getStatus());
+    $this->setlistaViagensEConexoes($novaPassagem->getlistaViagensEConexoes());
+  }
+  
+  // public function cancelamentoDePassagem()
+  // {
+  //   $this->setStatus("Passagem cancelada");
+  //   $viagem->removerPassageiro($this);
+  // }
 
   static public function getFilename()
   {
