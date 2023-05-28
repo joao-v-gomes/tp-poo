@@ -14,11 +14,12 @@ class Passagem extends persist
   private Cliente $cliente;
   private string $statusPassagem;
   private array $listaViagensEConexoes;
-  private float $pesoTotal;
+  private float $pesoTotal = 0;
+  private float $valorPagoDeMulta;
 
   static $local_filename = "passagens.txt";
 
-  public function __construct(string $siglaAeroportoOrigem, string $siglaAeroportoDestino, float $preco, string $assento, int $franquiasBagagem, Passageiro $passageiro, Cliente $cliente, array $listaViagensEConexoes)
+  public function __construct(string $siglaAeroportoOrigem, string $siglaAeroportoDestino, float $preco, string $assento, int $franquiasBagagem, Passageiro $passageiro, Cliente $cliente, array $listaViagensEConexoes, float $valorPagoDeMulta)
   {
     $this->setSiglaAeroportoOrigem($siglaAeroportoOrigem);
     $this->setSiglaAeroportoDestino($siglaAeroportoDestino);
@@ -29,6 +30,7 @@ class Passagem extends persist
     $this->setCliente($cliente);
     $this->statusPassagem = "Passagem adquirida";
     $this->setlistaViagensEConexoes($listaViagensEConexoes);
+    $this->setValorPagoDeMulta($valorPagoDeMulta);
   }
 
   public function getSiglaAeroportoOrigem()
@@ -118,6 +120,11 @@ class Passagem extends persist
   public function setlistaViagensEConexoes(array $listaViagensEConexoes)
   {
     $this->listaViagensEConexoes = $listaViagensEConexoes;
+  }
+
+  public function setValorPagoDeMulta($valorPagoDeMulta)
+  {
+    $this->valorPagoDeMulta = $valorPagoDeMulta;
   }
 
   public function setPesoTotal(int $franquiasBagagem)

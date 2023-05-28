@@ -7,31 +7,31 @@ class Viagem extends persist
   private DateTime $horarioChegada;
   private DateInterval $duracao;
   //private Aeronave $aeronave;
-  private float $carga;
-  private ?array $passageiros;
+  private float $carga = 0;
+  //declarar o array do outro jeito estava dando erro na chamada de funcao
+  //private ?array $passageiros;
+  //private $passageiros = array();
   private int $voo;
   private int $milhasViagem;
   private float $valorViagem;
   private float $valorFranquiaBagagem;
+  private float $valorMulta;
 
 
   static $local_filename = "viagens.txt";
 
-  public function __construct(DateTime $horarioPartida, DateTime $horarioChegada, float $carga, int $voo, int $milhasViagem, float $valorViagem, float $valorFranquiaBagagem)
+  public function __construct(DateTime $horarioPartida, DateTime $horarioChegada, float $carga, /*int $voo,*/ int $milhasViagem, float $valorViagem, float $valorFranquiaBagagem, float $valorMulta)
   {
-    // $this->setAeroportoOrigem($aeroportoOrigem);
-    // $this->setAeroportoDestino($aeroportoDestino);
     $this->setHorarioPartida($horarioPartida);
     $this->setHorarioChegada($horarioChegada);
     $this->setDuracao($horarioPartida, $horarioChegada);
-    $this->setAeronave($aeronave);
+    // $this->setAeronave($aeronave);
     $this->setCarga($carga);
-    $this->setVoo($voo);
+    //$this->setVoo($voo);
     $this->setMilhasViagem($milhasViagem);
     $this->setvalorViagem($valorViagem);
     $this->setvalorFranquiaBagagem($valorFranquiaBagagem);
-
-    $this->passageiros = array();
+    $this->setValorMulta($valorMulta);
   }
 
   // public function getAeroportoOrigem()
@@ -54,6 +54,11 @@ class Viagem extends persist
     return $this->horarioChegada;
   }
 
+  public function getPassageiros()
+  {
+    return $this->passageiros;
+  }
+
   public function getDuracaoEstimada()
   {
     return $this->duracao;
@@ -74,16 +79,6 @@ class Viagem extends persist
     return $this->carga;
   }
 
-  // public function setAeroportoOrigem(string $aeroportoOrigem)
-  // {
-  //   $this->aeroportoOrigem = $aeroportoOrigem;
-  // }
-
-  // public function setAeroportoDestino(string $aeroportoDestino)
-  // {
-  //   $this->aeroportoDestino = $aeroportoDestino;
-  // }
-
   public function setHorarioPartida(DateTime $horarioPartida)
   {
     $this->horarioPartida = $horarioPartida;
@@ -97,17 +92,6 @@ class Viagem extends persist
   public function setDuracao(DateTime $horarioPartida, DateTime $horarioChegada)
   {
     $this->duracao = $horarioChegada->diff($horarioPartida);
-  }
-
-  public function setCompanhiaAerea(string $companhiaAerea)
-  {
-    $this->companhiaAerea = $companhiaAerea;
-  }
-
-  public function setAeronave(Aeronave $aeronave)
-  {
-    // verificar capacidade de carga e passageiros antes de alterar
-    $this->aeronave = $aeronave;
   }
 
   public function setCarga(float $carga)
@@ -134,30 +118,45 @@ class Viagem extends persist
   {
     $this->valorFranquiaBagagem = $valorFranquiaBagagem;
   }
-  //***Falta testar as funcoes comentadas abaixo***
+
+  public function setValorMulta($valorMulta)
+  {
+    $this->valorMulta = $valorMulta;
+  }
   
-  // public function inserirPassageiro($novaPassagem)
-  // {
-  //   //qualquer tipo de verificacao deve ser feita na hora da venda (carga e assentos)
-  //   array_push($passageiros, $novaPassagem->getPassageiro());
-  //   $this->setCarga($novaPassagem->getPesoTotal()); 
-  // }
+  public function inserirPassageiro($novaPassagem)
+  {
+    //qualquer tipo de verificacao deve ser feita na hora da venda (carga e assentos)
+    $this->passageiros[] = $novaPassagem->getPassageiro();
+    $this->setCarga($novaPassagem->getPesoTotal()); 
+  }
+
+  //***Falta testar as funcoes comentadas abaixo***
 
   // public function removerPassageiro($passagemRemovida)
   // {
-  //   $cpfDoPassageiro = $passagemRemovida->getPassageiro()->getCpf();
-  //   $key = array_search($cpfDoPassageiro, $this->passageiros);
-  //   if($key !== false)
+  //   $passageiro = $passagemRemovida->getPassageiro();
+  //   $cpfDoPassageiro = $passageiro->getCpf();
+  //   //print_r($cpfDoPassageiro);
+  //   $cpf = array_column($this->passageiros, 'cpf');
+  //   $found_key = array_search($cpfDoPassageiro, $cpf);
+  //   //$key = array_search($cpfDoPassageiro, $this->passageiros);
+  //   if($found_key !== false)
   //   {
-  //     unset($passageiros[$key]);
+  //     print_r("hello4");
+  //     unset($this->passageiros[$found_key]);
   //     $cargaRemovida = -($passagemRemovida->getPesoTotal());
   //     $this->setCarga($cargaRemovida);
+  //   }
+  //   if($found_key === false)
+  //   {
+  //     print_r("nn encontrado");
   //   }
   // }
 
   // public function fazerCheckIn ($passagem)
   // {
-  //   $passagem->setSatus("Check-in realizado");
+  //   $passagem->setStatus("Check-in realizado");
   // }
 
   // public function cancelamentoDePassagem($passagem)
