@@ -147,10 +147,10 @@ class CompanhiaAerea extends persist
 	// public function compraDeFranquia(Passagem $passagem){
 	// }
 
-	public function exibirListaAeronaves()
-	{
-		print_r($this->listaAeronaves);
-	}
+	// public function exibirListaAeronaves()
+	// {
+	// 	print_r($this->listaAeronaves);
+	// }
 
   // public function buscaViagens ( $aeroportoOrigem, $aeroportoDestino, $dataViagem, $numeroDePassageiros)
   // {

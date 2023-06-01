@@ -31,6 +31,7 @@ while ($sair == 0) {
     print_r(++$opcMenu . " - Cadastrar Voos\r\n");
     print_r(++$opcMenu . " - Ver Voos\r\n");
     print_r(++$opcMenu . " - Editar Voos\r\n");
+    print_r(++$opcMenu . " - Adicionar uma Companiha Aerea a um Voo\r\n");
 
     print_r("\n--- COMPANHIAS AEREAS ---\r\n");
     print_r(++$opcMenu . " - Cadastrar Companhia Aerea\r\n");
@@ -96,7 +97,7 @@ while ($sair == 0) {
             break;
 
         case ++$opcMenu:
-            print_r("Conexao Comp. Aerea em Aeroporto\r\n");
+            print_r("Adicionar Comp. Aerea em Aeroporto\r\n");
             print_r("\n\n");
             sis_conectarCompanhiaAereaEmAeroporto();
             break;
@@ -131,6 +132,12 @@ while ($sair == 0) {
             print_r("Editar Voo\r\n");
             print_r("\n\n");
             sis_editarVoo();
+            break;
+
+        case ++$opcMenu:
+            print_r("Conexao Comp Aerea com Voo\r\n");
+            print_r("\n\n");
+            sis_conectarCompanhiaAereaEmVoo();
             break;
 
             // #### COMPANHIAS AEREAS ####

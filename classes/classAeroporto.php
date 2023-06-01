@@ -8,7 +8,7 @@ class Aeroporto extends persist
   private string $estado;
 
   // private array $listaVoos;
-  // private array $listaCompanhiasAereas;
+  private ?array $listaCompanhiasAereas;
 
   static $local_filename = "aeroportos.txt";
 
@@ -26,7 +26,8 @@ class Aeroporto extends persist
     // Pensei em deixar essa lista na "classeSistema", que seria a "main" e que chamaria todas as outras.
     // $this->listaAeroportos = $listaAeroportos;
     // $this->listaVoos = array();
-    // $this->listaCompanhiasAereas = array();
+    $this->listaCompanhiasAereas = array();
+    // $this->setListaCompanihasAereas(SEM_COMPANHIA_AEREA_DEFINIDA);
   }
 
   public function alterarAeroporto(Aeroporto $novoAeroporto)
@@ -34,6 +35,7 @@ class Aeroporto extends persist
     $this->setSigla($novoAeroporto->getSigla());
     $this->setCidade($novoAeroporto->getCidade());
     $this->setEstado($novoAeroporto->getEstado());
+    $this->setListaCompanihasAereas($novoAeroporto->getListaCompanhiasAereas());
   }
 
   public function getSigla()
@@ -66,21 +68,26 @@ class Aeroporto extends persist
     $this->estado = $estado;
   }
 
+  public function setListaCompanihasAereas(?array $listaCompanhiasAereas)
+  {
+    $this->listaCompanhiasAereas = $listaCompanhiasAereas;
+  }
+
   // não usamos essas funcoes devido ao persist
   // public function cadastraNovoVoo(Voo $novoVoo)
   // {
   //   array_push($this->listaVoos, $novoVoo);
   // }
 
-  // public function cadastraNovaCompanhiaAerea(int $indexCompAerea)
-  // {
-  //   array_push($this->listaCompanhiasAereas, $indexCompAerea);
-  // }
+  public function cadastraNovaCompanhiaAerea(int $indexCompAerea)
+  {
+    array_push($this->listaCompanhiasAereas, $indexCompAerea);
+  }
 
-  // public function getListaCompanhiasAereas()
-  // {
-  //   return $this->listaCompanhiasAereas;
-  // }
+  public function getListaCompanhiasAereas()
+  {
+    return $this->listaCompanhiasAereas;
+  }
 
   static public function getFilename()
   {

@@ -76,8 +76,7 @@ function sis_conectarCompanhiaAereaEmAeroporto()
 
     if (count($companhiasAereas) == 0) {
         print_r("Nenhuma companhia aerea cadastrada!\r\n");
-        // print_r("Cadastre uma companhia aerea antes de conectar com um aeroporto!\r\n");
-        // print_r("\n\n");
+        print_r("\n\n");
         return;
     }
 
@@ -85,12 +84,13 @@ function sis_conectarCompanhiaAereaEmAeroporto()
 
     $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea: ");
 
+    print_r("Index Aeroporto: " . $indexCompanhiaAerea . "\r\n");
+
     $aeroportos = Aeroporto::getRecords();
 
     if (count($aeroportos) == 0) {
         print_r("Nenhum aeroporto cadastrado!\r\n");
-        // print_r("Cadastre um aeroporto antes de conectar com uma companhia aerea!\r\n");
-        // print_r("\n\n");
+        print_r("\n\n");
         return;
     }
 

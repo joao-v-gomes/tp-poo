@@ -21,7 +21,9 @@ class Voo extends persist
 
   static function criarVooCompleto(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida, DateTime $previsaoChegada, ?int $companhiaAerea,  ?Aeronave $aeronave, ?int $piloto, ?int $copiloto, ?array $comissarios, ?string $codigoVoo)
   {
-    $validaCodigoVoo = self::validaCodigoVoo($codigoVoo);
+    $validaCodigoVoo = self::validaCodigoVoo($companhiaAerea, $codigoVoo);
+
+    print_r("Valida codigo voo: " . $validaCodigoVoo . "\n");
 
     if ($validaCodigoVoo == 1) {
       $voo = new Voo($frequencia, $aeroportoOrigem, $aeroportoDestino, $previsaoPartida, $previsaoChegada);
@@ -277,8 +279,44 @@ class Voo extends persist
   //   $this->viagem = $novaViagem;
   // }
 
-  static public function validaCodigoVoo()
+  static public function validaCodigoVoo(?int $indexCompanhiaAerea, ?string $codigoVoo)
   {
+    if ($indexCompanhiaAerea == null) {
+      return "Index Compahia Aerea nulo";
+    }
+
+    if ($codigoVoo == null) {
+      return "Codigo Voo nulo";
+    }
+
+    if (strlen($codigoVoo) != 6) {
+      return "Tamanho do Codigo Voo invalido";
+    }
+
+    $codigoVoo = strtoupper($codigoVoo);
+
+    $letra = substr($codigoVoo, 0, 2);
+    $numero = substr($codigoVoo, 2, 5);
+
+    // print_r("Letra: " . $letra . "\n");
+    // print_r("Numero: " . $numero . "\n");
+
+    $companhiaAerea = CompanhiaAerea::getRecordsByField('index', $indexCompanhiaAerea);
+
+    if ($companhiaAerea == null) {
+      return "Index Companhia Aerea nao encontrado";
+    }
+
+    $companhiaAerea = $companhiaAerea[0];
+
+    if ($companhiaAerea->getSigla() != $letra) {
+      return "Sigla da Companhia Aerea nao confere com o Codigo Voo";
+    }
+
+    if (!is_numeric($numero)) {
+      return "O numero do Codigo Voo nao e numerico";
+    }
+
     return 1;
   }
 
