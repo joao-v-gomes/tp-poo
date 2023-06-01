@@ -23,7 +23,7 @@ $Matt = new Passageiro(true, "Matheus", "Salles", "123456", "14092698097", "bras
 
 $lista = ["CNF", "SP", "CNG"];
 
-$velhaPassagem = new Passagem("SP", "BH", 1543.22, "C24", 1, $Matt, $cliente2, $lista);
+$velhaPassagem = new Passagem("SP", "BH", 1543.22, "C24", 1, $Matt, $cliente2, $lista, 1223);
 
 $viagem1->inserirPassageiro($velhaPassagem);
 

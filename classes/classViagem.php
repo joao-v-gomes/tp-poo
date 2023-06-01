@@ -8,8 +8,7 @@ class Viagem extends persist
   private DateInterval $duracao;
   //private Aeronave $aeronave;
   private float $carga = 0;
-  //declarar o array do outro jeito estava dando erro na chamada de funcao
-  //private ?array $passageiros;
+  private ?array $passageiros;
   //private $passageiros = array();
   private int $voo;
   private int $milhasViagem;
@@ -138,19 +137,22 @@ class Viagem extends persist
   //   $passageiro = $passagemRemovida->getPassageiro();
   //   $cpfDoPassageiro = $passageiro->getCpf();
   //   //print_r($cpfDoPassageiro);
-  //   $cpf = array_column($this->passageiros, 'cpf');
-  //   $found_key = array_search($cpfDoPassageiro, $cpf);
+  //   // $cpf = array_column($this->passageiros, 'cpf');
+  //   // $found_key = array_search($cpfDoPassageiro, $cpf);
   //   //$key = array_search($cpfDoPassageiro, $this->passageiros);
-  //   if($found_key !== false)
+  //   foreach($this->passageiros as $passageiro)
   //   {
-  //     print_r("hello4");
-  //     unset($this->passageiros[$found_key]);
-  //     $cargaRemovida = -($passagemRemovida->getPesoTotal());
-  //     $this->setCarga($cargaRemovida);
-  //   }
-  //   if($found_key === false)
-  //   {
-  //     print_r("nn encontrado");
+  //     if($passageiro->getCpf() === $cpfDoPassageiro)
+  //     {
+  //       print_r("hello4");
+  //       unset($this->passageiros[$found_key]);
+  //       $cargaRemovida = -($passagemRemovida->getPesoTotal());
+  //       $this->setCarga($cargaRemovida);
+  //     }
+  //     else
+  //       {
+  //       print_r("nn encontrado");
+  //       }
   //   }
   // }
 
