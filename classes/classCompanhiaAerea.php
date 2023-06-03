@@ -152,6 +152,11 @@ class CompanhiaAerea extends persist
 	// 	print_r($this->listaAeronaves);
 	// }
 
+  // public function buscaViagens ( $aeroportoOrigem, $aeroportoDestino, $dataViagem, $numeroDePassageiros)
+  // {
+    
+  // }
+
 	static public function getFilename()
 	{
 		return get_called_class()::$local_filename;
