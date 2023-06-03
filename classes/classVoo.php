@@ -12,21 +12,21 @@ class Voo extends persist
   private ?int $copiloto;
   private ?array $listaComissarios;
   private DateTime $previsaoPartida;
-  private DateTime $previsaoChegada;
-  private DateInterval $previsaoDuracao;
+  // private DateTime $previsaoChegada;
+  // private DateInterval $previsaoDuracao;
   private ?string $codigoVoo;
 
   static $local_filename = "voos.txt";
 
 
-  static function criarVooCompleto(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida, DateTime $previsaoChegada, ?int $companhiaAerea,  ?Aeronave $aeronave, ?int $piloto, ?int $copiloto, ?array $comissarios, ?string $codigoVoo)
+  static function criarVooCompleto(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida, ?int $companhiaAerea,  ?Aeronave $aeronave, ?int $piloto, ?int $copiloto, ?array $comissarios, ?string $codigoVoo)
   {
     $validaCodigoVoo = self::validaCodigoVoo($companhiaAerea, $codigoVoo);
 
     print_r("Valida codigo voo: " . $validaCodigoVoo . "\n");
 
     if ($validaCodigoVoo == 1) {
-      $voo = new Voo($frequencia, $aeroportoOrigem, $aeroportoDestino, $previsaoPartida, $previsaoChegada);
+      $voo = new Voo($frequencia, $aeroportoOrigem, $aeroportoDestino, $previsaoPartida);
 
       $voo->setCompanhiaAerea($companhiaAerea);
       $voo->setAeronave($aeronave);
@@ -42,15 +42,15 @@ class Voo extends persist
     }
   }
 
-  public function __construct(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida, DateTime $previsaoChegada)
+  public function __construct(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida)
   {
     $this->setFrequencia($frequencia);
     $this->setAeroportoOrigem($aeroportoOrigem);
     $this->setAeroportoDestino($aeroportoDestino);
     $this->setPrevisaoPartida($previsaoPartida);
-    $this->setPrevisaoChegada($previsaoChegada);
+    // $this->setPrevisaoChegada($previsaoChegada);
 
-    $this->setPrevisaoDuracao($previsaoChegada, $previsaoPartida);
+    // $this->setPrevisaoDuracao($previsaoChegada, $previsaoPartida);
 
     $this->setAeronave(SEM_AERONAVE_DEFINIDA);
     $this->setCompanhiaAerea(SEM_COMPANHIA_AEREA_DEFINIDA);
@@ -69,8 +69,8 @@ class Voo extends persist
     $this->setAeroportoOrigem($novoVoo->getAeroportoOrigem());
     $this->setAeroportoDestino($novoVoo->getAeroportoDestino());
     $this->setPrevisaoPartida($novoVoo->getPrevisaoPartida());
-    $this->setPrevisaoChegada($novoVoo->getPrevisaoChegada());
-    $this->setPrevisaoDuracao($novoVoo->getPrevisaoChegada(), $novoVoo->getPrevisaoPartida());
+    // $this->setPrevisaoChegada($novoVoo->getPrevisaoChegada());
+    // $this->setPrevisaoDuracao($novoVoo->getPrevisaoChegada(), $novoVoo->getPrevisaoPartida());
     $this->setCompanhiaAerea($novoVoo->getCompanhiaAerea());
     $this->setAeronave($novoVoo->getAeronave());
     $this->setPiloto($novoVoo->getPiloto());
@@ -181,16 +181,16 @@ class Voo extends persist
     return $this->previsaoPartida;
   }
 
-  public function getPrevisaoChegada()
-  {
-    return $this->previsaoChegada;
-  }
+  // public function getPrevisaoChegada()
+  // {
+  //   return $this->previsaoChegada;
+  // }
 
-  public function getPrevisaoDuracao()
-  {
-    return $this->previsaoDuracao;
-    // return $this->previsaoDuracao->format("%H:%I");
-  }
+  // public function getPrevisaoDuracao()
+  // {
+  //   return $this->previsaoDuracao;
+  //   // return $this->previsaoDuracao->format("%H:%I");
+  // }
 
   public function getCodigoVoo()
   {
@@ -253,15 +253,15 @@ class Voo extends persist
     $this->previsaoPartida = $previsaoPartida;
   }
 
-  public function setPrevisaoChegada(DateTime $previsaoChegada)
-  {
-    $this->previsaoChegada = $previsaoChegada;
-  }
+  // public function setPrevisaoChegada(DateTime $previsaoChegada)
+  // {
+  //   $this->previsaoChegada = $previsaoChegada;
+  // }
 
-  public function setPrevisaoDuracao(DateTime $previsaoChegada, DateTime $previsaoPartida)
-  {
-    $this->previsaoDuracao = $previsaoChegada->diff($previsaoPartida);
-  }
+  // public function setPrevisaoDuracao(DateTime $previsaoChegada, DateTime $previsaoPartida)
+  // {
+  //   $this->previsaoDuracao = $previsaoChegada->diff($previsaoPartida);
+  // }
 
   public function setCodigoVoo(?string $codigoVoo)
   {

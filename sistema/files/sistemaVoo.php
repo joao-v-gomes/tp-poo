@@ -30,15 +30,15 @@ function sis_cadastrarVoo()
     // print_r($dataHoraPartida->format("d/m/Y H:i"));
     // print_r("\n");
 
-    $dataHoraChegada = (string)readline("Digite a data e hora de previsao chegada (hh:mm): ");
+    // $dataHoraChegada = (string)readline("Digite a data e hora de previsao chegada (hh:mm): ");
 
-    $dataHoraChegada = DateTime::createFromFormat("H:i", $dataHoraChegada);
+    // $dataHoraChegada = DateTime::createFromFormat("H:i", $dataHoraChegada);
 
     // print_r("Data Hora Chegada: ");
     // print_r($dataHoraChegada->format("d/m/Y H:i"));
     // print_r("\n");
 
-    $voo = new Voo($frequencia, $aeroportoOrigem, $aeroportoDestino, $dataHoraPartida, $dataHoraChegada);
+    $voo = new Voo($frequencia, $aeroportoOrigem, $aeroportoDestino, $dataHoraPartida);
 
     $voo->save();
 
@@ -65,7 +65,7 @@ function sis_verVoos()
 function mostraVoos(array $voos)
 {
     print_r("Voos cadastrados:\r\n");
-    print_r("Index - Frequencia - Aeroporto Origem - Aeroporto Destino - Comp Aerea - Registro Aeronave - Piloto - Copiloto - Comissarios - Previsao Partida - Previsao Chegada - Previsao Duracao - Codigo Voo\r\n");
+    print_r("Index - Frequencia - Aeroporto Origem - Aeroporto Destino - Comp Aerea - Registro Aeronave - Piloto - Copiloto - Comissarios - Previsao Partida - Codigo Voo\r\n");
 
     foreach ($voos as $voo) {
 
@@ -112,7 +112,7 @@ function mostraVoos(array $voos)
             $codigoVoo = $voo->getCodigoVoo();
         }
 
-        print_r($voo->getIndex() . " - " . $voo->getFrequenciaString() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $compAereaVoo . " - " . $aeronaveVoo  . " - " . $pilotoVoo . " - " . $copilotoVoo . " - " . $comissariosVoo . " - " . $voo->getPrevisaoPartida()->format("H:i") . " - " . $voo->getPrevisaoChegada()->format("H:i") . " - " . $voo->getPrevisaoDuracao()->format("%H:%I") . " - " . $codigoVoo . "\r\n");
+        print_r($voo->getIndex() . " - " . $voo->getFrequenciaString() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $compAereaVoo . " - " . $aeronaveVoo  . " - " . $pilotoVoo . " - " . $copilotoVoo . " - " . $comissariosVoo . " - " . $voo->getPrevisaoPartida()->format("H:i") . " - " . $codigoVoo . "\r\n");
         // print_r($voo->getIndex() . " - " . $voo->getFrequenciaString() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $voo->getPrevisaoPartida()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoChegada()->format("d/m/Y H:i")  . " - " . $voo->getPrevisaoDuracao()->format("%H:%I:%S") . "\r\n");
     }
 }
@@ -152,9 +152,9 @@ function sis_editarVoo()
     $indexAeroportoOrigem = $aeroportoOrigem->getIndex();
     $indexAeroportoDestino = $aeroportoDestino->getIndex();
 
-    print_r("Aeroporto Origem: " . $indexAeroportoOrigem . "\r\n");
+    // print_r("Aeroporto Origem: " . $indexAeroportoOrigem . "\r\n");
 
-    print_r("Aeroporto Destino: " . $indexAeroportoDestino . "\r\n");
+    // print_r("Aeroporto Destino: " . $indexAeroportoDestino . "\r\n");
 
     $indexCompanhiasAereasAeroportoOrigem = $aeroportoOrigem->getListaCompanhiasAereas();
 
@@ -183,9 +183,13 @@ function sis_editarVoo()
 
     // $aeronave = $aeronaves[$indexAeronave - 1];
 
-    $aeronave = Aeronave::getRecordsByField('index', $indexAeronave);
+    if ($indexAeronave != null) {
+        $aeronave = Aeronave::getRecordsByField('index', $indexAeronave);
 
-    $aeronave = $aeronave[0];
+        $aeronave = $aeronave[0];
+    } else {
+        $aeronave = null;
+    }
 
     $pilotos = Piloto::getRecordsByField('companhiaAerea', $indexCompanhiaAerea);
 
@@ -228,15 +232,15 @@ function sis_editarVoo()
 
     $previsaoPartida = DateTime::createFromFormat("H:i", $previsaoPartida);
 
-    $previsaoChegada = (string)readline("Digite a hora de previsao chegada (hh:mm): ");
+    // $previsaoChegada = (string)readline("Digite a hora de previsao chegada (hh:mm): ");
 
-    $previsaoChegada = DateTime::createFromFormat("H:i", $previsaoChegada);
+    // $previsaoChegada = DateTime::createFromFormat("H:i", $previsaoChegada);
 
     $codigoVoo = (string)readline("Digite o codigo do voo: ");
 
     // $novoVoo = Voo::criarVooCompleto($frequencia, $aeroportoOrigem, $aeroportoDestino, $aeronave, $piloto, $copiloto, $listaComissarios, $dataHoraPartida, $dataHoraChegada, $codigo);
 
-    $novoVoo = Voo::criarVooCompleto($frequencia, $indexAeroportoOrigem, $indexAeroportoDestino, $previsaoPartida, $previsaoChegada, $indexCompanhiaAerea, $aeronave, $indexPiloto, $indexCopiloto, $listaIndexComissario, $codigoVoo);
+    $novoVoo = Voo::criarVooCompleto($frequencia, $indexAeroportoOrigem, $indexAeroportoDestino, $previsaoPartida, $indexCompanhiaAerea, $aeronave, $indexPiloto, $indexCopiloto, $listaIndexComissario, $codigoVoo);
 
     if ($novoVoo == null) {
         print_r("Voo não pode ser editado!!\r\n");
@@ -344,7 +348,7 @@ function sis_conectarCompanhiaAereaEmVoo()
 
     $codigoVoo = (string)readline("Digite o codigo do voo: ");
 
-    $novoVooCompleto = Voo::criarVooCompleto($voo->getFrequenciaArray(), $voo->getAeroportoOrigem(), $voo->getAeroportoDestino(), $voo->getPrevisaoPartida(), $voo->getPrevisaoChegada(), $indexCompanhiaAerea, $aeronave, $indexPiloto, $indexCopiloto, $listaIndexComissario, $codigoVoo);
+    $novoVooCompleto = Voo::criarVooCompleto($voo->getFrequenciaArray(), $voo->getAeroportoOrigem(), $voo->getAeroportoDestino(), $voo->getPrevisaoPartida(), $indexCompanhiaAerea, $aeronave, $indexPiloto, $indexCopiloto, $listaIndexComissario, $codigoVoo);
 
     if ($novoVooCompleto == null) {
         print_r("Não foi possivel realizar conectar a Comp aerea!!\r\n");
