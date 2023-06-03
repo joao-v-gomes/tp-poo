@@ -9,15 +9,29 @@ function sis_CadastrarAeronave()
     $capacidadePassageiros = (int)readline("Digite a capacidade de passageiros da aeronave: ");
     $capacidadeCarga = (float)readline("Digite a capacidade de carga da aeronave: ");
 
-    do {
-        $registro = (string)readline("Digite o registro da aeronave: ");
+    $registro = (string)readline("Digite o registro da aeronave: ");
 
-        $aeronave = Aeronave::criarAeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, SEM_COMPANHIA_AEREA_DEFINIDA);
-    } while ($aeronave == null);
+    $companhiasAereas = CompanhiaAerea::getRecords();
 
-    $aeronave->save();
+    mostraCompanhiasAereas($companhiasAereas);
 
-    print_r("Aeronave cadastrada com sucesso!\r\n");
+    $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea a qual pertence essa aeronave: ");
+
+    if ($indexCompanhiaAerea != null) {
+        $indexCompanhiaAerea = $companhiasAereas[$indexCompanhiaAerea - 1]->getIndex();
+    } else {
+        $indexCompanhiaAerea = null;
+    }
+
+    $aeronave = Aeronave::criarAeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $indexCompanhiaAerea);
+
+    if ($aeronave != null) {
+        $aeronave->save();
+
+        print_r("Aeronave cadastrada com sucesso!\r\n");
+    } else {
+        print_r("Erro ao cadastrar aeronave!\r\n");
+    }
 
     print_r("\n\n");
 }

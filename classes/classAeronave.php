@@ -41,16 +41,18 @@ class Aeronave extends persist
 
 	static public function criarAeronave(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, ?int $indexCompAerea)
 	{
-		$validaRegistro = self::validaRegistro($registro);
+		try {
+			$validaRegistro = self::validaRegistro($registro);
 
-		if ($validaRegistro == 1) {
-			$aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro);
+			if ($validaRegistro == 1) {
+				$aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro);
 
-			$aeronave->setCompAereaPertencente($indexCompAerea);
+				$aeronave->setCompAereaPertencente($indexCompAerea);
 
-			return $aeronave;
-		} else {
-			print_r("Erro ao criar aeronave: " . $validaRegistro . "\n");
+				return $aeronave;
+			}
+		} catch (Exception $e) {
+			print_r("Erro ao criar aeronave: " . $e->getMessage() . "\n");
 			return NULL;
 		}
 	}
@@ -128,7 +130,7 @@ class Aeronave extends persist
 
 		// Verifica o tamanho da string
 		if (strlen($registro) != TAMANHO_REGISTRO) {
-			return "Tamanho do registro errado \r\n";
+			throw new Exception("Tamanho do registro errado \r\n");
 		};
 
 		// Verifica a primeira letra
@@ -143,17 +145,20 @@ class Aeronave extends persist
 			$registro[1] != 'P' and
 			$registro[1] != 'S'
 		) {
-			return "Segunda letra do registro nao e 'T', 'P', 'P' ou 'S' \r\n";
+			// return "Segunda letra do registro nao e 'T', 'P', 'P' ou 'S' \r\n";
+			throw new Exception("Segunda letra do registro nao e 'T', 'P', 'P' ou 'S' \r\n");
 		}
 
 		// Verifica a posicao do hifen	
 		if ($registro[2] != '-') {
-			return "O hifen nao esta na posicao correta \r\n";
+			// return "O hifen nao esta na posicao correta \r\n";
+			throw new Exception("O hifen nao esta na posicao correta \r\n");
 		}
 
 		// Verifica se os tres ultimos chars nao sao numericos
 		if (is_numeric($registro[3]) or is_numeric($registro[4]) or is_numeric($registro[5])) {
-			return "Os tres ultimos digitos nao sao numericos \r\n";
+			// return "Os tres ultimos digitos nao sao numericos \r\n";
+			throw new Exception("Os tres ultimos digitos nao sao numericos \r\n");
 		}
 
 		// Retorna true se der tudo certo
