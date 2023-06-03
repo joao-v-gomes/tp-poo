@@ -21,23 +21,25 @@ class Voo extends persist
 
   static function criarVooCompleto(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida, ?int $companhiaAerea,  ?Aeronave $aeronave, ?int $piloto, ?int $copiloto, ?array $comissarios, ?string $codigoVoo)
   {
-    $validaCodigoVoo = self::validaCodigoVoo($companhiaAerea, $codigoVoo);
+    try {
+      $validaCodigoVoo = self::validaCodigoVoo($companhiaAerea, $codigoVoo);
 
-    print_r("Valida codigo voo: " . $validaCodigoVoo . "\n");
+      // print_r("Valida codigo voo: " . $validaCodigoVoo . "\n");
 
-    if ($validaCodigoVoo == 1) {
-      $voo = new Voo($frequencia, $aeroportoOrigem, $aeroportoDestino, $previsaoPartida);
+      if ($validaCodigoVoo == 1) {
+        $voo = new Voo($frequencia, $aeroportoOrigem, $aeroportoDestino, $previsaoPartida);
 
-      $voo->setCompanhiaAerea($companhiaAerea);
-      $voo->setAeronave($aeronave);
-      $voo->setPiloto($piloto);
-      $voo->setCopiloto($copiloto);
-      $voo->setListaComissarios($comissarios);
-      $voo->setCodigoVoo($codigoVoo);
+        $voo->setCompanhiaAerea($companhiaAerea);
+        $voo->setAeronave($aeronave);
+        $voo->setPiloto($piloto);
+        $voo->setCopiloto($copiloto);
+        $voo->setListaComissarios($comissarios);
+        $voo->setCodigoVoo($codigoVoo);
 
-      return $voo;
-    } else {
-      print_r("Erro ao criar voo: " . $validaCodigoVoo . "\n");
+        return $voo;
+      }
+    } catch (Exception $e) {
+      print_r("Erro ao criar voo: " . $e->getMessage() . "\n");
       return NULL;
     }
   }
@@ -282,15 +284,18 @@ class Voo extends persist
   static public function validaCodigoVoo(?int $indexCompanhiaAerea, ?string $codigoVoo)
   {
     if ($indexCompanhiaAerea == null) {
-      return "Index Compahia Aerea nulo";
+      // return "Index Compahia Aerea nulo";
+      throw new Exception("Index Compahia Aerea nulo");
     }
 
     if ($codigoVoo == null) {
-      return "Codigo Voo nulo";
+      // return "Codigo Voo nulo";
+      throw new Exception("Codigo Voo nulo");
     }
 
     if (strlen($codigoVoo) != 6) {
-      return "Tamanho do Codigo Voo invalido";
+      // return "Tamanho do Codigo Voo invalido";
+      throw new Exception("Tamanho do Codigo Voo invalido");
     }
 
     $codigoVoo = strtoupper($codigoVoo);
@@ -304,17 +309,20 @@ class Voo extends persist
     $companhiaAerea = CompanhiaAerea::getRecordsByField('index', $indexCompanhiaAerea);
 
     if ($companhiaAerea == null) {
-      return "Index Companhia Aerea nao encontrado";
+      // return "Index Companhia Aerea nao encontrado";
+      throw new Exception("Index Companhia Aerea nao encontrado");
     }
 
     $companhiaAerea = $companhiaAerea[0];
 
     if ($companhiaAerea->getSigla() != $letra) {
-      return "Sigla da Companhia Aerea nao confere com o Codigo Voo";
+      // return "Sigla da Companhia Aerea nao confere com o Codigo Voo";
+      throw new Exception("Sigla da Companhia Aerea nao confere com o Codigo Voo");
     }
 
     if (!is_numeric($numero)) {
-      return "O numero do Codigo Voo nao e numerico";
+      // return "O numero do Codigo Voo nao e numerico";
+      throw new Exception("O numero do Codigo Voo nao e numerico");
     }
 
     return 1;

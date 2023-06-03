@@ -19,7 +19,7 @@ class Aeronave extends persist
 
 	static $local_filename = "aeronaves.txt";
 
-	public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro)
+	public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, ?int $indexCompAerea)
 	{
 
 		$this->setRegistro($registro);
@@ -36,7 +36,7 @@ class Aeronave extends persist
 
 		// sempre cadastramos uma nova Aeronave com -1, pois ela não pertence a nenhuma companhia aérea ainda
 		// quando definimos a companhia aérea, alteramos esse valor
-		$this->setCompAereaPertencente(SEM_COMPANHIA_AEREA_DEFINIDA);
+		$this->setCompAereaPertencente($indexCompAerea);
 	}
 
 	static public function criarAeronave(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, ?int $indexCompAerea)
@@ -45,9 +45,9 @@ class Aeronave extends persist
 			$validaRegistro = self::validaRegistro($registro);
 
 			if ($validaRegistro == 1) {
-				$aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro);
+				$aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $indexCompAerea);
 
-				$aeronave->setCompAereaPertencente($indexCompAerea);
+				// $aeronave->setCompAereaPertencente($indexCompAerea);
 
 				return $aeronave;
 			}
@@ -135,7 +135,8 @@ class Aeronave extends persist
 
 		// Verifica a primeira letra
 		if (($registro[0] != 'P')) {
-			return "Registro nao comeca com 'P' \r\n";
+			// return "Registro nao comeca com 'P' \r\n";
+			throw new Exception("Registro nao comeca com 'P' \r\n");
 		};
 
 		// Verifica a segunda letra

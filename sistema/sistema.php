@@ -28,7 +28,8 @@ while ($sair == 0) {
     print_r(++$opcMenu . " - Ver Voos de um Aeroporto\r\n");
 
     print_r("\n--- VOOS ---\r\n");
-    print_r(++$opcMenu . " - Cadastrar Voos\r\n");
+    print_r(++$opcMenu . " - Cadastrar Voos 'Simples'\r\n");
+    print_r(++$opcMenu . " - Cadastrar Voos 'Completos'\r\n");
     print_r(++$opcMenu . " - Ver Voos\r\n");
     print_r(++$opcMenu . " - Editar Voos\r\n");
     print_r(++$opcMenu . " - Adicionar uma Companiha Aerea a um Voo\r\n");
@@ -117,9 +118,15 @@ while ($sair == 0) {
             // #### VOOS ####
 
         case ++$opcMenu:
-            print_r("Cadastramento de Voo\r\n");
+            print_r("Cadastramento de Voo Simples\r\n");
             print_r("\n\n");
-            sis_CadastrarVoo();
+            sis_CadastrarVooSimples();
+            break;
+
+        case ++$opcMenu:
+            print_r("Cadastramento de Voo Completo\r\n");
+            print_r("\n\n");
+            sis_CadastrarVooCompleto();
             break;
 
         case ++$opcMenu:

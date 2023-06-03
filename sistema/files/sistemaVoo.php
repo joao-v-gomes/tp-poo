@@ -1,6 +1,6 @@
 <?php
 
-function sis_cadastrarVoo()
+function sis_cadastrarVooSimples()
 {
     $frequencia = (string)readline("Digite a frequencia do voo (1 - D, 2 - S, 3 - T, 4 - Q, 5 - Q, 6 - S, 7 - S): ");
 
@@ -43,6 +43,132 @@ function sis_cadastrarVoo()
     $voo->save();
 
     print_r("Voo cadastrado com sucesso!\r\n");
+
+    print_r("\n\n");
+}
+
+function sis_cadastrarVooCompleto()
+{
+    $frequencia = (string)readline("Digite a frequencia do voo (1 - D, 2 - S, 3 - T, 4 - Q, 5 - Q, 6 - S, 7 - S): ");
+
+    $frequencia = explode(",", $frequencia);
+
+    $aeroportos = Aeroporto::getRecords();
+
+    mostraAeroportos($aeroportos);
+
+    $indexAeroportoOrigem = (int)readline("Digite o index do aeroporto de origem: ");
+
+    $indexAeroportoDestino = (int)readline("Digite o index do aeroporto de destino: ");
+
+    $aeroportoOrigem = $aeroportos[$indexAeroportoOrigem - 1];
+
+    $aeroportoDestino = $aeroportos[$indexAeroportoDestino - 1];
+
+    $indexAeroportoOrigem = $aeroportoOrigem->getIndex();
+    $indexAeroportoDestino = $aeroportoDestino->getIndex();
+
+    // print_r("Aeroporto Origem: " . $indexAeroportoOrigem . "\r\n");
+
+    // print_r("Aeroporto Destino: " . $indexAeroportoDestino . "\r\n");
+
+    $indexCompanhiasAereasAeroportoOrigem = $aeroportoOrigem->getListaCompanhiasAereas();
+
+    // print_r("Companhias Aereas Aeroporto Origem: \r\n");
+    // print_r($indexCompanhiasAereasAeroportoOrigem);
+
+    $companhiasAereas = array();
+
+    foreach ($indexCompanhiasAereasAeroportoOrigem as $companhiaAerea) {
+        // $companhiasAereas[] = $companhiaAerea->getNome();
+        $compAerea = CompanhiaAerea::getRecordsByField('index', $companhiaAerea);
+        array_push($companhiasAereas, $compAerea[0]);
+    }
+
+    mostraCompanhiasAereas($companhiasAereas);
+
+    $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea: ");
+
+    // $companhiaAerea = $companhiasAereas[$indexCompanhiaAerea - 1];
+
+    $aeronaves = Aeronave::getRecordsByField('compAereaPertencente', $indexCompanhiaAerea);
+
+    mostraAeronaves($aeronaves);
+
+    $indexAeronave = (int)readline("Digite o index da aeronave: ");
+
+    // $aeronave = $aeronaves[$indexAeronave - 1];
+
+    if ($indexAeronave != null) {
+        $aeronave = Aeronave::getRecordsByField('index', $indexAeronave);
+
+        $aeronave = $aeronave[0];
+    } else {
+        $aeronave = null;
+    }
+
+    $pilotos = Piloto::getRecordsByField('companhiaAerea', $indexCompanhiaAerea);
+
+    mostraPilotos($pilotos);
+
+    $indexPiloto = (int)readline("Digite o index do piloto: ");
+
+    // $piloto = $piloto[$indexPiloto - 1];
+
+    $copilotos = Piloto::getRecordsByField('companhiaAerea', $indexCompanhiaAerea);
+
+    // foreach ($copilotos as &$copiloto) {
+    //     if ($copiloto->getIndex() == $indexPiloto) {
+    //         unset($copiloto);
+    //     }
+    // }
+
+    mostraPilotos($copilotos);
+
+    $indexCopiloto = (int)readline("Digite o index do copiloto: ");
+
+    // $copiloto = $copiloto[$indexCopiloto - 1];
+
+    $comissario = Comissario::getRecordsByField('companhiaAerea', $indexCompanhiaAerea);
+
+    mostraComissarios($comissario);
+
+    $indexComissario = (int)readline("Digite o index dos comissarios: ");
+
+    $listaIndexComissario = explode(",", $indexComissario);
+
+    // $listaComissarios = [];
+
+    // foreach ($listaIndexComissario as $index) {
+    //     // $comissarios[] = $comissario[$index - 1];
+    //     array_push($listaComissarios, $comissario[$index - 1]);
+    // }
+
+    $previsaoPartida = (string)readline("Digite a hora de previsao partida (hh:mm): ");
+
+    $previsaoPartida = DateTime::createFromFormat("H:i", $previsaoPartida);
+
+    // $previsaoChegada = (string)readline("Digite a hora de previsao chegada (hh:mm): ");
+
+    // $previsaoChegada = DateTime::createFromFormat("H:i", $previsaoChegada);
+
+    $codigoVoo = (string)readline("Digite o codigo do voo: ");
+
+    // $novoVoo = Voo::criarVooCompleto($frequencia, $aeroportoOrigem, $aeroportoDestino, $aeronave, $piloto, $copiloto, $listaComissarios, $dataHoraPartida, $dataHoraChegada, $codigo);
+
+    $voo = Voo::criarVooCompleto($frequencia, $indexAeroportoOrigem, $indexAeroportoDestino, $previsaoPartida, $indexCompanhiaAerea, $aeronave, $indexPiloto, $indexCopiloto, $listaIndexComissario, $codigoVoo);
+
+    if ($voo == null) {
+        print_r("Voo não pode ser criado!!\r\n");
+        return;
+    } else {
+
+        // $voo->alterarVoo($novoVoo);
+
+        $voo->save();
+
+        print_r("Voo criado com sucesso!\r\n");
+    }
 
     print_r("\n\n");
 }
