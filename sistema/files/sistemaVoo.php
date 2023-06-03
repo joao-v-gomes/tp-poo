@@ -22,17 +22,17 @@ function sis_cadastrarVoo()
     // print_r("Aeroporto Origem: " . $aeroportoOrigem . "\r\n");
     // print_r("Aeroporto Destino: " . $aeroportoDestino . "\r\n");
 
-    $dataHoraPartida = (string)readline("Digite a data e hora de previsao partida (dd/mm/aaaa hh:mm): ");
+    $dataHoraPartida = (string)readline("Digite a data e hora de previsao partida (hh:mm): ");
 
-    $dataHoraPartida = DateTime::createFromFormat("d/m/Y H:i", $dataHoraPartida);
+    $dataHoraPartida = DateTime::createFromFormat("H:i", $dataHoraPartida);
 
     // print_r("Data Hora Partida: ");
     // print_r($dataHoraPartida->format("d/m/Y H:i"));
     // print_r("\n");
 
-    $dataHoraChegada = (string)readline("Digite a data e hora de previsao chegada (dd/mm/aaaa hh:mm): ");
+    $dataHoraChegada = (string)readline("Digite a data e hora de previsao chegada (hh:mm): ");
 
-    $dataHoraChegada = DateTime::createFromFormat("d/m/Y H:i", $dataHoraChegada);
+    $dataHoraChegada = DateTime::createFromFormat("H:i", $dataHoraChegada);
 
     // print_r("Data Hora Chegada: ");
     // print_r($dataHoraChegada->format("d/m/Y H:i"));
@@ -112,7 +112,7 @@ function mostraVoos(array $voos)
             $codigoVoo = $voo->getCodigoVoo();
         }
 
-        print_r($voo->getIndex() . " - " . $voo->getFrequenciaString() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $compAereaVoo . " - " . $aeronaveVoo  . " - " . $pilotoVoo . " - " . $copilotoVoo . " - " . $comissariosVoo . " - " . $voo->getPrevisaoPartida()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoChegada()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoDuracao()->format("%H:%I") . " - " . $codigoVoo . "\r\n");
+        print_r($voo->getIndex() . " - " . $voo->getFrequenciaString() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $compAereaVoo . " - " . $aeronaveVoo  . " - " . $pilotoVoo . " - " . $copilotoVoo . " - " . $comissariosVoo . " - " . $voo->getPrevisaoPartida()->format("H:i") . " - " . $voo->getPrevisaoChegada()->format("H:i") . " - " . $voo->getPrevisaoDuracao()->format("%H:%I") . " - " . $codigoVoo . "\r\n");
         // print_r($voo->getIndex() . " - " . $voo->getFrequenciaString() . " - " . $voo->getAeroportoOrigem() . " - " . $voo->getAeroportoDestino() . " - " . $voo->getPrevisaoPartida()->format("d/m/Y H:i") . " - " . $voo->getPrevisaoChegada()->format("d/m/Y H:i")  . " - " . $voo->getPrevisaoDuracao()->format("%H:%I:%S") . "\r\n");
     }
 }
@@ -224,13 +224,13 @@ function sis_editarVoo()
     //     array_push($listaComissarios, $comissario[$index - 1]);
     // }
 
-    $previsaoPartida = (string)readline("Digite a data e hora de previsao partida (dd/mm/aaaa hh:mm): ");
+    $previsaoPartida = (string)readline("Digite a hora de previsao partida (hh:mm): ");
 
-    $previsaoPartida = DateTime::createFromFormat("d/m/Y H:i", $previsaoPartida);
+    $previsaoPartida = DateTime::createFromFormat("H:i", $previsaoPartida);
 
-    $previsaoChegada = (string)readline("Digite a data e hora de previsao chegada (dd/mm/aaaa hh:mm): ");
+    $previsaoChegada = (string)readline("Digite a hora de previsao chegada (hh:mm): ");
 
-    $previsaoChegada = DateTime::createFromFormat("d/m/Y H:i", $previsaoChegada);
+    $previsaoChegada = DateTime::createFromFormat("H:i", $previsaoChegada);
 
     $codigoVoo = (string)readline("Digite o codigo do voo: ");
 
