@@ -1,22 +1,27 @@
 <?php
+
+use Random\Engine;
+
 include_once("../libs/global.php");
 
 class Aeroporto extends persist
 {
   private string $sigla;
-  private string $cidade;
-  private string $estado;
+  // private string $cidade;
+  // private string $estado;
+  private Endereco $endereco;
 
   // private array $listaVoos;
   private ?array $listaCompanhiasAereas;
 
   static $local_filename = "aeroportos.txt";
 
-  public function __construct(string $sigla, string $cidade, string $estado)
+  public function __construct(string $sigla, Endereco $endereco)
   {
     $this->setSigla($sigla);
-    $this->setCidade($cidade);
-    $this->setEstado($estado);
+    $this->setEndereco($endereco);
+    // $this->setCidade($cidade);
+    // $this->setEstado($estado);
 
     // Quais serao os aeroportos dessa lista? Todos? Só os que temos voos?
     // - Se for todos, acho merda pq vamos precisar ficar atualizando sempre que um novo aeroporto for criado
@@ -33,8 +38,9 @@ class Aeroporto extends persist
   public function alterarAeroporto(Aeroporto $novoAeroporto)
   {
     $this->setSigla($novoAeroporto->getSigla());
-    $this->setCidade($novoAeroporto->getCidade());
-    $this->setEstado($novoAeroporto->getEstado());
+    $this->setEndereco($novoAeroporto->getEndereco());
+    // $this->setCidade($novoAeroporto->getCidade());
+    // $this->setEstado($novoAeroporto->getEstado());
     $this->setListaCompanihasAereas($novoAeroporto->getListaCompanhiasAereas());
   }
 
@@ -43,30 +49,38 @@ class Aeroporto extends persist
     return $this->sigla;
   }
 
-  public function getCidade()
+  public function getEndereco()
   {
-    return $this->cidade;
+    return $this->endereco;
   }
+  // public function getCidade()
+  // {
+  //   return $this->cidade;
+  // }
 
-  public function getEstado()
-  {
-    return $this->estado;
-  }
+  // public function getEstado()
+  // {
+  //   return $this->estado;
+  // }
 
   public function setSigla(string $sigla)
   {
     $this->sigla = $sigla;
   }
 
-  public function setCidade(string $cidade)
+  public function setEndereco(Endereco $endereco)
   {
-    $this->cidade = $cidade;
+    $this->endereco = $endereco;
   }
+  // public function setCidade(string $cidade)
+  // {
+  //   $this->cidade = $cidade;
+  // }
 
-  public function setEstado(string $estado)
-  {
-    $this->estado = $estado;
-  }
+  // public function setEstado(string $estado)
+  // {
+  //   $this->estado = $estado;
+  // }
 
   public function setListaCompanihasAereas(?array $listaCompanhiasAereas)
   {

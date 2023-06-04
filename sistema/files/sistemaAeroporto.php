@@ -5,10 +5,22 @@ include_once("../libs/global.php");
 function sis_cadastrarAeroporto()
 {
     $sigla = (string)readline("Digite a sigla do aeroporto: ");
-    $cidade = (string)readline("Digite a cidade do aeroporto: ");
-    $estado = (string)readline("Digite o estado do aeroporto: ");
 
-    $aeroporto = new Aeroporto($sigla, $cidade, $estado);
+    $endRua = (string)readline("Digite a rua do endereco do aeroporto: ");
+
+    $endNumero = (string)readline("Digite o numero do endereco do aeroporto: ");
+
+    $endComplemento = (string)readline("Digite o complemento do endereco do aeroporto: ");
+
+    $endCep = (string)readline("Digite o CEP do endereco do aeroporto: ");
+
+    $endCidade = (string)readline("Digite a cidade do endereco do aeroporto: ");
+
+    $endEstado = (string)readline("Digite o estado do endereco do aeroporto: ");
+
+    $endereco = new Endereco($endRua, $endNumero, $endComplemento, $endCep, $endCidade, $endEstado);
+
+    $aeroporto = new Aeroporto($sigla, $endereco);
 
     $aeroporto->save();
 
@@ -37,10 +49,10 @@ function sis_verAeroportos()
 function mostraAeroportos(array $aeroportos)
 {
     print_r("Aeroportos cadastrados:\r\n");
-    print_r("Index - Sigla - Cidade - Estado\r\n");
+    print_r("Index - Sigla - Endereco\r\n");
 
     foreach ($aeroportos as $aeroporto) {
-        print_r($aeroporto->getIndex() . " - " . $aeroporto->getSigla() . " - " . $aeroporto->getCidade() . " - " . $aeroporto->getEstado() . "\r\n");
+        print_r($aeroporto->getIndex() . " - " . $aeroporto->getSigla() . " - " . $aeroporto->getEndereco()->getEndCompleto() . "\r\n");
     }
 }
 
@@ -55,10 +67,22 @@ function sis_editarAeroporto()
     $aeroporto = $aeroportos[$index - 1];
 
     $sigla = (string)readline("Digite a sigla do aeroporto: ");
-    $cidade = (string)readline("Digite a cidade do aeroporto: ");
-    $estado = (string)readline("Digite o estado do aeroporto: ");
 
-    $novoAeroporto = new Aeroporto($sigla, $cidade, $estado);
+    $endRua = (string)readline("Digite a rua do endereco do aeroporto: ");
+
+    $endNumero = (string)readline("Digite o numero do endereco do aeroporto: ");
+
+    $endComplemento = (string)readline("Digite o complemento do endereco do aeroporto: ");
+
+    $endCep = (string)readline("Digite o CEP do endereco do aeroporto: ");
+
+    $endCidade = (string)readline("Digite a cidade do endereco do aeroporto: ");
+
+    $endEstado = (string)readline("Digite o estado do endereco do aeroporto: ");
+
+    $endereco = new Endereco($endRua, $endNumero, $endComplemento, $endCep, $endCidade, $endEstado);
+
+    $novoAeroporto = new Aeroporto($sigla, $endereco);
 
     $aeroporto->alterarAeroporto($novoAeroporto);
 
