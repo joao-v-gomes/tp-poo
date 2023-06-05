@@ -2,22 +2,76 @@
 
 include_once("../libs/global.php");
 
-class Aeroporto extends persist
+class Aeroporto extends persist implements Subject
 {
-  private string $sigla;
+  private string $sigla = "";
   // private string $cidade;
   // private string $estado;
-  private Endereco $endereco;
+  private ?Endereco $endereco = null;
 
   // private array $listaVoos;
   private ?array $listaCompanhiasAereas;
 
   static $local_filename = "aeroportos.txt";
 
+  // private Log $log;
+
+  // private array $observers = array();
+  private Observer $observer;
+
+  public function attach(Observer $observer): void
+  {
+    // $this->observers[] = $observer;
+    // array_push($this->observers, $observer);
+
+    $this->observer = $observer;
+
+    print_r("Observer attachado...\n\n");
+
+    // print_r($observer);
+
+    // print_r($this->observers);
+  }
+
+  public function detach(Observer $observer): void
+  {
+    unset($this->observer);
+
+    print_r("Observer dettachado...\n\n");
+    // $key = array_search($observer, $this->observers, true);
+    // if ($key) {
+    //   unset($this->observers[$key]);
+    // }
+  }
+
+  public function notificaCriacaoNovaInstancia()
+  {
+    print_r("Notificando observers da criacao...\n\n");
+    $this->observer->criaNovaInstancia($this);
+  }
+
+  public function notificaAlteracaoAtributo($classe, string $nomeAtributo, $valorAntigo, $valorNovo)
+  {
+    print_r("Notificando observers do set...\n\n");
+    $this->observer->setAtributo($classe, $nomeAtributo, $valorAntigo, $valorNovo);
+  }
+
+  public function notificaVisualizacaoAtributo($classe, string $nomeAtributo)
+  {
+    print_r("Notificando observers do get...\n\n");
+    $this->observer->getAtributo($classe, $nomeAtributo);
+  }
+
   public function __construct(string $sigla, Endereco $endereco)
   {
+    $log = new Log();
+
+    $this->attach($log);
+
     $this->setSigla($sigla);
     $this->setEndereco($endereco);
+
+
     // $this->setCidade($cidade);
     // $this->setEstado($estado);
 
@@ -31,6 +85,8 @@ class Aeroporto extends persist
     // $this->listaVoos = array();
     $this->listaCompanhiasAereas = array();
     // $this->setListaCompanihasAereas(SEM_COMPANHIA_AEREA_DEFINIDA);
+
+    $this->notificaCriacaoNovaInstancia();
   }
 
   public function alterarAeroporto(Aeroporto $novoAeroporto)
@@ -61,14 +117,29 @@ class Aeroporto extends persist
   //   return $this->estado;
   // }
 
-  public function setSigla(string $sigla)
+  public function setSigla(string $newSigla)
   {
-    $this->sigla = $sigla;
+
+    $oldSigla = $this->sigla;
+    $this->sigla = $newSigla;
+
+    // $this->notify();
+    $this->notificaAlteracaoAtributo($this, "sigla", serialize($oldSigla), serialize($newSigla));
+    // $this->notificaAlteracaoAtributo($this, "sigla", $oldSigla, $newSigla);
   }
 
-  public function setEndereco(Endereco $endereco)
+  public function setEndereco(Endereco $newEndereco)
   {
-    $this->endereco = $endereco;
+    $oldEndereco = $this->endereco;
+
+    if ($oldEndereco == null) {
+      $oldEndereco = new Endereco("", "", "", "", "", "");
+    }
+
+    $this->endereco = $newEndereco;
+
+    $this->notificaAlteracaoAtributo($this, "endereco", serialize($oldEndereco), serialize($newEndereco));
+    // $this->notificaAlteracaoAtributo($this, "endereco", $oldEndereco->getEndCompleto(), $newEndereco->getEndCompleto());
   }
   // public function setCidade(string $cidade)
   // {

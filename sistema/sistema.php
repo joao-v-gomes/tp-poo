@@ -8,6 +8,7 @@ include_once("files/sistemaVeiculo.php");
 include_once("files/sistemaTripulante.php");
 include_once("files/sistemaVoo.php");
 include_once("files/sistemaUsuario.php");
+include_once("files/sistemaLogs.php");
 
 // define("PILOTO", 1);
 // define("COMISSARIO", 2);
@@ -75,6 +76,10 @@ while ($sair == 0) {
     print_r(++$opcMenu . " - Cadastrar Veiculo\r\n");
     print_r(++$opcMenu . " - Ver Veiculos\r\n");
     print_r(++$opcMenu . " - Editar Veiculo\r\n");
+
+
+    print_r("\n--- LOGS ---\r\n");
+    print_r(++$opcMenu . " - Ver Logs\r\n");
 
     print_r("\r\n-1 para sair do sistema\r\n");
 
@@ -347,6 +352,14 @@ while ($sair == 0) {
             print_r("Editar Veiculo\r\n");
             print_r("\n\n");
             sis_editarVeiculo();
+            break;
+
+            // #### LOGS ####
+
+        case ++$opcMenu:
+            print_r("Ver Logs\r\n");
+            print_r("\n\n");
+            sis_verLogs();
             break;
 
             // #### SISTEMA ####

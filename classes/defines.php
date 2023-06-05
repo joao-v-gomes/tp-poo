@@ -15,6 +15,9 @@ define("SEM_PROGRAMA_DE_MILHAGEM_DEFINIDO", CAMPO_NULL);
 
 define("TAMANHO_REGISTRO", 6);
 
+define("NOVA_INSTANCIA", 1);
+define("ALTERACAO_ATRIBUTO", 2);
+define("VISUALIZACAO_ATRIBUTO", 3);
 
 // define("TAMANHO_RG", 8);
 define('VAZIO', '');
