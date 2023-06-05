@@ -3,7 +3,7 @@
 
 include_once('class.observer.php');
 
-abstract class subject
+abstract class subject2
 {
     protected array $observers = array();
 
