@@ -7,6 +7,7 @@ include_once("files/sistemaAeronave.php");
 include_once("files/sistemaVeiculo.php");
 include_once("files/sistemaTripulante.php");
 include_once("files/sistemaVoo.php");
+include_once("files/sistemaUsuario.php");
 
 // define("PILOTO", 1);
 // define("COMISSARIO", 2);
@@ -59,6 +60,11 @@ while ($sair == 0) {
     print_r(++$opcMenu . " - Cadastrar Comissario\r\n");
     print_r(++$opcMenu . " - Ver Comissarios\r\n");
     print_r(++$opcMenu . " - Editar Comissario\r\n");
+
+    print_r("\n--- USUARIOS ---\r\n");
+    print_r(++$opcMenu . " - Cadastrar Usuario\r\n");
+    print_r(++$opcMenu . " - Ver Usuarios\r\n");
+    print_r(++$opcMenu . " - Editar Usuario\r\n");
 
     print_r("\n--- AERONAVES ---\r\n");
     print_r(++$opcMenu . " - Cadastrar Aeronave\r\n");
@@ -281,6 +287,26 @@ while ($sair == 0) {
             print_r("Editar Comissario\r\n");
             print_r("\n\n");
             sis_editarComissario();
+            break;
+
+            // #### USUARIOS ####
+
+        case ++$opcMenu:
+            print_r("Cadastramento de Usuario\r\n");
+            print_r("\n\n");
+            sis_CadastrarUsuario();
+            break;
+
+        case ++$opcMenu:
+            print_r("Ver Usuarios\r\n");
+            print_r("\n\n");
+            sis_verUsuarios();
+            break;
+
+        case ++$opcMenu:
+            print_r("Editar Usuario\r\n");
+            print_r("\n\n");
+            sis_editarUsuario();
             break;
 
             // #### AERONAVES ####

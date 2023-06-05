@@ -1,7 +1,5 @@
 <?php
 
-use Random\Engine;
-
 include_once("../libs/global.php");
 
 class Aeroporto extends persist
