@@ -137,6 +137,14 @@ class Passagem extends persist
     return $this->pesoTotal;
   }
 
+  public function getViagem(){
+    return $this->viagem;
+  }
+
+  public function setViagem(Viagem $viagem){
+    $this->viagem = $viagem->getcodigoViagem();
+  }
+
   public function alteracaoPassagem(Passagem $novaPassagem)
   {
     //conferir oq faz sentido ser mudado e talvez passa função para a classe Viagem

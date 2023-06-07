@@ -113,15 +113,27 @@ class Viagem extends persist
   {
     $this->voo = $voo;
   }
+   public function getVoo()
+  {
+    return $this->voo;
+  }
 
   public function setMilhasViagem($milhasViagem)
   {
     $this->milhasViagem = $milhasViagem;
   }
+  
+  public function getMilhasViagem(){
+    return $this->milhasViagem;
+  }
 
   public function setvalorViagem($valorViagem)
   {
     $this->valorViagem = $valorViagem;
+  }
+
+  public function getvalorViagem(){
+    return $this->valorViagem;
   }
 
   public function setvalorFranquiaBagagem($valorFranquiaBagagem)
@@ -133,6 +145,7 @@ class Viagem extends persist
   {
     $this->valorMulta = $valorMulta;
   }
+  //***Falta testar as funcoes comentadas abaixo***
   
   public function inserirPassageiro($novaPassagem)
   {

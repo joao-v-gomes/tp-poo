@@ -18,6 +18,7 @@ class Passageiro extends persist
   private string $email;
   private array $listaPassagens;
   private array $historicoViagens;
+  private array $milhas;
 
   static $local_filename = "passageiros.txt";
 
@@ -34,6 +35,7 @@ class Passageiro extends persist
 
     $this->listaPassagens = array();
     $this->historicoViagens = array();
+    $this->milhas = array();
   }
 
   public function getTipoPassageiro(): bool
@@ -233,6 +235,29 @@ class Passageiro extends persist
   public function setHistoricoViagens(array $historicoViagens): void
   {
     $this->historicoViagens = $historicoViagens;
+  }
+
+  public function getMilhas(): array
+  {
+    return $this->milhas;
+  }
+
+  public function setMilhas(array $milhas): void
+  {
+    $this->milhas = $milhas;
+  }
+
+  public function alterarPassageiro(Passageiro $passageironovo){
+  $this->settipoPassageiro($passageironovo->gettipoPassageiro());
+  $this->setNome($passageironovo->getNome());
+  $this->setSobrenome($passageironovo->getSobrenome());
+  $this->setRg($passageironovo->getRg());
+  $this->setPassaporte($passageironovo->getPassaporte());
+  $this->setDocumentoIdentificacao($passageironovo->getDocumentoIdentificacao());
+  $this->setCpf($passageironovo->getCpf());
+  $this->setNacionalidade($passageironovo->getNacionalidade());
+  $this->setDataDeNascimento($passageironovo->getDataDeNascimento());
+  $this->setEmail($passageironovo->getEmail());
   }
 
   static public function getFilename()

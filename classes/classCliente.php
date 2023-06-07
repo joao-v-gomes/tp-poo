@@ -87,16 +87,16 @@ class Cliente extends persist
     return get_called_class()::$local_filename;
   }
 
-  // public function alteracaoPassagem(Passagem $novaPassagem)
-  // {
-  //   $this->setSiglaAeroportoOrigem($novaPassagem->getSiglaAeroportoOrigem());
-  //   $this->setSiglaAeroportoDestino($novaPassagem->getSiglaAeroportoDestino());
-  //   $this->setAssento($novaPassagem->getAssento());
+  public function alterarCliente(Cliente $clientenovo)
+  {
+  $this->setNome($clientenovo->getNome());
+  $this->setSobrenome($clientenovo->getSobrenome());
+  $this->setDocumentoIdentificacao($clientenovo->getDocumentoIdentificacao());
   //   $this->setFranquiasBagagem($novaPassagem->getFranquiasBagagem());
   //   $this->setPassageiro($novaPassagem->getPassageiro());
   //   $this->setStatus($novaPassagem->getStatus());
   //   $this->setlistaViagensEConexoes($novaPassagem->getlistaViagensEConexoes());
-  // }
+  }
   // public function cancelamentoDePassagem(Passagem $passagem)
   // {
   // setStatus("Passagem cancelada");
