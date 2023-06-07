@@ -44,7 +44,7 @@ class Cliente extends persist
 
   public function getDocumentoIdentificacao()
   {
-    if ($this->rg == VAZIO) {
+    if ($this->rg == CAMPO_NULL) {
       return $this->getPassaporte();
     } else {
       return $this->getRg();

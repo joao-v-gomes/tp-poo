@@ -31,6 +31,7 @@ class Passagem extends persist
     $this->statusPassagem = "Passagem adquirida";
     $this->setlistaViagensEConexoes($listaViagensEConexoes);
     $this->setValorPagoDeMulta($valorPagoDeMulta);
+    $this->setPesoTotal($franquiasBagagem);
   }
 
   public function getSiglaAeroportoOrigem()
