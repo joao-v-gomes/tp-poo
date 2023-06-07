@@ -1,29 +1,30 @@
 <?php
 
-use PgSql\Lob;
-
 include_once("../libs/global.php");
 
-function sis_verLogs()
+class SistemaLogs
 {
-    $logs = Log::getRecords();
+    static function sis_verLogs()
+    {
+        $logs = Log::getRecords();
 
-    if (count($logs) == 0) {
-        print_r("Nenhum log encontrado.\n\n");
-        return;
+        if (count($logs) == 0) {
+            print_r("Nenhum log encontrado.\n\n");
+            return;
+        }
+
+        SistemaLogs::mostraLogs($logs);
     }
 
-    mostraLogs($logs);
-}
+    static function mostraLogs(array $logs)
+    {
+        print_r("Logs encontrados:\n\n");
+        print_r("Index - Tipo Log - Mensagem - Data\n\n");
 
-function mostraLogs(array $logs)
-{
-    print_r("Logs encontrados:\n\n");
-    print_r("Index - Tipo Log - Mensagem - Data\n\n");
+        foreach ($logs as $log) {
+            print_r($log->getIndex() . " - " . $log->getTipoLog() . " - " . $log->getMensagem() . " - " . $log->getData() . "\n");
+        }
 
-    foreach ($logs as $log) {
-        print_r($log->getIndex() . " - " . $log->getTipoLog() . " - " . $log->getMensagem() . " - " . $log->getData() . "\n");
+        print_r("\n\n");
     }
-
-    print_r("\n\n");
 }
