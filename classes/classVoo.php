@@ -12,14 +12,14 @@ class Voo extends persist
   private ?int $copiloto;
   private ?array $listaComissarios;
   private DateTime $previsaoPartida;
-  // private DateTime $previsaoChegada;
+  //private DateTime $previsaoChegada;
   // private DateInterval $previsaoDuracao;
   private ?string $codigoVoo;
 
   static $local_filename = "voos.txt";
 
 
-  static function criarVooCompleto(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida, ?int $companhiaAerea,  ?Aeronave $aeronave, ?int $piloto, ?int $copiloto, ?array $comissarios, ?string $codigoVoo)
+  static function criarVooCompleto(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida,?int $companhiaAerea,  ?Aeronave $aeronave, ?int $piloto, ?int $copiloto, ?array $comissarios, ?string $codigoVoo)
   {
     try {
       $validaCodigoVoo = self::validaCodigoVoo($companhiaAerea, $codigoVoo);
@@ -50,7 +50,7 @@ class Voo extends persist
     $this->setAeroportoOrigem($aeroportoOrigem);
     $this->setAeroportoDestino($aeroportoDestino);
     $this->setPrevisaoPartida($previsaoPartida);
-    // $this->setPrevisaoChegada($previsaoChegada);
+    //$this->setPrevisaoChegada($previsaoChegada);
 
     // $this->setPrevisaoDuracao($previsaoChegada, $previsaoPartida);
 
@@ -71,7 +71,7 @@ class Voo extends persist
     $this->setAeroportoOrigem($novoVoo->getAeroportoOrigem());
     $this->setAeroportoDestino($novoVoo->getAeroportoDestino());
     $this->setPrevisaoPartida($novoVoo->getPrevisaoPartida());
-    // $this->setPrevisaoChegada($novoVoo->getPrevisaoChegada());
+    //$this->setPrevisaoChegada($novoVoo->getPrevisaoChegada());
     // $this->setPrevisaoDuracao($novoVoo->getPrevisaoChegada(), $novoVoo->getPrevisaoPartida());
     $this->setCompanhiaAerea($novoVoo->getCompanhiaAerea());
     $this->setAeronave($novoVoo->getAeronave());
@@ -183,10 +183,10 @@ class Voo extends persist
     return $this->previsaoPartida;
   }
 
-  // public function getPrevisaoChegada()
-  // {
-  //   return $this->previsaoChegada;
-  // }
+  //public function getPrevisaoChegada()
+  //{
+    // return $this->previsaoChegada;
+  //}
 
   // public function getPrevisaoDuracao()
   // {

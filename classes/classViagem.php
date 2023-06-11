@@ -140,14 +140,22 @@ class Viagem extends persist
   {
     $this->valorFranquiaBagagem = $valorFranquiaBagagem;
   }
+  
+  public function getvalorFranquiaBagagem(){
+    return $this->valorFranquiaBagagem;
+  }
 
   public function setValorMulta($valorMulta)
   {
     $this->valorMulta = $valorMulta;
   }
+
+  public function getValorMulta(){
+    return $this->valorMulta;
+  }
   //***Falta testar as funcoes comentadas abaixo***
   
-  public function inserirPassageiro($novaPassagem)
+  public function inserirPassageiro(Passagem $novaPassagem)
   {
     //qualquer tipo de verificacao deve ser feita na hora da venda (carga e assentos)
     array_push($this->passageiros, $novaPassagem->getPassageiro());
@@ -196,5 +204,14 @@ class Viagem extends persist
   static public function getFilename()
   {
     return get_called_class()::$local_filename;
+  }
+
+  public function alteracaoViagem(Viagem $novaviagem){
+    $this->setHorarioChegada($novaviagem->getHorarioChegada());
+    $this->setCarga($novaviagem->getCarga());
+    $this->setMilhasViagem($novaviagem->getMilhasViagem());
+    $this->getvalorViagem($novaviagem->getvalorViagem());
+    $this->setvalorFranquiaBagagem($novaviagem->getvalorFranquiaBagagem());
+    $this->setValorMulta($novaviagem->getValorMulta());
   }
 }

@@ -22,16 +22,25 @@ function criar_Passagem(){
     $indexviagem = (int)readline("Digite o index da viagem: ");
     $viagem = $viagens[$indexviagem - 1];
 
+    $arrayViagem = array();
+    array_push($arrayViagem,$indexviagem);
+  
     $voos = Voo::getRecords();
     $voo = $voos[$viagem->getVoo() - 1];
+
+    $indexaeroOrigem = $voo->getAeroportoOrigem();
+    $aeroportos = Aeroporto::getRecords();
+    $aeroportoOrigem = $aeroportos[$indexaeroOrigem - 1];
+
+    $indexaeroDestino = $voo->getAeroportoDestino();
+    $aeroportoDestino = $aeroportos[$indexaeroDestino - 1];
 
     $franquiasBagagem = (int)readline("quantas franquias vc quer(limite 3): ");
     $assento = (string)readline("digite um assento(letra numero): ");
 
-    $passagem = new Passagem($voo->getAeroportoOrigem(),$voo->getAeroportoDestino(),$viagem->getvalorViagem(),$assento,$franquiasBagagem,$passageiro,$cliente,$viagem);
+    $passagem = new Passagem($aeroportoOrigem->getSigla(),$aeroportoDestino->getSigla(),$viagem->getvalorViagem(),$assento,$franquiasBagagem,$passageiro,$cliente,$arrayViagem,$viagem->getValorMulta());
 
     $passagem->save();
-
 }
 
 function mostrar_Passagens(array $passagens){
@@ -42,7 +51,7 @@ function mostrar_Passagens(array $passagens){
         $pass = $passagem->getPassageiro();
         $clie = $passagem->getCliente();
 
-        print_r($passagem->getIndex() . "-" . $pass->getNome() . "-" . $passagem->getSiglaAeroportoOrigem() . "-" . $passagem->getSiglaAeroportoDestino() . "-" . $clie->getNome() . "-" . $passagem->getStatus() . "-" . $passagem->getPreco() . $passagem->getViagem() . "\r\n");
+        print_r($passagem->getIndex() . "-" . $pass->getNome() . "-" . $passagem->getSiglaAeroportoOrigem() . "-" . $passagem->getSiglaAeroportoDestino() . "-" . $clie->getNome() . "-" . $passagem->getStatus() . "-" . $passagem->getPreco() . "\r\n");
     }
 
 }
@@ -79,30 +88,38 @@ function editar_Passagem(){
 
     $clientes = Cliente::getRecords();
     mostra_Cliente($clientes);
-    $indexcliente = (int)readline("Digite o index do voo: ");
+    $indexcliente = (int)readline("Digite o index do cliente: ");
     $cliente = $clientes[$indexcliente - 1];
 
     $passageiros = Passageiro::getRecords();
     mostra_Passageiros($passageiros);
-    $indexpassa = (int)readline("Digite o index do voo: ");
+    $indexpassa = (int)readline("Digite o index do passageiro: ");
     $passageiro = $passageiros[$indexpassa - 1];
 
     $viagens = Viagem::getRecords();
     mostra_Viagem($viagens);
-    $indexviagem = (int)readline("Digite o index do voo: ");
+    $indexviagem = (int)readline("Digite o index da viagem: ");
     $viagem = $viagens[$indexviagem - 1];
+
+    $arrayViagem = array();
+    array_push($indexviagem,$arrayViagem);
 
     $voos = Voo::getRecords();
     $voo = $voos[$viagem->getVoo() - 1];
+  
+    $indexaeroOrigem = $voo->getAeroportoOrigem();
+    $aeroportos = Aeroporto::getRecords();
+    $aeroportoOrigem = $aeroportos[$indexaeroOrigem - 1];
+
+    $indexaeroDestino = $voo->getAeroportoDestino();
+    $aeroportoDestino = $aeroportos[$indexaeroDestino - 1];
 
     $franquiasBagagem = (int)readline("quantas franquias vc quer(limite 3): ");
     $assento = (string)readline("digite um assento(letra numero): ");
 
-    $passagemnovo = new Passagem($voo->getAeroportoOrigem(),$voo->getAeroportoDestino(),$viagem->getvalor(),$assento,$franquiasBagagem,$passageiro,$cliente,$viagem);
+    $passagemnovo = new Passagem($aeroportoOrigem->getSigla(),$aeroportoDestino->getSigla(),$viagem->getvalorViagem(),$assento,$franquiasBagagem,$passageiro,$cliente,$arrayViagem,$viagem->getValorMulta());
 
     $passagem->alterarPassagem($passagemnovo);
-    
     $passagem->save();
-
 
 }

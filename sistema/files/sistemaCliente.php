@@ -79,3 +79,52 @@ function editar_cliente(){
 
     $cliente->save();
 }
+
+function comprar_Passagem(){
+    $viagens = Viagem::getRecords();
+    if (count($clientes) == 0) {
+        print_r("Nenhuma viagem cadastraao!\r\n");
+        print_r("\n\n");
+        return;
+    } 
+
+    mostra_viagem($viagens);
+    $indexviagem = (int)readline("digite o index de uma viagem: ");
+    $viagem = $viagens[$indexviagem - 1];
+
+
+    $clientes = Cliente::getRecords();
+    if (count($clientes) == 0) {
+        print_r("Nenhum cliente cadastrado!\r\n");
+        print_r("\n\n");
+        return;
+    } 
+
+    mostra_Clientes($clientes);
+    $indexcliente = (int)readline("digite o index de um cliente");
+    $cliente = $clientes[$indexcliente - 1];
+
+
+    $passageiros = Passageiro::getRecords();
+    if (count($passageiros) == 0) {
+        print_r("Nenhum passageiro cadastrado!\r\n");
+        print_r("\n\n");
+        return;
+    } 
+
+    mostra_Passageiros($passageiros);
+    $index = (int)readline("digite o index de um passgeiro");
+    $passageiro = $passageiros[$index - 1];
+
+
+    $voo = $viagem->getVoo();
+    $indexaeroOrigem = $voo->getAeroportoOrigem();
+    $aeroportos = Aeroporto::getRecords();
+    $aeroportoOrigem = $aeroportos[$indexaeroOrigem - 1];
+
+    $indexaeroDestino = $voo->getAeroportoDestino();
+    $aeroportoDestino = $aeroportos[$indexaeroDestino - 1];
+
+    $passagem = new Passagem($aeroportoOrigem->getSigla(),$aeroportoDestino->getSigla(),$viagem->getPreco(),);
+  
+}

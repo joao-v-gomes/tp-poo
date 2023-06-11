@@ -8,20 +8,23 @@ include_once("sistemaPassagem.php");
 function cadastra_Viagem(){
 
     $voos = Voo::getRecords();
-    mostraVoos($voos);
+    SistemaVoo::mostraVoos($voos);
     $index = (int)readline("Digite o index do voo: ");
 
     $voo = $voos[$index - 1];
 
     $horarioPartida = $voo->getPrevisaoPartida();
-    $horarioChegada = $voo->getPrevisaoChegada();
+    $horarioChegada = (string)readline("qual o horario da de chegada: ");
+    $horarioChegada = DateTime::createFromFormat("H:i",$horarioChegada);
 
     $carga = (float)readline("digite o valor da carga: ");
     $milhasViagem = (int)readline("digite o valor das milhas: ");
     $valorViagem = (float)readline("digite o valor da viagem: ");
-    $valorFranquiaBagagem = (float)readline("digite o valor da franquia:");
-
-    $viagem = new Viagem($horarioPartida,$horarioChegada,$carga,$index,$milhasViagem,$valorViagem,$valorFranquiaBagagem);
+    $valorFranquiaBagagem = (float)readline("digite o valor da franquia: ");
+    $valorMulta = (float)readline("digite o valor da multa: ");
+  
+    $viagem = new Viagem($horarioPartida,$horarioChegada,$carga,$milhasViagem,$valorViagem,$valorFranquiaBagagem,$valorMulta);
+    $viagem->setVoo($index);
 
     $viagem->save();
 }
@@ -77,17 +80,18 @@ function altera_Viagem(){
     $voo = $voos[$indexvoo - 1];
 
     $horarioPartida = $voo->getPrevisaoPartida();
-    $horarioChegada = $voo->getPrevisaoChegada();
+    $horarioChegada =  (string)readline("qual o horario da chegada: ");
+    $horarioChegada = DateTime::createFromFormat("H:i",$horarioChegada);
 
     $carga = (float)readline("digite o valor da carga: ");
     $milhasViagem = (int)readline("digite o valor das milhas: ");
     $valorViagem = (float)readline("digite o valor da viagem: ");
     $valorFranquiaBagagem = (float)readline("digite o valor da franquia:");
+    $valorMulta = (float)readline("digite o valor da multa: ");
 
+    $viagemnova = new Viagem($horarioPartida,$horarioChegada,$carga,$indexvoo,$milhasViagem,$valorViagem,$valorFranquiaBagagem,$valorMulta);
 
-    $viagemnova = new Viagem($horarioPartida,$horarioChegada,$carga,$indexvoo,$milhasViagem,$valorViagem,$valorFranquiaBagagem);
-
-    $viagem->alterarViagem($viagemnova);
+    $viagem->alteracaoViagem($viagemnova);
     $viagem->save();
 
 }
@@ -104,10 +108,12 @@ function mostrar_passageiros_Viagem(){
     mostra_Viagem($viagens);
 
     $index = (int)readline("Digite o index da viagem: ");
-
     $viagem = $viagens[$index - 1];
+  
+    $passageirosViagem = array();
     $passageirosViagem = $viagem->getPassageiros();
     print_r("\n\n");
+  
     mostra_Passageiros($passageirosViagem);
 
 }
@@ -123,7 +129,7 @@ function adicionar_passageiros_Viagem(){
 
     mostra_Viagem($viagens);
 
-    $index = (int)readline("Digite o index do voo: ");
+    $index = (int)readline("Digite o index da viagem: ");
 
     $viagem = $viagens[$index - 1];
     print_r("\n\n");
@@ -141,11 +147,14 @@ function adicionar_passageiros_Viagem(){
     $index = (int)readline("Digite o index da Passagem: ");
 
     $passagem = $passagens[$index - 1];
-
-    if($passagem->getViagem() == $viagem->getcodigoViagem()){
+    $indexpassagem = $passagem->getlistaViagensEConexoes();
+    if($indexpassagem[0] == $viagem->getIndex()){
       
         $viagem->inserirPassageiro($passagem);
 
+    }
+    else{
+      print_r("deu ruim!!!");
     }
   //verificar caso um certo passageiro ja tenha sido adicionado
 }
@@ -161,7 +170,7 @@ function fazer_checkin(){
 
     mostra_Viagem($viagens);
 
-    $index = (int)readline("Digite o index do voo: ");
+    $index = (int)readline("Digite o index da viagem: ");
 
     $viagem = $viagens[$index - 1];
 
@@ -178,8 +187,8 @@ function fazer_checkin(){
     $index = (int)readline("Digite o index da Passagem: ");
 
     $passagem = $passagens[$index - 1];
-
-    if($passagem->getViagem() ==   $viagem->getcodigoViagem()){
+    $indexpassagem = $passagem->getlistaViagensEConexoes();
+    if($indexpassagem[0] ==  $viagem->getIndex()){
         $passageiro = $passagem->getPassageiro();
         $voo = $viagem->getVoo();
         $cartao = new Cartaoembarque($passageiro->getNome(),$passageiro->getSobrenome(),$voo->getAeroportoOrigem(),$voo->getAeroportoDestino(),$voo->getPrevisaoPartida(),$viagem->getHorarioPartida(),$passagem->getAssento());
@@ -197,8 +206,9 @@ function fazer_checkin(){
 function pesquisar_Viagem(){
   $aeroOrigem = (string)readline("qual a sigla do aeroporto de origem: ");
   $aeroDestino = (string)readline("qual a sigla do aeroporto de destino: ");
-  $dataViagem = (DateTime)readline("qual a data da viagem: ");
-  $quantpassa = (int)readline("quantos passageiros tera na viagem: ")
+  $dataViagem = (string)readline("qual a data da viagem: ");
+  $dataViagem = DateTime::createFromFormat("H:i",$dataViagem);
+  $quantpassa = (int)readline("quantos passageiros tera na viagem: ");
   $aeroportos = Aeroporto::getRecords();
   foreach($aeroportos as $aeroporto){
     if($aeroporto->getSigla() == $aeroOrigem){
