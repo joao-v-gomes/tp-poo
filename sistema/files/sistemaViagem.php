@@ -114,6 +114,8 @@ function mostrar_passageiros_Viagem(){
     $passageirosViagem = $viagem->getPassageiros();
     print_r("\n\n");
   
+    print_r($viagem->getPassageiros());
+  
     mostra_Passageiros($passageirosViagem);
 
 }
@@ -148,10 +150,13 @@ function adicionar_passageiros_Viagem(){
 
     $passagem = $passagens[$index - 1];
     $indexpassagem = $passagem->getlistaViagensEConexoes();
+  
     if($indexpassagem[0] == $viagem->getIndex()){
       
         $viagem->inserirPassageiro($passagem);
-
+        $viagem->save();
+        print_r("passageiro adicionado!!!");
+        print_r("\n\n");
     }
     else{
       print_r("deu ruim!!!");

@@ -82,7 +82,8 @@ function editar_cliente(){
 
 function comprar_Passagem(){
     $viagens = Viagem::getRecords();
-    if (count($clientes) == 0) {
+  
+    if (count($viagens) == 0) {
         print_r("Nenhuma viagem cadastraao!\r\n");
         print_r("\n\n");
         return;
@@ -91,6 +92,8 @@ function comprar_Passagem(){
     mostra_viagem($viagens);
     $indexviagem = (int)readline("digite o index de uma viagem: ");
     $viagem = $viagens[$indexviagem - 1];
+    $listaViagens = array();
+    array_push($listaViagens,$indexviagem);
 
 
     $clientes = Cliente::getRecords();
@@ -101,7 +104,7 @@ function comprar_Passagem(){
     } 
 
     mostra_Clientes($clientes);
-    $indexcliente = (int)readline("digite o index de um cliente");
+    $indexcliente = (int)readline("digite o index de um cliente: ");
     $cliente = $clientes[$indexcliente - 1];
 
 
@@ -113,18 +116,61 @@ function comprar_Passagem(){
     } 
 
     mostra_Passageiros($passageiros);
-    $index = (int)readline("digite o index de um passgeiro");
+    $index = (int)readline("digite o index de um passgeiro: ");
     $passageiro = $passageiros[$index - 1];
 
-
-    $voo = $viagem->getVoo();
+    $voos = Voo::getRecords();
+    $indexvoo = $viagem->getVoo();
+    $voo = $voos[$indexvoo - 1];
+  
+    $aeroportos = Aeroporto::getRecords();  
     $indexaeroOrigem = $voo->getAeroportoOrigem();
-    $aeroportos = Aeroporto::getRecords();
     $aeroportoOrigem = $aeroportos[$indexaeroOrigem - 1];
 
     $indexaeroDestino = $voo->getAeroportoDestino();
     $aeroportoDestino = $aeroportos[$indexaeroDestino - 1];
 
-    $passagem = new Passagem($aeroportoOrigem->getSigla(),$aeroportoDestino->getSigla(),$viagem->getPreco(),);
+    $franquiasBagagem = (int)readline("quantas franquias vc quer(limite 3): ");
+    $assento = (string)readline("digite um assento(numero): ");
+
+    $passagem = new Passagem($aeroportoOrigem->getSigla(),$aeroportoDestino->getSigla(),$viagem->getvalorViagem(),$assento,$franquiasBagagem,$passageiro,$cliente,$listaViagens,$viagem->getValorMulta());
+
+    $passagem->save();
   
+    print_r("passagem adquirida com sucesso!");
+    print_r("\n\n");
+  
+}
+
+function cancela_Passagem(){
+    $clientes = Cliente::getRecords();
+    if (count($clientes) == 0) {
+        print_r("Nenhum cliente cadastrado!\r\n");
+        print_r("\n\n");
+        return;
+    } 
+
+    mostra_Clientes($clientes);
+    $indexcliente = (int)readline("digite o index de um cliente: ");
+    $cliente = $clientes[$indexcliente - 1];
+  
+    $passagens = Passagem::getRecords();
+    foreach($passagens as $passagem){
+      $clientepassagem = $passagem->getCliente();
+      if($clientepassagem->getRg() == $cliente->getRg() || $clientepassagem->getPassaporte() == $cliente->getPassaporte()){
+        $passagemCliente = $passagem;
+      }
+    }
+
+    $viagens = Viagem::getRecords();
+  
+    if (count($viagens) == 0) {
+        print_r("Nenhuma viagem cadastraao!\r\n");
+        print_r("\n\n");
+        return;
+    } 
+
+    
+    
+
 }

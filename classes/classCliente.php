@@ -12,6 +12,8 @@ class Cliente extends persist
   private string $rg = '';
   private string $passaporte = '';
   private string $documentoIdentifi;
+  //private float $multa;
+  //private array $passagenscompradas;
 
   static $local_filename = "clientes.txt";
 
