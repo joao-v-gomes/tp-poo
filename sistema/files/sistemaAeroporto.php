@@ -21,6 +21,8 @@ class SistemaAeroporto
 
         $endereco = new Endereco($endRua, $endNumero, $endComplemento, $endCep, $endCidade, $endEstado);
 
+        // print_r($endereco);
+
         $novoAeroporto = new Aeroporto($sigla, $endereco);
 
         return $novoAeroporto;
@@ -28,7 +30,6 @@ class SistemaAeroporto
 
     static function sis_cadastrarAeroporto()
     {
-
         $aeroporto = SistemaAeroporto::cadastrarAeroporto();
 
         $aeroporto->save();

@@ -47,7 +47,7 @@ class Endereco
     public function getEndCompleto()
     {
 
-        return $this->rua . ", " . $this->numero . ", " . $this->complemento . ", " . $this->cep . ", " . $this->cidade . ", " . $this->estado;
+        return $this->rua . ", " . $this->numero . ", " . $this->complemento . ", " . $this->cep . ", " . $this->cidade . ", " . $this->estado . ", " . $this->coordenadaLongitude . ", " . $this->coordenadaLatitude;
     }
 
     public function getEndMaps()

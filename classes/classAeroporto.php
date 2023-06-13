@@ -95,7 +95,7 @@ class Aeroporto extends persist implements Subject
     $this->setEndereco($novoAeroporto->getEndereco());
     // $this->setCidade($novoAeroporto->getCidade());
     // $this->setEstado($novoAeroporto->getEstado());
-    $this->setListaCompanihasAereas($novoAeroporto->getListaCompanhiasAereas());
+    $this->setListaCompanihasAereas($novoAeroporto->getListaCompanhiasAereasArray());
   }
 
   public function getSigla()
