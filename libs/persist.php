@@ -6,6 +6,7 @@ abstract class persist
     private ?int $index = null;
     public function __construct()
     {
+        // echo "\nConstrutor de Persist chamado";
         if (func_num_args() == 1) {
             $this->filename = func_get_arg(0);
         } else if (func_num_args() == 2) {
@@ -18,7 +19,7 @@ abstract class persist
 
     public function __destruct()
     {
-        // print_r("Destroying " . __CLASS__ . "\n");
+        //print "Destroying " . __CLASS__ . "\n";
     }
 
     public function load($p_obj)
@@ -60,7 +61,7 @@ abstract class persist
         $objs = $container->getObjects();
         $matchObjects = array();
         for ($i = 0; $i < count($objs); $i++) {
-            if ($objs[$i]->$p_field == $p_value) {
+            if ($objs[$i]->get($p_field) == $p_value) {
                 array_push($matchObjects, $objs[$i]);
             }
         }
@@ -91,6 +92,11 @@ abstract class persist
     public function __toString()
     {
         return print_r($this);
+    }
+
+    public function get($p_field)
+    {
+        return $this->$p_field;
     }
 
     abstract static public function getFilename();
