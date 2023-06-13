@@ -23,9 +23,9 @@ class SistemaTripulante
 
         $nacionalidade = (string)readline("Digite a nacionalidade do " . $tripulanteTexto . ": ");
 
-        $dataNascimento = (string)readline("Digite a data de nascimento do " . $tripulanteTexto . ": ");
+        $dataNascimento = (string)readline("Digite a data de nascimento (e.g. 04/11/1995) do " . $tripulanteTexto . ": ");
 
-        $email = (string)readline("Digite o email do " . $tripulanteTexto . ": ");
+        $email = (string)readline("Digite o email(bla@bla.com) do " . $tripulanteTexto . ": ");
 
         $cht = (string)readline("Digite o CHT do " . $tripulanteTexto . ": ");
 
@@ -55,18 +55,9 @@ class SistemaTripulante
 
         $indexAeroporto = (int)readline("Digite o index do aeroporto a qual pertence esse " . $tripulanteTexto . ": ");
 
-        if ($tipoTripulante == PILOTO) {
-            $tripulante = new Piloto($nome, $sobrenome, $documentoIdentificacao, $cpf, $nacionalidade, $dataNascimento, $email, $cht, $endereco, $indexCompanhiaAerea, $indexAeroporto);
-            $tripulante->setTipoTripulante(PILOTO);
-        } else if ($tipoTripulante == COMISSARIO) {
-            $tripulante = new Comissario($nome, $sobrenome, $documentoIdentificacao, $cpf, $nacionalidade, $dataNascimento, $email, $cht, $endereco, $indexCompanhiaAerea, $indexAeroporto);
-            $tripulante->setTipoTripulante(COMISSARIO);
-        } else {
-            print_r("Tipo de tripulante invalido!\r\n");
-            $tripulante = null;
-        }
+        $novoTripulante = Tripulante::criaTripulante($tipoTripulante, $nome, $sobrenome, $documentoIdentificacao, $cpf, $nacionalidade, $dataNascimento, $email, $cht, $endereco, $indexCompanhiaAerea, $indexAeroporto);
 
-        return $tripulante;
+        return $novoTripulante;
     }
 
     static function sis_cadastrarPiloto()

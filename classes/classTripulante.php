@@ -41,6 +41,37 @@ class Tripulante extends persist
         $this->setAeroportoBase($aeroportoBase);
     }
 
+    static public function criaTripulante(int $tipoTripulante, string $nome, string $sobrenome, string $documentoIdentificacao, string $cpf, string $nacionalidade, string $dataNascimento, string $email, string $cht, Endereco $endereco, ?int $companhiaAerea, ?int $aeroportoBase)
+    {
+        try {
+            $validaCPF = Validacoes::validaCPF($cpf);
+
+            $validaDataNascimento = Validacoes::validarDataDeNascimento($dataNascimento);
+
+            $validaEmail = Validacoes::validarEmail($email);
+
+            if ($validaCPF == 1 && $validaDataNascimento == 1 && $validaEmail == 1) {
+
+                switch ($tipoTripulante) {
+                    case PILOTO:
+                        $novoPiloto = new Piloto($nome, $sobrenome, $documentoIdentificacao, $cpf, $nacionalidade, $dataNascimento, $email, $cht, $endereco, $companhiaAerea, $aeroportoBase);
+                        return $novoPiloto;
+                        break;
+                    case COMISSARIO:
+                        $novoComissario = new Comissario($nome, $sobrenome, $documentoIdentificacao, $cpf, $nacionalidade, $dataNascimento, $email, $cht, $endereco, $companhiaAerea, $aeroportoBase);
+                        return $novoComissario;
+                        break;
+                    default:
+                        print_r("Tipo de tripulante inválido!\n");
+                        return NULL;
+                }
+            }
+        } catch (Exception $e) {
+            print_r("Erro ao criar tripulante: " . $e->getMessage() . "\n");
+            return NULL;
+        }
+    }
+
     public function alterarTripulante(Tripulante $novoTripulante)
     {
         $this->setTipoTripulante($novoTripulante->getTipoTripulante());
@@ -169,7 +200,9 @@ class Tripulante extends persist
 
     public function setCpf(string $cpf)
     {
-        $this->cpf = $cpf;
+        if (Validacoes::validaCPF($cpf) == 1) {
+            $this->cpf = $cpf;
+        }
     }
 
     public function setNacionalidade(string $nacionalidade)
