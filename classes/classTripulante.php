@@ -202,6 +202,8 @@ class Tripulante extends persist
     {
         if (Validacoes::validaCPF($cpf) == 1) {
             $this->cpf = $cpf;
+        } else {
+            throw new Exception("CPF inválido!");
         }
     }
 
@@ -212,12 +214,20 @@ class Tripulante extends persist
 
     public function setDataNascimento(string $dataNascimento)
     {
-        $this->dataNascimento = $dataNascimento;
+        if (Validacoes::validarDataDeNascimento($dataNascimento) == 1) {
+            $this->dataNascimento = $dataNascimento;
+        } else {
+            throw new Exception("Data de nascimento inválida!");
+        }
     }
 
     public function setEmail(string $email)
     {
-        $this->email = $email;
+        if (Validacoes::validarEmail($email) == 1) {
+            $this->email = $email;
+        } else {
+            throw new Exception("Email inválido!");
+        }
     }
 
     public function setCht(string $cht)
