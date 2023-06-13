@@ -167,9 +167,30 @@ class Aeroporto extends persist implements Subject
     array_push($this->listaCompanhiasAereas, $indexCompAerea);
   }
 
-  public function getListaCompanhiasAereas()
+  public function getListaCompanhiasAereasArray()
   {
     return $this->listaCompanhiasAereas;
+  }
+
+  public function getListaCompanhiasAereasString()
+  {
+    $listaCompanhiasAereasString = "";
+
+    $tamanhoArrayFreq = count($this->listaCompanhiasAereas);
+
+    $i = 0;
+
+    foreach ($this->listaCompanhiasAereas as $indexCompAerea) {
+      $i++;
+
+      $listaCompanhiasAereasString .= $indexCompAerea;
+
+      if ($i < $tamanhoArrayFreq) {
+        $listaCompanhiasAereasString .= ",";
+      }
+    }
+
+    return $listaCompanhiasAereasString;
   }
 
   static public function getFilename()

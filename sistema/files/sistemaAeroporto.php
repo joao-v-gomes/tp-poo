@@ -3,7 +3,7 @@
 include_once("../libs/global.php");
 class SistemaAeroporto
 {
-    static function sis_cadastrarAeroporto()
+    static function cadastrarAeroporto()
     {
         $sigla = (string)readline("Digite a sigla do aeroporto: ");
 
@@ -21,7 +21,15 @@ class SistemaAeroporto
 
         $endereco = new Endereco($endRua, $endNumero, $endComplemento, $endCep, $endCidade, $endEstado);
 
-        $aeroporto = new Aeroporto($sigla, $endereco);
+        $novoAeroporto = new Aeroporto($sigla, $endereco);
+
+        return $novoAeroporto;
+    }
+
+    static function sis_cadastrarAeroporto()
+    {
+
+        $aeroporto = SistemaAeroporto::cadastrarAeroporto();
 
         $aeroporto->save();
 
@@ -50,10 +58,10 @@ class SistemaAeroporto
     static function mostraAeroportos(array $aeroportos)
     {
         print_r("Aeroportos cadastrados:\r\n");
-        print_r("Index - Sigla - Endereco\r\n");
+        print_r("Index - Sigla - Endereco - Comp Aerea Cadastradas\r\n");
 
         foreach ($aeroportos as $aeroporto) {
-            print_r($aeroporto->getIndex() . " - " . $aeroporto->getSigla() . " - " . $aeroporto->getEndereco()->getEndCompleto() . "\r\n");
+            print_r($aeroporto->getIndex() . " - " . $aeroporto->getSigla() . " - " . $aeroporto->getEndereco()->getEndCompleto() . " - " . $aeroporto->getListaCompanhiasAereasString() . "\r\n");
         }
     }
 
@@ -67,23 +75,7 @@ class SistemaAeroporto
 
         $aeroporto = $aeroportos[$index - 1];
 
-        $sigla = (string)readline("Digite a sigla do aeroporto: ");
-
-        $endRua = (string)readline("Digite a rua do endereco do aeroporto: ");
-
-        $endNumero = (string)readline("Digite o numero do endereco do aeroporto: ");
-
-        $endComplemento = (string)readline("Digite o complemento do endereco do aeroporto: ");
-
-        $endCep = (string)readline("Digite o CEP do endereco do aeroporto: ");
-
-        $endCidade = (string)readline("Digite a cidade do endereco do aeroporto: ");
-
-        $endEstado = (string)readline("Digite o estado do endereco do aeroporto: ");
-
-        $endereco = new Endereco($endRua, $endNumero, $endComplemento, $endCep, $endCidade, $endEstado);
-
-        $novoAeroporto = new Aeroporto($sigla, $endereco);
+        $novoAeroporto = SistemaAeroporto::cadastrarAeroporto();
 
         $aeroporto->alterarAeroporto($novoAeroporto);
 
@@ -105,7 +97,7 @@ class SistemaAeroporto
             return;
         }
 
-        mostraCompanhiasAereas($companhiasAereas);
+        SistemaCompAerea::mostraCompanhiasAereas($companhiasAereas);
 
         $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea: ");
 
@@ -170,7 +162,7 @@ class SistemaAeroporto
             return;
         }
 
-        mostraCompanhiasAereas($companhiasAereasDoAeroporto);
+        SistemaCompAerea::mostraCompanhiasAereas($companhiasAereasDoAeroporto);
 
         print_r("\n\n");
     }
@@ -202,7 +194,7 @@ class SistemaAeroporto
             return;
         }
 
-        mostraVoos($voos);
+        SistemaVoo::mostraVoos($voos);
 
         print_r("\n\n");
     }
