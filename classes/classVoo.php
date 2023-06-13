@@ -19,10 +19,10 @@ class Voo extends persist
   static $local_filename = "voos.txt";
 
 
-  static function criarVooCompleto(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida,?int $companhiaAerea,  ?Aeronave $aeronave, ?int $piloto, ?int $copiloto, ?array $comissarios, ?string $codigoVoo)
+  static function criarVooCompleto(array $frequencia, int $aeroportoOrigem, int $aeroportoDestino, DateTime $previsaoPartida, ?int $companhiaAerea,  ?Aeronave $aeronave, ?int $piloto, ?int $copiloto, ?array $comissarios, ?string $codigoVoo)
   {
     try {
-      $validaCodigoVoo = self::validaCodigoVoo($companhiaAerea, $codigoVoo);
+      $validaCodigoVoo = Validacoes::validaCodigoVoo($companhiaAerea, $codigoVoo);
 
       // print_r("Valida codigo voo: " . $validaCodigoVoo . "\n");
 
@@ -185,7 +185,7 @@ class Voo extends persist
 
   //public function getPrevisaoChegada()
   //{
-    // return $this->previsaoChegada;
+  // return $this->previsaoChegada;
   //}
 
   // public function getPrevisaoDuracao()
@@ -281,52 +281,7 @@ class Voo extends persist
   //   $this->viagem = $novaViagem;
   // }
 
-  static public function validaCodigoVoo(?int $indexCompanhiaAerea, ?string $codigoVoo)
-  {
-    if ($indexCompanhiaAerea == null) {
-      // return "Index Compahia Aerea nulo";
-      throw new Exception("Index Compahia Aerea nulo");
-    }
 
-    if ($codigoVoo == null) {
-      // return "Codigo Voo nulo";
-      throw new Exception("Codigo Voo nulo");
-    }
-
-    if (strlen($codigoVoo) != 6) {
-      // return "Tamanho do Codigo Voo invalido";
-      throw new Exception("Tamanho do Codigo Voo invalido");
-    }
-
-    $codigoVoo = strtoupper($codigoVoo);
-
-    $letra = substr($codigoVoo, 0, 2);
-    $numero = substr($codigoVoo, 2, 5);
-
-    // print_r("Letra: " . $letra . "\n");
-    // print_r("Numero: " . $numero . "\n");
-
-    $companhiaAerea = CompanhiaAerea::getRecordsByField('index', $indexCompanhiaAerea);
-
-    if ($companhiaAerea == null) {
-      // return "Index Companhia Aerea nao encontrado";
-      throw new Exception("Index Companhia Aerea nao encontrado");
-    }
-
-    $companhiaAerea = $companhiaAerea[0];
-
-    if ($companhiaAerea->getSigla() != $letra) {
-      // return "Sigla da Companhia Aerea nao confere com o Codigo Voo";
-      throw new Exception("Sigla da Companhia Aerea nao confere com o Codigo Voo");
-    }
-
-    if (!is_numeric($numero)) {
-      // return "O numero do Codigo Voo nao e numerico";
-      throw new Exception("O numero do Codigo Voo nao e numerico");
-    }
-
-    return 1;
-  }
 
   static public function getFilename()
   {
