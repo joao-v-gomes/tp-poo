@@ -10,8 +10,9 @@ class Endereco
     private string $cidade;
     private string $estado;
 
-    private string $coordenadaX;
-    private string $coordenadaY;
+    private ?float $coordenadaLongitude;
+    private ?float $coordenadaLatitude;
+
 
     // static $local_filename = "enderecos.txt";
 
@@ -24,11 +25,34 @@ class Endereco
         $this->setCep($cep);
         $this->setCidade($cidade);
         $this->setEstado($estado);
+
+        $this->buscaCoordenadasMaps();
+    }
+
+    public function buscaCoordenadasMaps()
+    {
+        $gmaps = new Maps();
+
+        $objMapsCoordenadas = $gmaps->getObjetoMapsCoordenadas($this);
+
+        if ($objMapsCoordenadas == null) {
+            print_r("Erro ao obter objeto maps coordenadas\n");
+            $this->setCoordenadas(null, null);
+            return null;
+        } else {
+            $this->setCoordenadas($objMapsCoordenadas['lng'], $objMapsCoordenadas['lat']);
+        }
     }
 
     public function getEndCompleto()
     {
+
         return $this->rua . ", " . $this->numero . ", " . $this->complemento . ", " . $this->cep . ", " . $this->cidade . ", " . $this->estado;
+    }
+
+    public function getEndMaps()
+    {
+        return $this->rua . ", " . $this->numero . ", " . $this->cep . ", " . $this->cidade . ", " . $this->estado;
     }
 
 
@@ -64,12 +88,12 @@ class Endereco
 
     public function getCoordenadaX(): string
     {
-        return $this->coordenadaX;
+        return $this->coordenadaLongitude;
     }
 
     public function getCoordenadaY(): string
     {
-        return $this->coordenadaY;
+        return $this->coordenadaLatitude;
     }
 
     public function setRua(string $rua): void
@@ -102,14 +126,20 @@ class Endereco
         $this->estado = $estado;
     }
 
-    public function setCoordenadaX(string $coordenadaX): void
+    public function setCoordenadas(?float $coordenadaLongitude, ?float $coordenadaLatitude): void
     {
-        $this->coordenadaX = $coordenadaX;
+        $this->setCoordenadaLongitude($coordenadaLongitude);
+        $this->setCoordenadaLatitude($coordenadaLatitude);
     }
 
-    public function setCoordenadaY(string $coordenadaY): void
+    public function setCoordenadaLongitude(?float $coordenadaLongitude): void
     {
-        $this->coordenadaY = $coordenadaY;
+        $this->coordenadaLongitude = $coordenadaLongitude;
+    }
+
+    public function setCoordenadaLatitude(?float $coordenadaLatitude): void
+    {
+        $this->coordenadaLatitude = $coordenadaLatitude;
     }
 
     // static public function getFilename()

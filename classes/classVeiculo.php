@@ -6,8 +6,12 @@ class Veiculo extends persist
 
     private string $codigo;
     private string $placa;
+
     private int $qtdeAssentos;
+
+    private ?array $listaEnderecos;
     private ?array $rota;
+
     private ?DateTime $tempoPercurso;
     private ?DateTime $horarioEmbarquePrevisto;
 
@@ -30,6 +34,7 @@ class Veiculo extends persist
         $this->setCompAereaPertencente(SEM_COMPANHIA_AEREA_DEFINIDA);
 
         $this->rota = array();
+        $this->listaEnderecos = array();
     }
 
     public function alteraVeiculo(Veiculo $novoVeiculo)
@@ -39,6 +44,9 @@ class Veiculo extends persist
         $this->setQtdeAssentos($novoVeiculo->getQtdeAssentos());
         $this->setHorarioEmbarquePrevisto($novoVeiculo->getHorarioEmbarquePrevisto());
         $this->setCompAereaPertencente($novoVeiculo->getCompAereaPertencente());
+        $this->setTempoPercurso($novoVeiculo->getTempoPercurso());
+        $this->setRota($novoVeiculo->getRota());
+        $this->setListaEnderecos($novoVeiculo->getListaEnderecos());
     }
 
     public function getCodigo()
@@ -84,6 +92,21 @@ class Veiculo extends persist
     public function addRota(Endereco $endereco): void
     {
         array_push($this->rota, $endereco);
+    }
+
+    public function getListaEnderecos()
+    {
+        return $this->listaEnderecos;
+    }
+
+    public function setListaEnderecos(?array $listaEnderecos): void
+    {
+        $this->listaEnderecos = $listaEnderecos;
+    }
+
+    public function addEndereco(Endereco $endereco): void
+    {
+        array_push($this->listaEnderecos, $endereco);
     }
 
     public function getTempoPercurso()

@@ -126,6 +126,8 @@ class SistemaVeiculo
 
         $viagem = $viagens[$indexViagem - 1];
 
+
+
         $veiculos = Veiculo::getRecords();
 
         if (count($veiculos) == 0) {
@@ -140,6 +142,8 @@ class SistemaVeiculo
 
         $veiculo = $veiculos[$indexVeiculo - 1];
 
+
+
         $indexVooDaViagem = $viagem->getVoo();
 
         // print_r("Voo da viagem: " . $indexVooDaViagem . "\r\n");
@@ -147,6 +151,18 @@ class SistemaVeiculo
         $vooDaViagem = Voo::getRecordsByField("index", $indexVooDaViagem);
 
         $vooDaViagem = $vooDaViagem[0];
+
+
+
+        $indexAeroportoOrigem = $vooDaViagem->getAeroportoOrigem();
+
+        $aeroportoOrigem = Aeroporto::getRecordsByField("index", $indexAeroportoOrigem);
+
+        $aeroportoOrigem = $aeroportoOrigem[0];
+
+        $enderecoAeroportoOrigem = $aeroportoOrigem->getEndereco();
+
+
 
         $indexTripulantesViagem = $vooDaViagem->getListaTripulantesDoVoo();
 
@@ -166,11 +182,9 @@ class SistemaVeiculo
 
         // print_r($indexComissarios);
 
-        $listaEnderecosTripulantes = array();
+        $listaEnderecoAeroportoETripulantes = array();
 
-        // $pilotoCopiloto = array();
-
-        // $comissarios = array();
+        $listaEnderecoAeroportoETripulantes[] = $enderecoAeroportoOrigem;
 
         foreach ($indexPilotoCopiloto as $index) {
             $pilotoCopiloto = Piloto::getRecordsByField("index", $index);
@@ -179,7 +193,7 @@ class SistemaVeiculo
 
             print_r($pilotoCopiloto);
 
-            $listaEnderecosTripulantes[] = $pilotoCopiloto->getEndereco();
+            $listaEnderecoAeroportoETripulantes[] = $pilotoCopiloto->getEndereco();
         }
 
         foreach ($indexComissarios as $index) {
@@ -189,10 +203,10 @@ class SistemaVeiculo
 
             print_r($comissario);
 
-            $listaEnderecosTripulantes[] = $comissario->getEndereco();
+            $listaEnderecoAeroportoETripulantes[] = $comissario->getEndereco();
         }
 
-        print_r($listaEnderecosTripulantes);
+        print_r($listaEnderecoAeroportoETripulantes);
 
         // foreach ($tripulantesViagem as $tripulante) {
         //     print_r($tripulante->getNome() . "\r\n");
