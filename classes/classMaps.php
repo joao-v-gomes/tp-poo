@@ -2,9 +2,10 @@
 
 // namespace yidas\googleMaps;
 
+include_once("../libs/global.php");
+
 require '../libs/vendor/autoload.php';
 
-include_once("../libs/global.php");
 include_once("../libs/vendor/yidas/google-maps-services/src/Client.php");
 
 class Maps
