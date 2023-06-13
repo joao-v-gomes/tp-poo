@@ -109,4 +109,93 @@ class SistemaVeiculo
 
         print_r("\n\n");
     }
+
+    static function sis_conectarVeiculoAViagem()
+    {
+        $viagens = Viagem::getRecords();
+
+        if (count($viagens) == 0) {
+            print_r("Nenhuma viagem cadastrada!\r\n");
+            print_r("\n\n");
+            return;
+        }
+
+        mostra_Viagem($viagens);
+
+        $indexViagem = (int)readline("Digite o index da viagem: ");
+
+        $viagem = $viagens[$indexViagem - 1];
+
+        $veiculos = Veiculo::getRecords();
+
+        if (count($veiculos) == 0) {
+            print_r("Nenhum veiculo cadastrado!\r\n");
+            print_r("\n\n");
+            return;
+        }
+
+        SistemaVeiculo::mostraVeiculos($veiculos);
+
+        $indexVeiculo = (int)readline("Digite o index do veiculo: ");
+
+        $veiculo = $veiculos[$indexVeiculo - 1];
+
+        $indexVooDaViagem = $viagem->getVoo();
+
+        // print_r("Voo da viagem: " . $indexVooDaViagem . "\r\n");
+
+        $vooDaViagem = Voo::getRecordsByField("index", $indexVooDaViagem);
+
+        $vooDaViagem = $vooDaViagem[0];
+
+        $indexTripulantesViagem = $vooDaViagem->getListaTripulantesDoVoo();
+
+        // print_r("Tripulantes da viagem:\r\n");
+
+        // print_r($indexTripulantesViagem);
+
+        $indexPilotoCopiloto = $indexTripulantesViagem[0];
+
+        $indexComissarios = $indexTripulantesViagem[1];
+
+        // print_r("Pilotos: \r\n");
+
+        // print_r($indexPilotoCopiloto);
+
+        // print_r("Comissarios: \r\n");
+
+        // print_r($indexComissarios);
+
+        $listaEnderecosTripulantes = array();
+
+        // $pilotoCopiloto = array();
+
+        // $comissarios = array();
+
+        foreach ($indexPilotoCopiloto as $index) {
+            $pilotoCopiloto = Piloto::getRecordsByField("index", $index);
+
+            $pilotoCopiloto = $pilotoCopiloto[0];
+
+            print_r($pilotoCopiloto);
+
+            $listaEnderecosTripulantes[] = $pilotoCopiloto->getEndereco();
+        }
+
+        foreach ($indexComissarios as $index) {
+            $comissario = Comissario::getRecordsByField("index", $index);
+
+            $comissario = $comissario[0];
+
+            print_r($comissario);
+
+            $listaEnderecosTripulantes[] = $comissario->getEndereco();
+        }
+
+        print_r($listaEnderecosTripulantes);
+
+        // foreach ($tripulantesViagem as $tripulante) {
+        //     print_r($tripulante->getNome() . "\r\n");
+        // }
+    }
 }

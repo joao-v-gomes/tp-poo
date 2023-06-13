@@ -39,22 +39,22 @@ $gmaps = new Client(['key' => 'AIzaSyAKO8HqZTt4EKzxGe7Hn7MT0lcC5OX0g-8']);
 
 //ChIJzatiN5OVpgARIEG5t9tCAhw 
 
-$origem = "Av Jose Faria da Rocha - 514 - Contagem - MG - 32315040";
+// $origem = "Av Jose Faria da Rocha - 514 - Contagem - MG - 32315040";
 
-// $origemFix = "";
+// // $origemFix = "";
 
 
-$origem = str_replace("-", "", $origem);
+// $origem = str_replace("-", "", $origem);
 
-print_r($origem . "\n");
+// print_r($origem . "\n");
 
-$origem = str_replace(" ", "+", $origem);
+// $origem = str_replace(" ", "+", $origem);
 
-print_r($origem . "\n");
+// print_r($origem . "\n");
 
-$origem = str_replace("++", "+", $origem);
+// $origem = str_replace("++", "+", $origem);
 
-print_r($origem . "\n");
+// print_r($origem . "\n");
 
 
 // $destino = "BeerBrothers - Contagem";
@@ -69,27 +69,24 @@ print_r($origem . "\n");
 
 // print_r($testeDir);
 
-// $local = $gmaps->geocode('Av Jose Faria da Rocha - 514 - Contagem - MG - 32315040');
+$local = $gmaps->geocode('Av Jose Faria da Rocha - 514 - Contagem - MG - 32315040');
 
 // $localReverso = $gmaps->reverseGeocode([-19.94751786178283, -44.0338132658227]);
 
 // $localReverso = $gmaps->reverseGeocode([37.4223878, -122.0841877]);
 
-
-// print_r($local);
+print_r("Local completo: \n");
+print_r($local);
 
 // print_r($localReverso);
 
+print_r("Local lat/long: \n");
+$local1 = $local[0]['geometry']['location'];
+print_r($local1);
 
-// $local1 = $local[0]['geometry']['location'];
-
-
-// print_r($local1);
-
-
-// $local2 = $local[0]['formatted_address'] . "\n";
-
-// print_r($local2);
+print_r("Local Endereco formatado: \n");
+$local2 = $local[0]['formatted_address'] . "\n";
+print_r($local2);
 
 
 // $local3 = $localReverso[0]['formatted_address'] . "\n";

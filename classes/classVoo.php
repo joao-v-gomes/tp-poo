@@ -281,7 +281,32 @@ class Voo extends persist
   //   $this->viagem = $novaViagem;
   // }
 
+  public function getListaTripulantesDoVoo()
+  {
+    $listaTripulantes = array();
+    $listaPilotoCopiloto = array();
+    $listaComissarios = array();
 
+    if ($this->piloto != null) {
+      array_push($listaPilotoCopiloto, $this->piloto);
+    }
+
+    if ($this->copiloto != null) {
+      array_push($listaPilotoCopiloto, $this->copiloto);
+    }
+
+    if ($this->listaComissarios != null) {
+      foreach ($this->listaComissarios as $comissario) {
+        array_push($listaComissarios, $comissario);
+      }
+    }
+
+    $listaTripulantes[] = $listaPilotoCopiloto;
+
+    $listaTripulantes[] = $listaComissarios;
+
+    return $listaTripulantes;
+  }
 
   static public function getFilename()
   {

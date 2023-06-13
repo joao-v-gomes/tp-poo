@@ -9,6 +9,7 @@ include_once("files/sistemaTripulante.php");
 include_once("files/sistemaVoo.php");
 include_once("files/sistemaUsuario.php");
 include_once("files/sistemaLogs.php");
+include_once("files/sistemaViagem.php");
 
 // define("PILOTO", 1);
 // define("COMISSARIO", 2);
@@ -81,6 +82,7 @@ class Sistema
             print_r(++$opcMenu . " - Cadastrar Veiculo\r\n");
             print_r(++$opcMenu . " - Ver Veiculos\r\n");
             print_r(++$opcMenu . " - Editar Veiculo\r\n");
+            print_r(++$opcMenu . " - Conectar uma viagem a um veiculo\r\n");
 
 
             print_r("\n--- LOGS ---\r\n");
@@ -359,6 +361,12 @@ class Sistema
                     print_r("Editar Veiculo\r\n");
                     print_r("\n\n");
                     SistemaVeiculo::sis_editarVeiculo();
+                    break;
+
+                case ++$opcMenu:
+                    print_r("Conectar Veiculo a uma viagem\r\n");
+                    print_r("\n\n");
+                    SistemaVeiculo::sis_conectarVeiculoAViagem();
                     break;
 
                     // #### LOGS ####
