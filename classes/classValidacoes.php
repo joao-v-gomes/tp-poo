@@ -58,4 +58,48 @@ class Validacoes
             throw new Exception("Email inválido");
         }
     }
+
+    static public function validaRegistroAeronave(string $registro)
+    {
+
+        // Coloca tudo maiusculo
+        $registro = strtoupper($registro);
+
+        // Verifica o tamanho da string
+        if (strlen($registro) != TAMANHO_REGISTRO) {
+            throw new Exception("Tamanho do registro errado \r\n");
+        };
+
+        // Verifica a primeira letra
+        if (($registro[0] != 'P')) {
+            // return "Registro nao comeca com 'P' \r\n";
+            throw new Exception("Registro nao comeca com 'P' \r\n");
+        };
+
+        // Verifica a segunda letra
+        if (
+            $registro[1] != 'T' and
+            $registro[1] != 'R' and
+            $registro[1] != 'P' and
+            $registro[1] != 'S'
+        ) {
+            // return "Segunda letra do registro nao e 'T', 'P', 'P' ou 'S' \r\n";
+            throw new Exception("Segunda letra do registro nao e 'T', 'P', 'P' ou 'S' \r\n");
+        }
+
+        // Verifica a posicao do hifen	
+        if ($registro[2] != '-') {
+            // return "O hifen nao esta na posicao correta \r\n";
+            throw new Exception("O hifen nao esta na posicao correta \r\n");
+        }
+
+        // Verifica se os tres ultimos chars nao sao numericos
+        if (is_numeric($registro[3]) or is_numeric($registro[4]) or is_numeric($registro[5])) {
+            // return "Os tres ultimos digitos nao sao numericos \r\n";
+            throw new Exception("Os tres ultimos digitos nao sao numericos \r\n");
+        }
+
+        // Retorna true se der tudo certo
+        return 1;
+    }
 }

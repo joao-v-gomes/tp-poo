@@ -16,10 +16,10 @@ class Aeronave extends persist
 	protected ?int $compAereaPertencente; // protected para acessar na busca pelo index
 
 	private array $listaAssentos;
-  //preencher com letras x
-  // x = disponivel
-  // e = escolhido 
-  // v = apareceu e viajou 
+	//preencher com letras x
+	// x = disponivel
+	// e = escolhido 
+	// v = apareceu e viajou 
 
 	static $local_filename = "aeronaves.txt";
 
@@ -46,7 +46,7 @@ class Aeronave extends persist
 	static public function criarAeronave(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, ?int $indexCompAerea)
 	{
 		try {
-			$validaRegistro = self::validaRegistro($registro);
+			$validaRegistro = Validacoes::validaRegistroAeronave($registro);
 
 			if ($validaRegistro == 1) {
 				$aeronave = new Aeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $indexCompAerea);
@@ -122,52 +122,12 @@ class Aeronave extends persist
 
 	public function setRegistro(string $registro)
 	{
-		$registro = strtoupper($registro);
-		$this->registro = $registro;
-	}
-
-	static public function validaRegistro(string $registro)
-	{
-
-		// Coloca tudo maiusculo
-		$registro = strtoupper($registro);
-
-		// Verifica o tamanho da string
-		if (strlen($registro) != TAMANHO_REGISTRO) {
-			throw new Exception("Tamanho do registro errado \r\n");
-		};
-
-		// Verifica a primeira letra
-		if (($registro[0] != 'P')) {
-			// return "Registro nao comeca com 'P' \r\n";
-			throw new Exception("Registro nao comeca com 'P' \r\n");
-		};
-
-		// Verifica a segunda letra
-		if (
-			$registro[1] != 'T' and
-			$registro[1] != 'R' and
-			$registro[1] != 'P' and
-			$registro[1] != 'S'
-		) {
-			// return "Segunda letra do registro nao e 'T', 'P', 'P' ou 'S' \r\n";
-			throw new Exception("Segunda letra do registro nao e 'T', 'P', 'P' ou 'S' \r\n");
+		if (Validacoes::validaRegistroAeronave($registro) == 1) {
+			$registro = strtoupper($registro);
+			$this->registro = $registro;
+		} else {
+			throw new Exception("Registro inválido");
 		}
-
-		// Verifica a posicao do hifen	
-		if ($registro[2] != '-') {
-			// return "O hifen nao esta na posicao correta \r\n";
-			throw new Exception("O hifen nao esta na posicao correta \r\n");
-		}
-
-		// Verifica se os tres ultimos chars nao sao numericos
-		if (is_numeric($registro[3]) or is_numeric($registro[4]) or is_numeric($registro[5])) {
-			// return "Os tres ultimos digitos nao sao numericos \r\n";
-			throw new Exception("Os tres ultimos digitos nao sao numericos \r\n");
-		}
-
-		// Retorna true se der tudo certo
-		return 1;
 	}
 
 	public function setDisponibilidadeAeronave(bool $disponibilidade)

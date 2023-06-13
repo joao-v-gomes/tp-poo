@@ -4,7 +4,7 @@ include_once("../libs/global.php");
 
 class SistemaAeronave
 {
-    static function sis_CadastrarAeronave()
+    static function cadastrarAeronave()
     {
         $fabricante = (string)readline("Digite o fabricante da aeronave: ");
         $modelo = (string)readline("Digite o modelo da aeronave: ");
@@ -15,7 +15,7 @@ class SistemaAeronave
 
         $companhiasAereas = CompanhiaAerea::getRecords();
 
-        mostraCompanhiasAereas($companhiasAereas);
+        SistemaCompAerea::mostraCompanhiasAereas($companhiasAereas);
 
         $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea a qual pertence essa aeronave: ");
 
@@ -26,6 +26,15 @@ class SistemaAeronave
         }
 
         $aeronave = Aeronave::criarAeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $indexCompanhiaAerea);
+
+        return $aeronave;
+    }
+
+
+    static function sis_CadastrarAeronave()
+    {
+
+        $aeronave = SistemaAeronave::cadastrarAeronave();
 
         if ($aeronave != null) {
             $aeronave->save();
@@ -90,19 +99,7 @@ class SistemaAeronave
 
         $aeronave = $aeronaves[$indexAeronave - 1];
 
-        $fabricante = (string)readline("Digite o fabricante da aeronave: ");
-        $modelo = (string)readline("Digite o modelo da aeronave: ");
-        $capacidadePassageiros = (int)readline("Digite a capacidade de passageiros da aeronave: ");
-        $capacidadeCarga = (float)readline("Digite a capacidade de carga da aeronave: ");
-        $registro = (string)readline("Digite o registro da aeronave: ");
-
-        $companhiasAereas = CompanhiaAerea::getRecords();
-
-        mostraCompanhiasAereas($companhiasAereas);
-
-        $indexCompanhiaAerea = (int)readline("Digite o index da companhia aerea a qual pertence essa aeronave: ");
-
-        $aeronaveNova = Aeronave::criarAeronave($fabricante, $modelo, $capacidadePassageiros, $capacidadeCarga, $registro, $indexCompanhiaAerea);
+        $aeronaveNova = SistemaAeronave::cadastrarAeronave();
 
         if ($aeronaveNova == null) {
             print_r("Aeronave não pode ser editada!\r\n");
