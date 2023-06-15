@@ -24,6 +24,8 @@ define("NOVA_INSTANCIA", 1);
 define("ALTERACAO_ATRIBUTO", 2);
 define("VISUALIZACAO_ATRIBUTO", 3);
 
+define("VELOCIDADE_MEDIA_VEICULO", 18);
+
 // define("TAMANHO_RG", 8);
 define('VAZIO', '');
 

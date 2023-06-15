@@ -139,6 +139,36 @@ class Veiculo extends persist
         $this->compAereaPertencente = $compAereaPertencente;
     }
 
+    public function calculaDistancia(float $x1, float $y1, float $x2, float $y2): float
+    {
+        return 110.57 * sqrt(pow($x2 - $x1, 2) + pow($y2 - $y1, 2));
+    }
+
+    public function calculaDistanciaTotalRota()
+    {
+        $distanciaTotal = 0;
+        $qtdeEnderecos = count($this->listaEnderecos);
+
+        for ($i = 0; $i < $qtdeEnderecos - 1; $i++) {
+            $distanciaTotal += $this->calculaDistancia(
+                $this->listaEnderecos[$i]->getCoordenadaX(),
+                $this->listaEnderecos[$i]->getCoordenadaY(),
+                $this->listaEnderecos[$i + 1]->getCoordenadaX(),
+                $this->listaEnderecos[$i + 1]->getCoordenadaY()
+            );
+        }
+
+        return $distanciaTotal;
+    }
+
+    public function calculaTempoPercurso()
+    {
+        $distanciaTotal = $this->calculaDistanciaTotalRota();
+        $tempoPercurso = $distanciaTotal / VELOCIDADE_MEDIA_VEICULO;
+
+        $this->setTempoPercurso(new DateInterval('PT' . $tempoPercurso . 'H'));
+    }
+
     static public function getFilename()
     {
         return get_called_class()::$local_filename;
