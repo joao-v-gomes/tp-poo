@@ -1,7 +1,7 @@
 <?php
 
 // Por favor, não avacalhe com o meu cartao de credito. Obrigado.
-define("GMAPS_KEY", "");
+define("GMAPS_KEY", "AIzaSyB0_BwlzaJZcFbCN-sRUdU5gfNI48XLzy4");
 
 define("CAMPO_ZERO", 0);
 define("CAMPO_VAZIO", -1);
@@ -21,8 +21,8 @@ define("SEM_CARGA_DEFINIDA", CAMPO_ZERO);
 define("TAMANHO_REGISTRO", 6);
 
 define("NOVA_INSTANCIA", 1);
-define("ALTERACAO_ATRIBUTO", 2);
-define("VISUALIZACAO_ATRIBUTO", 3);
+define("ESCRITA_ATRIBUTO", 2);
+define("LEITURA_ATRIBUTO", 3);
 
 define("VELOCIDADE_MEDIA_VEICULO", 18);
 

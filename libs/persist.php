@@ -6,6 +6,12 @@ abstract class persist
     private ?int $index = null;
     public function __construct()
     {
+
+        print_r("Construtor de Persist chamado...\n\n");
+
+        print_r("Numero parametros: ");
+        print_r(func_num_args() . "\n\n");
+
         // echo "\nConstrutor de Persist chamado";
         if (func_num_args() == 1) {
             $this->filename = func_get_arg(0);
