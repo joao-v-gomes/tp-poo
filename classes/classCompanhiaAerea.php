@@ -102,19 +102,6 @@ class CompanhiaAerea extends persist
 		$this->programaMilhagem = $programaMilhagem;
 	}
 
-	// public function exibirCompanhia()
-	// {
-	// 	print_r($this->nome);
-	// 	echo "\n";
-	// 	print_r($this->codigo);
-	// 	echo "\n";
-	// 	print_r($this->razaoSocial);
-	// 	echo "\n";
-	// 	print_r($this->cnpj);
-	// 	echo "\n";
-	// 	print_r($this->sigla);
-	// }
-
 	public function executaViagem(Viagem $novaViagem)
 	{
 	}
@@ -128,10 +115,6 @@ class CompanhiaAerea extends persist
 	{
 	}
 
-	// public function vendaPassagem(Cliente cliente)
-	// {
-	// }
-
 	public function cadastrarCliente()
 	{
 	}
@@ -143,19 +126,6 @@ class CompanhiaAerea extends persist
 	public function validaViagem()
 	{
 	}
-
-	// public function compraDeFranquia(Passagem $passagem){
-	// }
-
-	// public function exibirListaAeronaves()
-	// {
-	// 	print_r($this->listaAeronaves);
-	// }
-
-  // public function buscaViagens ( $aeroportoOrigem, $aeroportoDestino, $dataViagem, $numeroDePassageiros)
-  // {
-    
-  // }
 
 	static public function getFilename()
 	{

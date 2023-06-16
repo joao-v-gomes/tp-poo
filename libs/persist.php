@@ -4,24 +4,24 @@ abstract class persist
 {
     private ?string $filename;
     private ?int $index = null;
-    public function __construct()
-    {
+    // public function __construct()
+    // {
 
-        print_r("Construtor de Persist chamado...\n\n");
+    //     print_r("Construtor de Persist chamado...\n\n");
 
-        print_r("Numero parametros: ");
-        print_r(func_num_args() . "\n\n");
+    //     print_r("Numero parametros: ");
+    //     print_r(func_num_args() . "\n\n");
 
-        // echo "\nConstrutor de Persist chamado";
-        if (func_num_args() == 1) {
-            $this->filename = func_get_arg(0);
-        } else if (func_num_args() == 2) {
-            $this->filename = func_get_arg(0);
-            $this->index = func_get_arg(1);
-        } else {
-            throw (new Exception('Eror ao instanciar objeto da classe Persist - Número de parâmetros incorreto.'));
-        }
-    }
+    //     // echo "\nConstrutor de Persist chamado";
+    //     if (func_num_args() == 1) {
+    //         $this->filename = func_get_arg(0);
+    //     } else if (func_num_args() == 2) {
+    //         $this->filename = func_get_arg(0);
+    //         $this->index = func_get_arg(1);
+    //     } else {
+    //         throw (new Exception('Eror ao instanciar objeto da classe Persist - Número de parâmetros incorreto.'));
+    //     }
+    // }
 
     public function __destruct()
     {
