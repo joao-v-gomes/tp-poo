@@ -1,15 +1,18 @@
 <?php
 
-include_once('../global.php');
+include_once("../libs/global.php");
 
 class LogEscrita extends Log
 {
+
+    static $local_filename = "logs.txt";
+
     public function __construct($classe, string $atributo, $objetoAntigo, $objetoNovo)
     {
-        print_r("Criando log de escrita...\n\n");
-
         $this->setTipoLog(ESCRITA_ATRIBUTO);
+
         $this->setMensagem("Atributo " . $atributo . " da classe " . get_class($classe) . " foi alterado de " . $objetoAntigo . " para " . $objetoNovo . ".");
+
         $this->setData(date("d/m/Y H:i:s"));
     }
 
@@ -41,5 +44,10 @@ class LogEscrita extends Log
     public function getData()
     {
         return $this->data;
+    }
+
+    static public function getFilename()
+    {
+        return get_called_class()::$local_filename;
     }
 }

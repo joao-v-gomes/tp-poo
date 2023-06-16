@@ -2,20 +2,19 @@
 
 include_once("../libs/global.php");
 
-class LogLeitura extends Log
+class LogNovaInstancia extends Log
 {
 
     static $local_filename = "logs.txt";
 
-    public function __construct($classe, string $atributo)
+    public function __construct($classe)
     {
-        print_r("Criando log de leitura...\n\n");
+        $this->setTipoLog(NOVA_INSTANCIA);
 
-        $this->setTipoLog(LEITURA_ATRIBUTO);
-        $this->setMensagem("Atributo " . $atributo . " da classe " . get_class($classe) . " foi lido.");
+        $this->setMensagem("Uma nova instancia da classe " . get_class($classe) . " foi criada.");
+
         $this->setData(date("d/m/Y H:i:s"));
     }
-
 
     public function setTipoLog(int $tipoLog)
     {

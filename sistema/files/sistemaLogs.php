@@ -6,7 +6,7 @@ class SistemaLogs
 {
     static function sis_verLogs()
     {
-        $logs = Log::getRecords();
+        $logs = LogFactory::getRecords();
 
         if (count($logs) == 0) {
             print_r("Nenhum log encontrado.\n\n");
