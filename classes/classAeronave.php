@@ -26,6 +26,8 @@ class Aeronave extends persist
 	public function __construct(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, ?int $indexCompAerea)
 	{
 
+		// $this->attach(new LogFactory());
+
 		$this->setRegistro($registro);
 		$this->setFabricante($fabricante);
 		$this->setModelo($modelo);
@@ -41,6 +43,8 @@ class Aeronave extends persist
 		// sempre cadastramos uma nova Aeronave com -1, pois ela não pertence a nenhuma companhia aérea ainda
 		// quando definimos a companhia aérea, alteramos esse valor
 		$this->setCompAereaPertencente($indexCompAerea);
+
+		// $this->notificaCriacaoNovaInstancia();
 	}
 
 	static public function criarAeronave(string $fabricante, string $modelo, int $capacidadePassageiros, float $capacidadeCarga, string $registro, ?int $indexCompAerea)

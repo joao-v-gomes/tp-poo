@@ -32,11 +32,15 @@ class Aeroporto extends Subject
 
   public function getSigla()
   {
+    $this->notificaVisualizacaoAtributo($this, "sigla", $this->sigla);
+
     return $this->sigla;
   }
 
   public function getEndereco()
   {
+    $this->notificaVisualizacaoAtributo($this, "endereco", $this->endereco);
+
     return $this->endereco;
   }
 
@@ -66,16 +70,35 @@ class Aeroporto extends Subject
 
   public function setListaCompanihasAereas(?array $listaCompanhiasAereas)
   {
+    $oldListaCompanhiasAereas = $this->listaCompanhiasAereas;
+
+    if ($oldListaCompanhiasAereas == null) {
+      $oldListaCompanhiasAereas = array();
+    }
+
     $this->listaCompanhiasAereas = $listaCompanhiasAereas;
+
+    $this->notificaAlteracaoAtributo($this, "listaCompanhiasAereas", serialize($oldListaCompanhiasAereas), serialize($listaCompanhiasAereas));
   }
 
   public function cadastraNovaCompanhiaAerea(int $indexCompAerea)
   {
+
+    $oldListaCompanhiasAereas = $this->listaCompanhiasAereas;
+
+    if ($oldListaCompanhiasAereas == null) {
+      $oldListaCompanhiasAereas = array();
+    }
+
     array_push($this->listaCompanhiasAereas, $indexCompAerea);
+
+    $this->notificaAlteracaoAtributo($this, "listaCompanhiasAereas", serialize($oldListaCompanhiasAereas), serialize($this->listaCompanhiasAereas));
   }
 
   public function getListaCompanhiasAereasArray()
   {
+    $this->notificaVisualizacaoAtributo($this, "listaCompanhiasAereas", $this->listaCompanhiasAereas);
+
     return $this->listaCompanhiasAereas;
   }
 
@@ -96,6 +119,8 @@ class Aeroporto extends Subject
         $listaCompanhiasAereasString .= ",";
       }
     }
+
+    $this->notificaVisualizacaoAtributo($this, "listaCompanhiasAereas", $listaCompanhiasAereasString);
 
     return $listaCompanhiasAereasString;
   }
