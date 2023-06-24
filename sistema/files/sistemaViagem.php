@@ -122,8 +122,6 @@ function mostrar_passageiros_Viagem()
   $passageirosViagem = $viagem->getPassageiros();
   print_r("\n\n");
 
-  print_r($viagem->getPassageiros());
-
   mostra_Passageiros($passageirosViagem);
 }
 
@@ -151,12 +149,24 @@ function adicionar_passageiros_Viagem()
     print_r("\n\n");
     return;
   }
+  
+  $passagens2 = array();
+  foreach($passagens as $pass){
+    if($pass->getStatus() != "Check-in realizado" && $pass->getStatus() != "Passagem Cancelada"){
+      array_push($passagens2,$pass);
+    }
+  }
+  
+  if(count($passagens2) == 0) {
+      print_r("Nenhuma Passagem cadastrada!\r\n");
+      print_r("\n\n");
+      return;
+  } 
+  mostrar_Passagens($passagens2);
 
-  mostrar_Passagens($passagens);
+  $index = (int)readline("Digite a posição da Passagem: ");
 
-  $index = (int)readline("Digite o index da Passagem: ");
-
-  $passagem = $passagens[$index - 1];
+  $passagem = $passagens2[$index - 1];
   $indexpassagem = $passagem->getlistaViagensEConexoes();
 
   if ($indexpassagem[0] == $viagem->getIndex()) {
@@ -203,10 +213,19 @@ function fazer_checkin()
   $indexpassagem = $passagem->getlistaViagensEConexoes();
   if ($indexpassagem[0] ==  $viagem->getIndex()) {
     $passageiro = $passagem->getPassageiro();
-    $voo = $viagem->getVoo();
+    $indexvoo = $viagem->getVoo();
+    $voos = Voo::getRecords();
+    $voo = $voos[$indexvoo - 1];
+    
     $cartao = new Cartaoembarque($passageiro->getNome(), $passageiro->getSobrenome(), $voo->getAeroportoOrigem(), $voo->getAeroportoDestino(), $voo->getPrevisaoPartida(), $viagem->getHorarioPartida(), $passagem->getAssento());
 
-    //contabilizar as milhas
+    $status = "Check-in realizado";
+    $passagem->setStatus($status);
+    print_r("o check_in foi realizado!");
+    print_r("\n\n");
+    $passagem->save();
+
+    
 
   }
   //vai passar uma passagem
@@ -218,6 +237,7 @@ function fazer_checkin()
 
 function pesquisar_Viagem()
 {
+  
   $aeroOrigem = (string)readline("qual a sigla do aeroporto de origem: ");
   $aeroDestino = (string)readline("qual a sigla do aeroporto de destino: ");
   $dataViagem = (string)readline("qual a data da viagem: ");
@@ -228,6 +248,10 @@ function pesquisar_Viagem()
     if ($aeroporto->getSigla() == $aeroOrigem) {
       $origem = $aeroporto;
     }
+  }
+  if($origem == null){
+    print_r("não encontramos uma viagem com essa origem");
+    return;
   }
 
   $companhiasaereas = $origem->getCompanhiasAereas();

@@ -1,7 +1,8 @@
 <?php
 include_once("../libs/global.php");
 
-class Cartaoembarque extends persist{
+class Cartaoembarque extends persist
+{
     private string $nome;
     private string $sobrenome;
     private int $origem;
@@ -10,12 +11,14 @@ class Cartaoembarque extends persist{
     private DateTime $horariodesaida;
     private string $assento;
 
+    static $local_filename = "Cartaoembarque.txt";
+
     public function __construct(string $nome,string $sobrenome,int $origem,int $destino,DateTime $embarque,DateTime $horariodesaida,string $assento){
         $this->setNome($nome);
         $this->setSobrenome($sobrenome);
         $this->setOrigem($origem);
         $this->setDestino($destino);
-        $this->setHorarioEmarque($embarque);
+        $this->setHorarioEmbarque($embarque);
         $this->setHorariodeSaida($horariodesaida);
         $this->setAssento($assento);
     }
@@ -82,11 +85,15 @@ class Cartaoembarque extends persist{
   
     public function getAssento()
     {
-        return $this->assento;
+      return $this->assento;
     }
 
     public function setAssento(string $assento)
     {
-        $this->assento = $assento;
+      $this->assento = $assento;
     } 
+    static public function getFilename()
+    {
+      return get_called_class()::$local_filename;
+    }
 }

@@ -143,6 +143,7 @@ function comprar_Passagem(){
 }
 
 function cancela_Passagem(){
+
     $clientes = Cliente::getRecords();
     if (count($clientes) == 0) {
         print_r("Nenhum cliente cadastrado!\r\n");
@@ -163,14 +164,17 @@ function cancela_Passagem(){
     }
 
     $viagens = Viagem::getRecords();
-  
-    if (count($viagens) == 0) {
-        print_r("Nenhuma viagem cadastraao!\r\n");
-        print_r("\n\n");
-        return;
-    } 
+    $indexs = $passagemCliente->getlistaViagensEConexoes();
 
-    
-    
+    $viagem = $viagens[$indexs[0] - 1];
+
+    $viagem->removerPassageiro($passagemCliente);
+    print_r("Passageiro Removido");
+    print_r("\n\n");
+    $viagem->save();
+
+    $status = "Passagem Cancelada";
+    $passagemCliente->setStatus($status);
+    $passagemCliente->save();
 
 }
