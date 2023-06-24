@@ -9,7 +9,7 @@ Sistema de Gestão de Aeroportos
         - Contém as classes principais(Aeroporto, aeronave, cliente, etc)
 
     - docs
-        - Contém o pdf com os requisitos do sistema
+        - Contém o pdf com os requisitos do sistema e o Diagrama de Classes
 
     - exemplos_php
         - Contém os exemplos utilizados no laboratório nas aulas
