@@ -99,43 +99,43 @@ while ($sair == 0) {
         case ++$escolha:
             print_r("Cadastramento de Viagens\r\n");
             print_r("\n\n");
-            cadastra_Viagem();
+            SistemaViagem::cadastra_Viagem();
             break;
                     
         case ++$escolha:
             print_r("Ver Viagem\r\n");
             print_r("\n\n");
-            ver_Viagem();
+            SistemaViagem::ver_Viagem();
             break;
         
         case ++$escolha:
             print_r("Editar Viagem\r\n");
             print_r("\n\n");
-            altera_Viagem();
+            SistemaViagem::altera_Viagem();
             break;
       
         case ++$escolha:
             print_r("ver Passageiros na Viagem\r\n");
             print_r("\n\n");
-            mostrar_passageiros_Viagem();
+            SistemaViagem::mostrar_passageiros_Viagem();
             break;
 
         case ++$escolha:
             print_r("adicionar Passageiros na  Viagem\r\n");
             print_r("\n\n");
-            adicionar_passageiros_Viagem();
+            SistemaViagem::adicionar_passageiros_Viagem();
             break;
 
         case ++$escolha:
             print_r("Fazer o Check in\r\n");
             print_r("\n\n");
-            fazer_checkin();
+            SistemaViagem::fazer_checkin();
             break;
 
         case ++$escolha:
             print_r("Pesquisar uma Viagem\r\n");
             print_r("\n\n");
-            pesquisar_Viagem();
+            SistemaViagem::pesquisar_Viagem();
             break;
 
         case ++$escolha:

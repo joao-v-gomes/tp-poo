@@ -26,7 +26,7 @@ class Endereco
         $this->setCidade($cidade);
         $this->setEstado($estado);
 
-        $this->buscaCoordenadasMaps();
+        //$this->buscaCoordenadasMaps();
     }
 
     public function buscaCoordenadasMaps()

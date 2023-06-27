@@ -111,8 +111,16 @@ class CompanhiaAerea extends persist
 		array_push($this->listaAeronaves, $novaAeronave);
 	}
 
-	public function cadastrarViagem()
+	public function cadastrarViagem(Voo $voo,int $milhasViagem,float $valorViagem,float $valorFranquiaBagagem,float $valorMulta,string $horarioChegada)
 	{
+		$horarioPartida = $voo->getPrevisaoPartida();
+		$horarioChegada = DateTime::createFromFormat("H:i", $horarioChegada);
+	  
+		$viagem = new Viagem($horarioPartida, $horarioChegada, $milhasViagem, $valorViagem, $valorFranquiaBagagem, $valorMulta);
+
+		$viagem->setVoo($voo->getIndex());
+		array_push($this->listaDeViagens,$viagem);
+		$viagem->save();
 	}
 
 	public function cadastrarCliente()
