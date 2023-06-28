@@ -95,12 +95,12 @@ $horarioVooVolta1 = DateTime::createFromFormat("H:i", $horarioVooVolta1);
 $vooida1 = new Voo($frequencia, $aeroporto1->getIndex(), $aeroporto2->getIndex(), $horarioVooIda1);
 $vooida1->save();
 
-$Azul->cadastrarViagem($vooida1, 150, 450.87, 34.67, 128.56, "11:00");
+$Azul->cadastrarViagem($vooida1, 150, 450.87, 34.67, 128.56, "28/06/2023 11:00","28/06/2023 09:00");
 
 $voovolta1 = new Voo($frequencia, $aeroporto2->getIndex(), $aeroporto1->getIndex(), $horarioVooVolta1);
 $voovolta1->save();
 
-$Azul->cadastrarViagem($voovolta1, 150, 450.87, 34.67, 128.56, "18:00");
+$Azul->cadastrarViagem($voovolta1, 150, 450.87, 34.67, 128.56, "28/06/2023 18:00","28/06/2023 16:00");
 
 //VOO-Confins – Congonhas (ida e volta)
 $horarioVooIda2 = "09:00";
@@ -172,11 +172,7 @@ $van->addEndereco($comissario->getEndereco());
 
 $van->save();
 
-
-
 $van->calculaTempoPercurso();
-
-
 
 SistemaVeiculo::sis_verVeiculos();
 

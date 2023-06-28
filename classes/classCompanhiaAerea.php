@@ -111,10 +111,10 @@ class CompanhiaAerea extends persist
         array_push($this->listaAeronaves, $novaAeronave);
     }
 
-    public function cadastrarViagem(Voo $voo, int $milhasViagem, float $valorViagem, float $valorFranquiaBagagem, float $valorMulta, string $horarioChegada)
+    public function cadastrarViagem(Voo $voo, int $milhasViagem, float $valorViagem, float $valorFranquiaBagagem, float $valorMulta, string $horarioChegada,string $horarioPartida)
     {
-        $horarioPartida = $voo->getPrevisaoPartida();
-        $horarioChegada = DateTime::createFromFormat("H:i", $horarioChegada);
+        $horarioPartida = DateTime::createFromFormat("d/m/Y H:i", $horarioPartida);
+        $horarioChegada = DateTime::createFromFormat("d/m/Y H:i", $horarioChegada);
 
         $viagem = new Viagem($horarioPartida, $horarioChegada, $milhasViagem, $valorViagem, $valorFranquiaBagagem, $valorMulta);
 
