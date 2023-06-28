@@ -39,7 +39,10 @@ try {
 }
 $aero2->save();
 
+
 SistemaAeronave::sis_verAeronaves();
+
+
 
 //CADASTRO DE AEROPORTOS
 
@@ -73,6 +76,13 @@ $horarioVooTeste = DateTime::createFromFormat("H:i", $horarioVooTeste);
 
 $vooTeste = new Voo($frequencia, $aeroporto1->getIndex(), $aeroporto2->getIndex(), $horarioVooTeste);
 $vooTeste->save();
+
+// $vooTeste->setCompanhiaAerea($Azul);
+// $vooTeste->setAeronave($aeronave);
+// $vooTeste->setPiloto($piloto);
+// $vooTeste->setCopiloto($copiloto);
+// $vooTeste->setListaComissarios($comissarios);
+// $vooTeste->setCodigoVoo("AC1329");
 
 $frequencia = array("1", "2", "3", "4", "5", "6", "7");
 //VOO-Confins – Guarulhos (ida e volta)
@@ -133,7 +143,9 @@ $voovolta4->save();
 
 
 $cliente = new Cliente("prof", "depoo", "1234");
+//$passageiro = new Passageiro("aluno",);
 
+//$azul->compraPassagem($cliente,$passageiro,"28/06/2023",$aeroporto1,$aeroporto5,"8",1);
 
 $endCarlos = new Endereco("Rua dos bobos", "0", "N/A", "00000-000", "São Paulo", "SP");
 
