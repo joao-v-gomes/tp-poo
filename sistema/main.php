@@ -4,6 +4,7 @@ include_once("../libs/global.php");
 include_once("files/sistemaAeroporto.php");
 include_once("files/sistemaCompAerea.php");
 include_once("files/sistemaAeronave.php");
+include_once("files/sistemaVeiculo.php");
 
 
 //SistemaAeronave::cadastrarAeronave();
@@ -68,12 +69,12 @@ SistemaAeroporto::sis_verAeroportos();
 //CADASTRO DE VOO
 
 //VOO - Teste - Confins – Guarulhos
-$frequencia = array("1","2","3","4","5","6","7");
+$frequencia = array("1", "2", "3", "4", "5", "6", "7");
 
 $horarioVooTeste = "09:00";
 $horarioVooTeste = DateTime::createFromFormat("H:i", $horarioVooTeste);
 
-$vooTeste = new Voo($frequencia,$aeroporto1->getIndex(),$aeroporto2->getIndex(),$horarioVooTeste);
+$vooTeste = new Voo($frequencia, $aeroporto1->getIndex(), $aeroporto2->getIndex(), $horarioVooTeste);
 $vooTeste->save();
 
 // $vooTeste->setCompanhiaAerea($Azul);
@@ -83,7 +84,7 @@ $vooTeste->save();
 // $vooTeste->setListaComissarios($comissarios);
 // $vooTeste->setCodigoVoo("AC1329");
 
-$frequencia = array("1","2","3","4","5","6","7");
+$frequencia = array("1", "2", "3", "4", "5", "6", "7");
 //VOO-Confins – Guarulhos (ida e volta)
 $horarioVooIda1 = "09:00";
 $horarioVooIda1 = DateTime::createFromFormat("H:i", $horarioVooIda1);
@@ -91,12 +92,12 @@ $horarioVooIda1 = DateTime::createFromFormat("H:i", $horarioVooIda1);
 $horarioVooVolta1 = "16:00";
 $horarioVooVolta1 = DateTime::createFromFormat("H:i", $horarioVooVolta1);
 
-$vooida1 = new Voo($frequencia,$aeroporto1->getIndex(),$aeroporto2->getIndex(),$horarioVooIda1);
+$vooida1 = new Voo($frequencia, $aeroporto1->getIndex(), $aeroporto2->getIndex(), $horarioVooIda1);
 $vooida1->save();
 
 $Azul->cadastrarViagem($vooida1, 150, 450.87, 34.67, 128.56, "11:00");
 
-$voovolta1 = new Voo($frequencia,$aeroporto2->getIndex(),$aeroporto1->getIndex(),$horarioVooVolta1);
+$voovolta1 = new Voo($frequencia, $aeroporto2->getIndex(), $aeroporto1->getIndex(), $horarioVooVolta1);
 $voovolta1->save();
 
 $Azul->cadastrarViagem($voovolta1, 150, 450.87, 34.67, 128.56, "18:00");
@@ -108,10 +109,10 @@ $horarioVooIda2 = DateTime::createFromFormat("H:i", $horarioVooIda2);
 $horarioVooVolta2 = "16:00";
 $horarioVooVolta2 = DateTime::createFromFormat("H:i", $horarioVooVolta2);
 
-$vooida2 = new Voo($frequencia,$aeroporto1->getIndex(),$aeroporto3->getIndex(),$horarioVooIda1);
+$vooida2 = new Voo($frequencia, $aeroporto1->getIndex(), $aeroporto3->getIndex(), $horarioVooIda1);
 $vooida2->save();
 
-$voovolta2 = new Voo($frequencia,$aeroporto3->getIndex(),$aeroporto1->getIndex(),$horarioVooVolta2);
+$voovolta2 = new Voo($frequencia, $aeroporto3->getIndex(), $aeroporto1->getIndex(), $horarioVooVolta2);
 $voovolta2->save();
 
 //VOO-Guarulhos – Galeão (ida e volta)
@@ -121,10 +122,10 @@ $horarioVooIda3 = DateTime::createFromFormat("H:i", $horarioVooIda3);
 $horarioVooVolta3 = "16:00";
 $horarioVooVolta3 = DateTime::createFromFormat("H:i", $horarioVooVolta3);
 
-$vooida3 = new Voo($frequencia,$aeroporto2->getIndex(),$aeroporto4->getIndex(),$horarioVooIda3);
+$vooida3 = new Voo($frequencia, $aeroporto2->getIndex(), $aeroporto4->getIndex(), $horarioVooIda3);
 $vooida3->save();
 
-$voovolta3 = new Voo($frequencia,$aeroporto4->getIndex(),$aeroporto2->getIndex(),$horarioVooVolta3);
+$voovolta3 = new Voo($frequencia, $aeroporto4->getIndex(), $aeroporto2->getIndex(), $horarioVooVolta3);
 $voovolta3->save();
 
 //VOO-Congonhas – Afonso Pena (ida e volta)
@@ -134,14 +135,14 @@ $horarioVooIda4 = DateTime::createFromFormat("H:i", $horarioVooIda4);
 $horarioVooVolta4 = "16:00";
 $horarioVooVolta4 = DateTime::createFromFormat("H:i", $horarioVooVolta4);
 
-$vooida4 = new Voo($frequencia,$aeroporto3->getIndex(),$aeroporto5->getIndex(),$horarioVooIda4);
+$vooida4 = new Voo($frequencia, $aeroporto3->getIndex(), $aeroporto5->getIndex(), $horarioVooIda4);
 $vooida4->save();
 
-$voovolta4 = new Voo($frequencia,$aeroporto5->getIndex(),$aeroporto3->getIndex(),$horarioVooVolta4);
+$voovolta4 = new Voo($frequencia, $aeroporto5->getIndex(), $aeroporto3->getIndex(), $horarioVooVolta4);
 $voovolta4->save();
 
 
-$cliente = new Cliente("prof","depoo","1234");
+$cliente = new Cliente("prof", "depoo", "1234");
 //$passageiro = new Passageiro("aluno",);
 
 //$azul->compraPassagem($cliente,$passageiro,"28/06/2023",$aeroporto1,$aeroporto5,"8",1);
@@ -161,3 +162,16 @@ $piloto = Tripulante::criaTripulante(PILOTO, "carlos", "alberto", "12345", "1185
 $copiloto = Tripulante::criaTripulante(PILOTO, "andre", "andrade", "54321", "11857186052", "Brasileiro", "04/11/1995", "andrezin@gmail.com", "EFG456", $endAndre, $Azul->getIndex(), $aeroporto3->getIndex());
 
 $comissario = Tripulante::criaTripulante(COMISSARIO, "andreia", "dradio", "34215", "11857186052", "russa", "04/11/1995", "andreleia@gmail.com", "HIJ789", $endAndreia, $Azul->getIndex(), $aeroporto3->getIndex());
+
+
+$van = new Veiculo("ABC123", "Van1", 10);
+
+$van->addEndereco($piloto->getEndereco());
+$van->addEndereco($copiloto->getEndereco());
+$van->addEndereco($comissario->getEndereco());
+
+$van->save();
+
+SistemaVeiculo::sis_verVeiculos();
+
+print_r($van->getListaEnderecos());
