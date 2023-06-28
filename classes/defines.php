@@ -1,7 +1,7 @@
 <?php
 
 // Por favor, não avacalhe com o meu cartao de credito. Obrigado.
-define("GMAPS_KEY", "AIzaSyB0_BwlzaJZcFbCN-sRUdU5gfNI48XLzy4");
+define("GMAPS_KEY", "AIzaSyAU3PQFSuKzHdutA9ZxT_lBsiGy5Ej2-1E");
 
 define("CAMPO_ZERO", 0);
 define("CAMPO_VAZIO", -1);
