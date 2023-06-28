@@ -135,6 +135,23 @@ class CompanhiaAerea extends persist
 	{
 	}
 
+	public function compraPassagem(Cliente $cliente,Passageiro $passageiro,DateTime $dia,Aeroport0 $aeroOrigem,Aeroporto $aeroDestino,string $assento,int $FranquiaBagagem){
+		$voos = Voo::getRecords();
+		$quant = count($This->listaDeViagens);
+
+		for(int $i = 0;$i<$quant;$i++){
+		  	$index = $this->listaDeViagens[$i]->getVoo();
+		  	$voo = $voos[$index - 1];
+
+			if($voo->getAeroportoOrigem() == $aeroOrigem->getIndex() && $voo->getAeroportoDestino() == $aeroDestino->getIndex() && $this->listaDeviagens[$i]->getHorarioPartida() == $dia){
+				$viagem = $this->listaDeViagens[$i];
+				$listaVia = array($viagem);
+				$passagem = new Passagem($aeroOrigem->getSigla(),$aeroDestino->getsigla(),$viagem->getvalorViagem(),$assento,$FranquiaBagagem,$passageiro,$cliente,$listaVia,$viagem->getValorMulta());
+				
+		  	}
+		}
+	}
+
 	static public function getFilename()
 	{
 		return get_called_class()::$local_filename;
