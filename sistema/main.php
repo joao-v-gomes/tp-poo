@@ -172,6 +172,14 @@ $van->addEndereco($comissario->getEndereco());
 
 $van->save();
 
+
+
+$van->calculaTempoPercurso();
+
+
+
 SistemaVeiculo::sis_verVeiculos();
 
 print_r($van->getListaEnderecos());
+
+print_r($van->getTempoPercurso());

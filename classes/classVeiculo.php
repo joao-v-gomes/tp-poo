@@ -12,7 +12,7 @@ class Veiculo extends persist
     private ?array $listaEnderecos;
     private ?array $rota;
 
-    private ?DateTime $tempoPercurso;
+    private ?DateInterval $tempoPercurso;
     private ?DateTime $horarioEmbarquePrevisto;
 
     protected ?int $compAereaPertencente; // protected para acessar na busca pelo index
