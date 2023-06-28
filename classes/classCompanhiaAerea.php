@@ -147,8 +147,8 @@ class CompanhiaAerea extends persist
 				$viagem = $this->listaDeViagens[$i];
 				$listaVia = array($viagem);
 				$passagem = new Passagem($aeroOrigem->getSigla(),$aeroDestino->getsigla(),$viagem->getvalorViagem(),$assento,$FranquiaBagagem,$passageiro,$cliente,$listaVia,$viagem->getValorMulta());
-				
-		  	}
+				$passagem->save();
+		  }
 		}
 	}
 
