@@ -135,12 +135,11 @@ class CompanhiaAerea extends persist
     {
     }
 
-    public function compraPassagem(Cliente $cliente, Passageiro $passageiro, DateTime $dia, Aeroporto $aeroOrigem, Aeroporto $aeroDestino, string $assento, int $FranquiaBagagem)
+    public function compraPassagem(Cliente $cliente, Passageiro $passageiro, string $dia, Aeroporto $aeroOrigem, Aeroporto $aeroDestino, string $assento, int $FranquiaBagagem)
     {
+        $dia = DateTime::createFromFormat("H:i", $dia);//d/m/Y H:i
         $voos = Voo::getRecords();
         $quant = count($this->listaDeViagens);
-
-        // int $i = 0;
 
         for ($i = 0; $i < $quant; $i++) {
             $index = $this->listaDeViagens[$i]->getVoo();
