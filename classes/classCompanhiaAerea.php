@@ -137,9 +137,9 @@ class CompanhiaAerea extends persist
 
 	public function compraPassagem(Cliente $cliente,Passageiro $passageiro,DateTime $dia,Aeroport0 $aeroOrigem,Aeroporto $aeroDestino,string $assento,int $FranquiaBagagem){
 		$voos = Voo::getRecords();
-		$quant = count($This->listaDeViagens);
-
-		for(int $i = 0;$i<$quant;$i++){
+		$quant = count(this->listaDeViagens);
+    // int $i;
+		for($i = 0; $i<$quant; $i++){
 		  	$index = $this->listaDeViagens[$i]->getVoo();
 		  	$voo = $voos[$index - 1];
 
